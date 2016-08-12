@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() throws HeadlessException {
 		super("Image Processor - Developed by Fernando Bejarano and Lucas Soncini");
-//		this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MyMenuBar());
 
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 		middleLabel.setForeground(Color.white);
 		// middleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-		JButton leftArrow = new JButton("←");
+		JButton leftArrow = new JButton("←");		
 
 		JButton rightArrow = new JButton("→");
 
@@ -68,7 +68,9 @@ public class MainFrame extends JFrame {
 		contentPane.add(originalImagePanel);
 		contentPane.add(middlePanel);
 		contentPane.add(modifiedImagePanel);
-
+		int width= imagePanel.getImage().getWidth()*2+50;
+		int height = imagePanel.getImage().getHeight()+62;
+		this.setBounds(0, 0, width, height);
 		this.setVisible(true);
 	}
 
