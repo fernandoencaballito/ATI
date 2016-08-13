@@ -38,20 +38,7 @@ public class MainFrame extends JFrame {
 		ImageGeneralPanel originalImagePanel = new ImageGeneralPanel("Original Image"
 												, "cameraman.png");
 		
-		JPanel middlePanel = new JPanel();
-		middlePanel.setBackground(Color.BLACK);
-		middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
-		JLabel middleLabel = new JLabel(" Swap ");
-		middleLabel.setForeground(Color.white);
-		// middleLabel.setAlignmentX(CENTER_ALIGNMENT);
-
-		JButton leftArrow = new JButton("←");		
-
-		JButton rightArrow = new JButton("→");
-
-		middlePanel.add(middleLabel);
-		middlePanel.add(leftArrow);
-		middlePanel.add(rightArrow);
+		JPanel middlePanel = new MiddlePanel();
 
 		JPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
 												, "cameraman.png");
@@ -61,7 +48,9 @@ public class MainFrame extends JFrame {
 		contentPane.add(modifiedImagePanel);
 		
 		window_width= originalImagePanel.getWidth()*2+50;
-		window_height = originalImagePanel.getHeight()+62;
+		window_height = originalImagePanel.getHeight();
+		System.out.println("windows_width"+window_width);
+		System.out.println("windows_height"+window_height);
 		this.setBounds(0, 0, window_width, window_height);
 		this.setVisible(true);
 	}

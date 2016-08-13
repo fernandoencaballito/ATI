@@ -17,10 +17,11 @@ public class ImageGeneralPanel extends JPanel {
 	public ImageGeneralPanel(String title, String imageFileName) {
 	
 		this.title=title;
-		imagePanel = new ImagePanel(imageFileName);
-		
 		JLabel label = new JLabel(title);
 		label.setAlignmentX(CENTER_ALIGNMENT);
+		imagePanel = new ImagePanel(imageFileName);
+		
+		
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(label);
@@ -31,5 +32,10 @@ public class ImageGeneralPanel extends JPanel {
 	@Override
 	public int getWidth() {
 		return imagePanel.getWidth();
+	}
+	
+	@Override
+	public int getHeight() {
+		return imagePanel.getHeight()+62;
 	}
 }
