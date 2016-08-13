@@ -15,14 +15,17 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 public class MainFrame extends JFrame {
 
-	private static final int WINDOW_WIDTH = 950;
-	private static final int WINDOW_HEIGHT = 400;
-
+	//valores iniciales
+	private int window_width = 950;
+	private int window_height = 400;
+	//
+	private static final String FRAME_TITLE="Image Processor - Developed by Fernando Bejarano and Lucas Soncini";
+	
 	private Container contentPane;
 
 	public MainFrame() throws HeadlessException {
-		super("Image Processor - Developed by Fernando Bejarano and Lucas Soncini");
-		this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		super(FRAME_TITLE);
+		this.setBounds(0, 0, window_width, window_height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MyMenuBar());
 
@@ -32,15 +35,9 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.setBackground(Color.black);
 
-		JPanel originalImagePanel = new JPanel();
-		JLabel originalLabel = new JLabel("Original Image");
-		originalLabel.setAlignmentX(CENTER_ALIGNMENT);
-
-		ImagePanel imagePanel = new ImagePanel("cameraman.png");
-		originalImagePanel.setLayout(new BoxLayout(originalImagePanel, BoxLayout.Y_AXIS));
-		originalImagePanel.add(originalLabel);
-		originalImagePanel.add(imagePanel);
-
+		ImageGeneralPanel originalImagePanel = new ImageGeneralPanel("Original Image"
+												, "cameraman.png");
+		
 		JPanel middlePanel = new JPanel();
 		middlePanel.setBackground(Color.BLACK);
 		middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
@@ -56,21 +53,16 @@ public class MainFrame extends JFrame {
 		middlePanel.add(leftArrow);
 		middlePanel.add(rightArrow);
 
-		JPanel modifiedImagePanel = new JPanel();
-		JLabel modifiedLabel = new JLabel("Modified Image");
-		modifiedLabel.setAlignmentX(CENTER_ALIGNMENT);
-
-		ImagePanel imagePanel2 = new ImagePanel("cameraman.png");
-		modifiedImagePanel.setLayout(new BoxLayout(modifiedImagePanel, BoxLayout.Y_AXIS));
-		modifiedImagePanel.add(modifiedLabel);
-		modifiedImagePanel.add(imagePanel2);
-
+		JPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
+												, "cameraman.png");
+		
 		contentPane.add(originalImagePanel);
 		contentPane.add(middlePanel);
 		contentPane.add(modifiedImagePanel);
-		int width= imagePanel.getImage().getWidth()*2+50;
-		int height = imagePanel.getImage().getHeight()+62;
-		this.setBounds(0, 0, width, height);
+		
+		window_width= originalImagePanel.getWidth()*2+50;
+		window_height = originalImagePanel.getHeight()+62;
+		this.setBounds(0, 0, window_width, window_height);
 		this.setVisible(true);
 	}
 

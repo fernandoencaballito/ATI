@@ -13,7 +13,9 @@ public class ImagePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
 
-	public ImagePanel() {}
+	public ImagePanel() {
+		
+	}
 	
     public ImagePanel(String fileName) {
        try {                
@@ -35,5 +37,17 @@ public class ImagePanel extends JPanel{
         super.paintComponent(g);
         g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters            
     }
+    
+    
+    @Override
+    public int getWidth() {
+    	return image.getWidth();
+    	
+    }
+    
+     @Override
+    public int getHeight() {
+    	 return image.getHeight();
+     }
 
 }
