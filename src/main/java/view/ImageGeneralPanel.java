@@ -29,13 +29,13 @@ public class ImageGeneralPanel extends JPanel {
 		
 	}
 	
-	@Override
-	public int getWidth() {
-		return imagePanel.getWidth();
+	
+	public int getCurrentWidth() {
+		return imagePanel.getImageWidth();
 	}
 	
-	@Override
-	public int getHeight() {
-		return imagePanel.getHeight()+62;
+	
+	public int getCurrentHeight() {
+		return imagePanel.getImageHeight()+62;
 	}
 }

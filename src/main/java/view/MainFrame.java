@@ -47,10 +47,12 @@ public class MainFrame extends JFrame {
 		contentPane.add(middlePanel);
 		contentPane.add(modifiedImagePanel);
 		
-		window_width= originalImagePanel.getWidth()*2+50;
-		window_height = originalImagePanel.getHeight();
+		window_width= originalImagePanel.getCurrentWidth()*2+50;
+		window_height = originalImagePanel.getCurrentHeight();
+		
 		System.out.println("windows_width"+window_width);
 		System.out.println("windows_height"+window_height);
+		
 		this.setBounds(0, 0, window_width, window_height);
 		this.setVisible(true);
 	}
