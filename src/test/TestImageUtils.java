@@ -47,11 +47,20 @@ public class TestImageUtils {
 	}
 
 	private void genericTest(String fileName, int width, int height) throws Exception {
+		
 		Image image = ImageUtils.loadImage(fileName,width,height);
 		assertNotNull(image);
 		BufferedImage bufferedImage = (BufferedImage) image;
-		assertTrue(bufferedImage.getHeight() > 0);
-		assertTrue(bufferedImage.getWidth() > 0);
+		int ansHeight=bufferedImage.getHeight();
+		int ansWidth=bufferedImage.getWidth();
+		assertTrue(ansHeight > 0);
+		assertTrue(ansWidth> 0);
+		System.out.println("[TestImageUtils]: testing with image"
+						+fileName
+						+" width:"
+						+ansWidth 
+						+ " height:"
+						+ansHeight);
 	}
 
 }

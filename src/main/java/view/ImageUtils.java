@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -78,11 +79,12 @@ public class ImageUtils {
 		
 		byte[] pixels=IOUtils.toByteArray(new FileInputStream(fileName));
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-//	    short[] imgData = ((DataBufferByte)image.getRaster().getDataBuffer()).getData();
-//	    System.arraycopy(pixels, 0, imgData, 0, pixels.length); 
+		DataBufferByte buffer=(DataBufferByte)image.getRaster().getDataBuffer();
+	    byte[] imgData = buffer.getData();
+	    System.arraycopy(pixels, 0, imgData, 0, pixels.length); 
 		
 		
-		return null;
+		return image;
 		
 	}
 	
