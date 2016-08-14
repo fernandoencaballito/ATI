@@ -25,29 +25,29 @@ public class TestImageUtils {
 	}
 
 	@Test
-	public void testRAW() throws IOException {
-		genericTest("./src/main/resources/LENAX.RAW");
+	public void testRAW() throws Exception {
+		genericTest("./src/main/resources/LENAX.RAW",256,256);
 
 	}
 
 	@Test
-	public void testPGM() throws IOException {
-		genericTest("./src/main/resources/TEST.PGM");
+	public void testPGM() throws Exception {
+		genericTest("./src/main/resources/TEST.PGM",0,0);
 	}
 
 	@Test
-	public void testPPM() throws IOException {
-		genericTest("./src/main/resources/boxes_1.ppm");
+	public void testPPM() throws Exception {
+		genericTest("./src/main/resources/boxes_1.ppm",0,0);
 	}
 
 	@Test
-	public void testBMP() throws IOException {
-		genericTest("./src/main/resources/JackSig.bmp");
+	public void testBMP() throws Exception {
+		genericTest("./src/main/resources/JackSig.bmp",0,0);
 
 	}
 
-	private void genericTest(String fileName) throws IOException {
-		Image image = ImageUtils.loadImage(fileName);
+	private void genericTest(String fileName, int width, int height) throws Exception {
+		Image image = ImageUtils.loadImage(fileName,width,height);
 		assertNotNull(image);
 		BufferedImage bufferedImage = (BufferedImage) image;
 		assertTrue(bufferedImage.getHeight() > 0);

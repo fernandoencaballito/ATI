@@ -11,6 +11,8 @@ import java.awt.image.ColorModel;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -18,7 +20,10 @@ import java.nio.file.Files;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
+import org.im4java.core.DCRAWOperation;
+import org.im4java.core.DcrawCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
 
@@ -27,11 +32,15 @@ import magick.MagickException;
 import magick.MagickImage;
 
 public class ImageUtils {
+	private static final String auxFileName = "./aux.bmp";
 
-	public static Image loadImage(String fileName) throws IOException {
+	// devuelve la imagen en el formato que lo requiere la ventana de swing
+	// width y height solo se usan para formato RAW
+	public static Image loadImage(String fileName, int width, int height) throws IOException, InterruptedException {
 		String extension = FilenameUtils.getExtension(fileName);
-
+		extension = extension.toLowerCase();
 		switch (extension) {
+		case "pgm":
 		case "ppm": {
 
 			try {
@@ -45,6 +54,14 @@ public class ImageUtils {
 			return null;
 
 		}
+		case "raw": {
+			try {
+				return convertFromRAW2(fileName, width, height);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		default: {
 			InputStream stream = ClassLoader.getSystemResourceAsStream(fileName);
@@ -57,24 +74,56 @@ public class ImageUtils {
 		}
 
 	}
-	public static BufferedImage convertedToBMP2(String fileName) throws IOException, InterruptedException, IM4JavaException{
+	private static Image convertFromRAW2(String fileName, int width, int height) throws FileNotFoundException, IOException{
+		
+		byte[] pixels=IOUtils.toByteArray(new FileInputStream(fileName));
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+//	    short[] imgData = ((DataBufferByte)image.getRaster().getDataBuffer()).getData();
+//	    System.arraycopy(pixels, 0, imgData, 0, pixels.length); 
 		
 		
-		//se convierte a bmp y se lo guarda en un archivo auxiliar
+		return null;
+		
+	}
+	
+	
+	//usa dcraw, falla(no reconoce el formato)
+	private static Image convertFromRAW(String fileName, int width, int height)
+			throws IOException, InterruptedException, IM4JavaException {
+		// se convierte a bmp y se lo guarda en un archivo auxiliar
+		DcrawCmd cmd = new DcrawCmd();
+		DCRAWOperation op = new DCRAWOperation();
+		op.addImage(fileName);
+		op.addImage(auxFileName);
+	
+
+		cmd.run(op);
+		BufferedImage ans = ImageIO.read(new File(auxFileName));
+		File aux = new File(auxFileName);
+		aux.delete();
+		return ans;
+	}
+
+	// usando im4java
+	public static BufferedImage convertedToBMP2(String fileName)
+			throws IOException, InterruptedException, IM4JavaException {
+
+		// se convierte a bmp y se lo guarda en un archivo auxiliar
 		ConvertCmd cmd = new ConvertCmd();
 		IMOperation op = new IMOperation();
 		op.addImage(fileName);
-		String auxFileName="./aux.bmp";
+
 		op.addImage(auxFileName);
 
-		
 		cmd.run(op);
-		BufferedImage ans= ImageIO.read(new File(auxFileName));
-		File aux=new File(auxFileName);
+		BufferedImage ans = ImageIO.read(new File(auxFileName));
+		File aux = new File(auxFileName);
 		aux.delete();
 		return ans;
-		
+
 	}
+
+	// usando jmagick, falla en ejecución(no encuentra una clase)
 	public static BufferedImage convertedToBMP(String fileName) throws MagickException, IOException {
 		// primero se abre con MagicImage
 		ImageInfo info = new ImageInfo(fileName);
@@ -87,7 +136,7 @@ public class ImageUtils {
 
 		// se lee del archivo auxiliar
 		InputStream stream = ClassLoader.getSystemResourceAsStream(outputfileAux);
-		
+
 		// se retorna la imagen cargada en un Image
 		return ImageIO.read(stream);
 
