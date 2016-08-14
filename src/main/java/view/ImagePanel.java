@@ -14,15 +14,12 @@ public class ImagePanel extends JPanel{
 	private BufferedImage image;
 
 	public ImagePanel() {
+		super();
 		
 	}
-	
     public ImagePanel(String fileName) {
-       try {                
-          image = (BufferedImage) ImageUtils.loadImage(fileName);
-       } catch (IOException ex) {
-            //TODO
-       }
+       loadImageFromFile(fileName);
+	
     }
     
     public void setImage(Image image) {
@@ -48,4 +45,11 @@ public class ImagePanel extends JPanel{
     	 return image.getHeight();
      }
 
+    public void loadImageFromFile(String filename){
+    	try {                
+            image = (BufferedImage) ImageUtils.loadImage(filename);
+         } catch (IOException ex) {
+              //TODO
+         }
+    }
 }

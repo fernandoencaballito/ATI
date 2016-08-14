@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 		super(FRAME_TITLE);
 		this.setBounds(0, 0, window_width, window_height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setJMenuBar(new MyMenuBar());
+		
 
 		// area principal
 
@@ -40,9 +40,11 @@ public class MainFrame extends JFrame {
 		
 		JPanel middlePanel = new MiddlePanel();
 
-		JPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
+		ImageGeneralPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
 												, "cameraman.png");
 		
+		
+		this.setJMenuBar(new MyMenuBar(originalImagePanel,modifiedImagePanel));
 		contentPane.add(originalImagePanel);
 		contentPane.add(middlePanel);
 		contentPane.add(modifiedImagePanel);

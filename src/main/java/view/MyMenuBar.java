@@ -11,11 +11,11 @@ import javax.swing.KeyStroke;
 
 public class MyMenuBar extends JMenuBar {
 	
-	public MyMenuBar(){
+	public MyMenuBar(ImageGeneralPanel originalImagePanel,ImageGeneralPanel modifiedImagePanel){
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
-		JMenuItem open = new OpenItem();
+		JMenuItem open = new OpenItem(originalImagePanel,modifiedImagePanel);
 		
 		
 		open.setAccelerator(KeyStroke.getKeyStroke('O', KeyEvent.CTRL_DOWN_MASK));

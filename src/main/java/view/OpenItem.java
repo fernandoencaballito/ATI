@@ -8,8 +8,9 @@ import javax.swing.JMenuItem;
 public class OpenItem extends JMenuItem {
 
 	
-	public OpenItem() {
+	
+	public OpenItem(ImageGeneralPanel originalImagePanel,ImageGeneralPanel modifiedImagePanel) {
 		super("Open Image");
-		this.addActionListener(new OpenHandler(this));
+		this.addActionListener(new OpenHandler(this,originalImagePanel,modifiedImagePanel));
 	}
 }

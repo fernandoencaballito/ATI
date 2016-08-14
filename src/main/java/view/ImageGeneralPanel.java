@@ -38,4 +38,9 @@ public class ImageGeneralPanel extends JPanel {
 	public int getCurrentHeight() {
 		return imagePanel.getImageHeight()+62;
 	}
+	
+	public void loadImageFromFile(String fileName){
+		imagePanel.loadImageFromFile(fileName);
+	}
+	
 }
