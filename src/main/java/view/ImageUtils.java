@@ -13,10 +13,14 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
+import org.im4java.core.ConvertCmd;
+import org.im4java.core.IM4JavaException;
+import org.im4java.core.IMOperation;
 
 import magick.ImageInfo;
 import magick.MagickException;
@@ -31,7 +35,7 @@ public class ImageUtils {
 		case "ppm": {
 
 			try {
-				return convertedToBMP(fileName);
+				return convertedToBMP2(fileName);
 
 			} catch (Exception e) {
 
@@ -53,7 +57,24 @@ public class ImageUtils {
 		}
 
 	}
+	public static BufferedImage convertedToBMP2(String fileName) throws IOException, InterruptedException, IM4JavaException{
+		
+		
+		//se convierte a bmp y se lo guarda en un archivo auxiliar
+		ConvertCmd cmd = new ConvertCmd();
+		IMOperation op = new IMOperation();
+		op.addImage(fileName);
+		String auxFileName="./aux.bmp";
+		op.addImage(auxFileName);
 
+		
+		cmd.run(op);
+		BufferedImage ans= ImageIO.read(new File(auxFileName));
+		File aux=new File(auxFileName);
+		aux.delete();
+		return ans;
+		
+	}
 	public static BufferedImage convertedToBMP(String fileName) throws MagickException, IOException {
 		// primero se abre con MagicImage
 		ImageInfo info = new ImageInfo(fileName);
