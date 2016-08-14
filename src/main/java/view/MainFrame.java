@@ -35,13 +35,14 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.setBackground(Color.black);
 
+		String initialFile="./src/main/resources/boxes_1.ppm";
 		ImageGeneralPanel originalImagePanel = new ImageGeneralPanel("Original Image"
-												, "cameraman.png");
+												, initialFile);
 		
 		JPanel middlePanel = new MiddlePanel();
 
 		ImageGeneralPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
-												, "cameraman.png");
+												, initialFile);
 		
 		
 		this.setJMenuBar(new MyMenuBar(originalImagePanel,modifiedImagePanel));

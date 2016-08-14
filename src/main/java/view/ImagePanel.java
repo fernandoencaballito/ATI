@@ -37,19 +37,20 @@ public class ImagePanel extends JPanel{
     
     
     public int getImageWidth() {
-    	return image.getWidth();
+    	return (image==null)?0:image.getWidth();
     	
     }
     
     public int getImageHeight() {
-    	 return image.getHeight();
+    	 return (image==null)?0: image.getHeight();
      }
 
     public void loadImageFromFile(String filename){
     	try {                
             image = (BufferedImage) ImageUtils.loadImage(filename);
          } catch (IOException ex) {
-              //TODO
+             System.out.println("[ImagePanel] error loading file "+filename);
+             ex.printStackTrace();
          }
     }
 }
