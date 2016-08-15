@@ -10,5 +10,8 @@
 	<classpathentry kind="var" path="M2_REPO/org/im4java/im4java/1.4.0/im4java-1.4.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jmagick/jmagick/6.6.9/jmagick-6.6.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

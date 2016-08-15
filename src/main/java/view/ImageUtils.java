@@ -20,6 +20,7 @@ import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
@@ -75,22 +76,23 @@ public class ImageUtils {
 		}
 
 	}
-	//usa casteo a nivel de bytes, no usa libreria
-	private static Image convertFromRAW2(String fileName, int width, int height) throws FileNotFoundException, IOException{
-		
-		byte[] pixels=IOUtils.toByteArray(new FileInputStream(fileName));
+
+	// usa casteo a nivel de bytes, no usa libreria
+	private static Image convertFromRAW2(String fileName, int width, int height)
+			throws FileNotFoundException, IOException {
+
+		byte[] pixels = IOUtils.toByteArray(new FileInputStream(fileName));
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-		DataBufferByte buffer=(DataBufferByte)image.getRaster().getDataBuffer();
-	    byte[] imgData = buffer.getData();
-	    System.arraycopy(pixels, 0, imgData, 0, pixels.length); 
-		
-		
+		DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
+		byte[] imgData = buffer.getData();
+		System.arraycopy(pixels, 0, imgData, 0, pixels.length);
+
 		return image;
-		
+
 	}
-	
-	
-	//usa dcraw, falla(dcraw no reconoce el formato, no se le puede ingresar las dimensiones)
+
+	// usa dcraw, falla(dcraw no reconoce el formato, no se le puede ingresar
+	// las dimensiones)
 	private static Image convertFromRAW(String fileName, int width, int height)
 			throws IOException, InterruptedException, IM4JavaException {
 		// se convierte a bmp y se lo guarda en un archivo auxiliar
@@ -98,7 +100,6 @@ public class ImageUtils {
 		DCRAWOperation op = new DCRAWOperation();
 		op.addImage(fileName);
 		op.addImage(auxFileName);
-	
 
 		cmd.run(op);
 		BufferedImage ans = ImageIO.read(new File(auxFileName));
@@ -143,6 +144,49 @@ public class ImageUtils {
 		// se retorna la imagen cargada en un Image
 		return ImageIO.read(stream);
 
+	}
+
+	public static boolean writeImage(BufferedImage image, String fileName) {
+		String format = FilenameUtils.getExtension(fileName);
+		File file = new File(fileName);
+		try {
+			switch (format) {
+			case "pgm":
+			case "ppm": {
+				//primero se guarda en archivo en formato bmp
+				String auxFileName="./auxFile.bmp";
+				File auxFile=new File(auxFileName);
+				String auxFormat="bmp";
+				boolean status=ImageIO.write(image, auxFormat, auxFile);
+				//luego se lo convierte al formato de la extensión.
+				
+				ConvertCmd cmd = new ConvertCmd();
+				IMOperation op = new IMOperation();
+				op.addImage(auxFileName);
+
+				op.addImage(fileName);
+				cmd.run(op);
+				//se borra el archivo auxiliar
+				auxFile.delete();
+			}
+			case "raw": {
+				DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
+				byte[] imgData = buffer.getData();
+				FileUtils.writeByteArrayToFile(file, imgData);
+			}
+
+			default: {
+
+				ImageIO.write(image, format, file);
+
+			}
+
+			}
+		} catch (Exception ex) {
+			System.out.println("[ImageUtils]: error saving file" + fileName);
+			return false;
+		}
+		return true;
 	}
 
 	// tp viejo de lucas
