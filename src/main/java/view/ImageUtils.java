@@ -168,16 +168,19 @@ public class ImageUtils {
 				cmd.run(op);
 				//se borra el archivo auxiliar
 				auxFile.delete();
+				break;
 			}
 			case "raw": {
 				DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
 				byte[] imgData = buffer.getData();
 				FileUtils.writeByteArrayToFile(file, imgData);
+				break;
 			}
 
 			default: {
 
 				ImageIO.write(image, format, file);
+				break;
 
 			}
 

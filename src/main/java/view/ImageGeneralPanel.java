@@ -48,5 +48,13 @@ public class ImageGeneralPanel extends JPanel {
 		imagePanel.loadImageFromFile(fileName,width,height);
 		
 	}
+	public String getImageFormat(){
+		return imagePanel.getFormat();
+	}
+
+
+	public void saveImage(String fileName) {
+		imagePanel.saveImage(fileName);
+	}
 	
 }

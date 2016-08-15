@@ -20,8 +20,8 @@ public class MyMenuBar extends JMenuBar {
 		
 		
 		open.setAccelerator(KeyStroke.getKeyStroke('O', KeyEvent.CTRL_DOWN_MASK));
-		JMenuItem save = new JMenuItem("Save Image");
-		save.setAccelerator(KeyStroke.getKeyStroke('S', KeyEvent.CTRL_DOWN_MASK));
+		
+		JMenuItem save=new SaveItem(modifiedImagePanel,parent);
 
 		file.add(open);
 		file.add(save);
