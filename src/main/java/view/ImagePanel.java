@@ -47,11 +47,19 @@ public class ImagePanel extends JPanel{
 
     public void loadImageFromFile(String filename){
     	try {
-    		//TODO agregar ventana de dialogo para RAW
             image = (BufferedImage) ImageUtils.loadImage(filename,0,0);
          } catch (Exception ex) {
              System.out.println("[ImagePanel] error loading file "+filename);
              ex.printStackTrace();
          }
     }
+	public void loadImageFromFile(String fileName, int width, int height) {
+		try {
+            image = (BufferedImage) ImageUtils.loadImage(fileName,width,height);
+         } catch (Exception ex) {
+             System.out.println("[ImagePanel] error loading file "+fileName);
+             ex.printStackTrace();
+         }
+		
+	}
 }

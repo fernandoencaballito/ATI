@@ -75,6 +75,7 @@ public class ImageUtils {
 		}
 
 	}
+	//usa casteo a nivel de bytes, no usa libreria
 	private static Image convertFromRAW2(String fileName, int width, int height) throws FileNotFoundException, IOException{
 		
 		byte[] pixels=IOUtils.toByteArray(new FileInputStream(fileName));
@@ -89,7 +90,7 @@ public class ImageUtils {
 	}
 	
 	
-	//usa dcraw, falla(no reconoce el formato)
+	//usa dcraw, falla(dcraw no reconoce el formato, no se le puede ingresar las dimensiones)
 	private static Image convertFromRAW(String fileName, int width, int height)
 			throws IOException, InterruptedException, IM4JavaException {
 		// se convierte a bmp y se lo guarda en un archivo auxiliar

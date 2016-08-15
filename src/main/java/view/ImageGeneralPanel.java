@@ -42,5 +42,11 @@ public class ImageGeneralPanel extends JPanel {
 	public void loadImageFromFile(String fileName){
 		imagePanel.loadImageFromFile(fileName);
 	}
+
+
+	public void loadImageFromFile(String fileName, int width, int height) {
+		imagePanel.loadImageFromFile(fileName,width,height);
+		
+	}
 	
 }

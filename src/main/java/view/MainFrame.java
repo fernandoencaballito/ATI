@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 												, initialFile);
 		
 		
-		this.setJMenuBar(new MyMenuBar(originalImagePanel,modifiedImagePanel));
+		this.setJMenuBar(new MyMenuBar(originalImagePanel,modifiedImagePanel,this));
 		contentPane.add(originalImagePanel);
 		contentPane.add(middlePanel);
 		contentPane.add(modifiedImagePanel);

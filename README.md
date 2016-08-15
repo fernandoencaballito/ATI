@@ -1,11 +1,21 @@
 # ATI
+
 ### Integrantes:
 * Lucas Soncini.
 * Fernando Bejarano.
+
 ### Profesora:
 * Juliana Gambini.
 
 ## TP0
+
+### Requisitos
+* Para que se puedan abrir archivos con formato pgm y ppm, se necesita tener instalado "ImageMagick".
+
+### Estado de los requisitos
+* 1-a: listo
+
+### Notas
 * 1-e)Copiar parte de la imagen en otra imagen nueva:
 Primero seleccionar el area, luego presionar copiar, luego presionar pegar. Se pega lo copiado en la ventana de imagen modificada, se borra lo que habia en modificado antes. No hace falta tener que mover el área copiada.
 
