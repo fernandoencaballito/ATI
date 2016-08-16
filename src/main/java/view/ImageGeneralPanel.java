@@ -56,5 +56,12 @@ public class ImageGeneralPanel extends JPanel {
 	public void saveImage(String fileName) {
 		imagePanel.saveImage(fileName);
 	}
+
+
+	public void swapImage(ImageGeneralPanel origin) {
+		this.imagePanel.swapImage(origin.imagePanel);
+		
+	}
+	
 	
 }

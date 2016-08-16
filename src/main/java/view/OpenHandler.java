@@ -55,6 +55,7 @@ public class OpenHandler implements ActionListener {
 				
 			} else {
 				originalImageGeneralPanel.loadImageFromFile(fileName);
+				//TODO descomentar esta linea!!!
 				modifiedImageGeneralPanel.loadImageFromFile(fileName);
 			}
 

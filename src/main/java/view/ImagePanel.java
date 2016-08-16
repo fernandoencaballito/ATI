@@ -1,11 +1,14 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
+
 import javax.swing.JPanel;
 
 import org.apache.commons.io.FilenameUtils;
@@ -24,6 +27,58 @@ public class ImagePanel extends JPanel {
 	public ImagePanel(String fileName) {
 		loadImageFromFile(fileName);
 		refreshExtension(fileName);
+		MouseListener mouseListener = new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+				int rgb = image.getRGB(x, y);
+				//System.out.println(image.getType());
+				Color c = new Color(rgb);
+				int red = c.getRed();
+				int green = c.getGreen();
+				int blue = c.getBlue();
+
+				// grises
+				if (red == green && red == blue && green == blue) {
+
+					System.out.println("[ImagePanel]Gris en(" + x + "," + y + "):" + green);
+
+				} else {
+					System.out
+							.println("[ImagePanel]Color en(" + x + "," + y + "):R" + red + ",B" + blue + ",G" + green);
+
+				}
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		};
+		this.addMouseListener(mouseListener);
 
 	}
 
@@ -80,9 +135,24 @@ public class ImagePanel extends JPanel {
 		ImageUtils.writeImage(image, fileNameWithExtension);
 
 	}
-	
-	private void refreshExtension(String fileName){
+
+	private void refreshExtension(String fileName) {
 		extension = FilenameUtils.getExtension(fileName);
 		extension = extension.toLowerCase();
 	}
+
+	public void swapImage(ImagePanel otherImagePanel) {
+		this.extension = otherImagePanel.extension;
+		this.image = deepCopy(otherImagePanel.image);
+		this.repaint();
+
+	}
+
+	static BufferedImage deepCopy(BufferedImage bi) {
+		ColorModel cm = bi.getColorModel();
+		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+		WritableRaster raster = bi.copyData(null);
+		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+	}
+
 }

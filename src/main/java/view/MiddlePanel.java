@@ -15,7 +15,7 @@ public class MiddlePanel extends JPanel{
 	private static final String title=" Swap ";
 	private static final java.awt.Color BACKGROUND_COLOR=Color.BLACK;
 	private static final java.awt.Color FONT_COLOR=Color.white;
-	public MiddlePanel() {
+	public MiddlePanel(ImageGeneralPanel originalImagePanel,ImageGeneralPanel modifiedImagePanel) {
 		super();
 		this.setBackground(BACKGROUND_COLOR);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -23,12 +23,16 @@ public class MiddlePanel extends JPanel{
 		label.setForeground(FONT_COLOR);
 		// middleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-		JButton leftArrow = new JButton("←");		
-
-		JButton rightArrow = new JButton("→");
-
+		//botones para realizar el swap de las imagenes
+		//JButton leftArrow = new JButton("←");		
+		JButton leftArrow=new SwapImageButton("←", modifiedImagePanel, originalImagePanel);
+		
+		//JButton rightArrow = new JButton("→");
+		JButton rightArrow=new SwapImageButton("→", originalImagePanel,modifiedImagePanel);
 		this.add(label);
 		this.add(leftArrow);
 		this.add(rightArrow);
+		
+		
 	}
 }

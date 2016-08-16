@@ -39,11 +39,11 @@ public class MainFrame extends JFrame {
 		ImageGeneralPanel originalImagePanel = new ImageGeneralPanel("Original Image"
 												, initialFile);
 		
-		JPanel middlePanel = new MiddlePanel();
+		
 
 		ImageGeneralPanel modifiedImagePanel = new ImageGeneralPanel("Modified Image"
 												, initialFile);
-		
+		JPanel middlePanel = new MiddlePanel(originalImagePanel,modifiedImagePanel);
 		
 		this.setJMenuBar(new MyMenuBar(originalImagePanel,modifiedImagePanel,this));
 		contentPane.add(originalImagePanel);
