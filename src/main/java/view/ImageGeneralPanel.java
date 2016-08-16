@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
- *clase que contiene al panel de la imagen y su respectivo tÃ­tulo en la ventana("original image" o "modified Image").
+ *clase que contiene al panel de la imagen y su respectivo título en la ventana("original image" o "modified Image").
  * 
  * @author Fernando Bejarano
  */
@@ -61,6 +61,16 @@ public class ImageGeneralPanel extends JPanel {
 	public void swapImage(ImageGeneralPanel origin) {
 		this.imagePanel.swapImage(origin.imagePanel);
 		
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public ImagePanel getImagePanel() {
+		return imagePanel;
 	}
 	
 	

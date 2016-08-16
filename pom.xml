@@ -67,7 +67,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>view.MainMenu</mainClass>
+							<mainClass>view.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

@@ -18,6 +18,7 @@ public class ImagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String extension;
 	private BufferedImage image;
+	private PixelEditionPanel pixelPanel;
 
 	public ImagePanel() {
 		super();
@@ -43,9 +44,11 @@ public class ImagePanel extends JPanel {
 				// grises
 				if (red == green && red == blue && green == blue) {
 
+					pixelPanel.greyScaleClick(x, y, green);
 					System.out.println("[ImagePanel]Gris en(" + x + "," + y + "):" + green);
 
 				} else {
+					pixelPanel.colorClick(x, y, red, green, blue);
 					System.out
 							.println("[ImagePanel]Color en(" + x + "," + y + "):R" + red + ",B" + blue + ",G" + green);
 
@@ -155,4 +158,7 @@ public class ImagePanel extends JPanel {
 		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 
+	public void setPixelPanel(PixelEditionPanel pixelPanel) {
+		this.pixelPanel = pixelPanel;
+	}
 }
