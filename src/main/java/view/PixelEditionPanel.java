@@ -1,9 +1,13 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,10 +43,10 @@ public class PixelEditionPanel extends JFrame{
 		this.setBounds(0, parent.getHeight(), window_width, window_height);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		contentPane = this.getContentPane();
-		currentPanel = parent.originalImagePanel;
+		currentPanel = parent.modifiedImagePanel;
 		this.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		imagePanelName = new JLabel(currentPanel.getTitle());
+		imagePanelName = new JLabel(parent.originalImagePanel.getTitle());
 		imagePanelName.setAlignmentX(CENTER_ALIGNMENT);
 		contentPane.add(imagePanelName);
 		positionPanel = new JPanel();
@@ -66,6 +70,17 @@ public class PixelEditionPanel extends JFrame{
 		colorPixelValuePanel.add(g);
 		colorPixelValuePanel.add(new JLabel("B:"));
 		colorPixelValuePanel.add(b);
+		JButton colorOKButton = new JButton("OK");
+		colorOKButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color newColor = new Color(red, green, blue);
+				currentPanel.getImagePanel().getImage().setRGB(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), newColor.getRGB());
+				currentPanel.repaint();
+			}
+		});
+		colorPixelValuePanel.add(colorOKButton);
 
 		contentPane.add(colorPixelValuePanel);
 		
@@ -74,10 +89,21 @@ public class PixelEditionPanel extends JFrame{
 		c = new JTextField(String.valueOf(color),3);
 		greyPixelValuePanel.add(new JLabel("Pixel Value:"));
 		greyPixelValuePanel.add(c);
-		
+		JButton greyOKButton = new JButton("OK");
+		greyOKButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				color = Integer.valueOf(c.getText());
+				Color newColor = new Color(color, color, color);
+				currentPanel.getImagePanel().getImage().setRGB(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), newColor.getRGB());
+				currentPanel.repaint();
+			}
+		});
+		greyPixelValuePanel.add(greyOKButton);
 		contentPane.add(greyPixelValuePanel);
 
-		this.setMode(PixelEditionMode.GREY);
+		this.setMode(PixelEditionMode.COLOR);
 	}
 	
 	public void setMode(PixelEditionMode mode){
@@ -115,5 +141,4 @@ public class PixelEditionPanel extends JFrame{
 		this.b.setText(String.valueOf(blue));
 		this.c.setText(String.valueOf(color));
 	}
-	
 }
