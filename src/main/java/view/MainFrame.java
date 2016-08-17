@@ -62,5 +62,9 @@ public class MainFrame extends JFrame {
 		this.setBounds(0, 0, window_width, window_height);
 		this.setVisible(true);
 	}
+	
+	public void resetChanges(){
+		modifiedImagePanel.getImagePanel().setImage(ImagePanel.deepCopy(originalImagePanel.getImagePanel().getImage()));
+	}
 
 }

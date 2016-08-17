@@ -12,13 +12,13 @@ import javax.swing.KeyStroke;
 
 public class MyMenuBar extends JMenuBar {	
 	
-	public ImageGeneralPanel originalImagePanel; 
-	public ImageGeneralPanel modifiedImagePanel;
 	public PixelEditionPanel pixelPanel;
+	public MainFrame parent;
 	
 	public MyMenuBar(MainFrame parent){
-		originalImagePanel = parent.originalImagePanel;
-		modifiedImagePanel = parent.modifiedImagePanel;
+		this.parent = parent;
+		ImageGeneralPanel originalImagePanel = parent.originalImagePanel;
+		ImageGeneralPanel modifiedImagePanel = parent.modifiedImagePanel;
 		pixelPanel = parent.pixelPanel;
 		
 		JMenu file = new JMenu("File");
@@ -48,10 +48,21 @@ public class MyMenuBar extends JMenuBar {
 		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_DOWN_MASK));
 		JMenuItem paste = new JMenuItem("Paste");
 		paste.setAccelerator(KeyStroke.getKeyStroke('V', KeyEvent.CTRL_DOWN_MASK));
+		JMenuItem undo = new JMenuItem("Undo Changes");
+		undo.setAccelerator(KeyStroke.getKeyStroke('Z', KeyEvent.CTRL_DOWN_MASK));
+		undo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.resetChanges();
+				parent.modifiedImagePanel.repaint();
+			}
+		});
 
 		edit.addSeparator();
 		edit.add(copy);
 		edit.add(paste);
+		edit.add(undo);
 		this.add(edit);
 		
 		JMenuItem greyLevels = new JMenu("Grey Levels");
