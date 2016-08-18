@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 public class MainFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	//valores iniciales
 	private int window_width = 950;
 	private int window_height = 400;

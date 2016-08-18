@@ -3,9 +3,6 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/*
-* @author Fernando Bejarano
-*/
 public class SwapHandler implements ActionListener {
 
 	private ImageGeneralPanel origin, destination;

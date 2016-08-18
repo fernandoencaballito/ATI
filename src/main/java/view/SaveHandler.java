@@ -7,9 +7,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-/*
-* @author Fernando Bejarano
-*/
 public class SaveHandler implements ActionListener {
 
 	private JFileChooser fc;

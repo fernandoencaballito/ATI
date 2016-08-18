@@ -5,10 +5,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/*
-* @author Fernando Bejarano
-*/
 public class RawDialog extends JDialog {
+
+	private static final long serialVersionUID = 1L;
 	private static final String title = " RAW image";
 	private static final String message = "Complete <width>\",\" <height> ";
 

@@ -15,14 +15,10 @@ import javax.swing.JTextField;
 
 public class PixelEditionPanel extends JFrame{
 	
-	public enum PixelEditionMode{
-		GREY,
-		COLOR
-	}
-
+	private static final long serialVersionUID = 1L;
 	private int window_width = 250;
 	private int window_height = 120;
-	private PixelEditionMode mode = PixelEditionMode.GREY;
+	private ColorMode mode = ColorMode.GREY;
 	private JLabel x = new JLabel("0");
 	private JLabel y = new JLabel("0");
 	private int red=0, green=0, blue=0, color=0;
@@ -40,8 +36,10 @@ public class PixelEditionPanel extends JFrame{
 
 	public PixelEditionPanel(String title, MainFrame parent){
 		super(title);
-		this.setBounds(0, parent.getHeight(), window_width, window_height);
+		this.setBounds(0, 0, window_width, window_height);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setAlwaysOnTop(true);
+		this.setResizable(false);
 		contentPane = this.getContentPane();
 		currentPanel = parent.modifiedImagePanel;
 		this.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
@@ -75,6 +73,10 @@ public class PixelEditionPanel extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				red = Integer.valueOf(r.getText());
+				green = Integer.valueOf(g.getText());
+				blue = Integer.valueOf(b.getText());
+				
 				Color newColor = new Color(red, green, blue);
 				currentPanel.getImagePanel().getImage().setRGB(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), newColor.getRGB());
 				currentPanel.repaint();
@@ -103,12 +105,12 @@ public class PixelEditionPanel extends JFrame{
 		greyPixelValuePanel.add(greyOKButton);
 		contentPane.add(greyPixelValuePanel);
 
-		this.setMode(PixelEditionMode.COLOR);
+		this.setMode(ColorMode.COLOR);
 	}
 	
-	public void setMode(PixelEditionMode mode){
+	public void setMode(ColorMode mode){
 		this.mode = mode;
-		if(mode == PixelEditionMode.GREY){
+		if(mode == ColorMode.GREY){
 			colorPixelValuePanel.setVisible(false);
 			greyPixelValuePanel.setVisible(true);
 		} else{
@@ -118,7 +120,7 @@ public class PixelEditionPanel extends JFrame{
 	}
 	
 	public void colorClick(int x, int y, int red, int green, int blue){
-		this.setMode(PixelEditionMode.COLOR);
+		this.setMode(ColorMode.COLOR);
 		this.x.setText(String.valueOf(x));
 		this.y.setText(String.valueOf(y));
 		this.red = red;		
@@ -128,7 +130,7 @@ public class PixelEditionPanel extends JFrame{
 	}
 	
 	public void greyScaleClick(int x, int y, int color){
-		this.setMode(PixelEditionMode.GREY);
+		this.setMode(ColorMode.GREY);
 		this.x.setText(String.valueOf(x));
 		this.y.setText(String.valueOf(y));
 		this.color = color;

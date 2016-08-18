@@ -4,15 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 public class MyMenuBar extends JMenuBar {	
-	
+
+	private static final long serialVersionUID = 1L;
 	public PixelEditionPanel pixelPanel;
+	public CircleAdditionPanel circlePanel;
 	public MainFrame parent;
 	
 	public MyMenuBar(MainFrame parent){
@@ -20,14 +21,29 @@ public class MyMenuBar extends JMenuBar {
 		ImageGeneralPanel originalImagePanel = parent.originalImagePanel;
 		ImageGeneralPanel modifiedImagePanel = parent.modifiedImagePanel;
 		pixelPanel = parent.pixelPanel;
+		circlePanel = new CircleAdditionPanel("Add a circle", parent);
 		
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
 		JMenuItem open = new OpenItem(originalImagePanel,modifiedImagePanel, parent);
 		
-		JMenuItem save=new SaveItem(modifiedImagePanel,parent);
+		JMenuItem save = new SaveItem(modifiedImagePanel,parent);
+		
+		JMenuItem newFile = new JMenuItem("New Blank Page");
+		newFile.setAccelerator(KeyStroke.getKeyStroke('N', KeyEvent.CTRL_DOWN_MASK));
+		newFile.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				originalImagePanel.loadImageFromFile("newImage.png");
+				originalImagePanel.repaint();
+				modifiedImagePanel.loadImageFromFile("newImage.png");
+				modifiedImagePanel.repaint();	
+			}
+		});
 
+		file.add(newFile);
 		file.add(open);
 		file.add(save);
 		this.add(file);
@@ -44,6 +60,18 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		edit.add(pixelValue);
+		
+		JMenuItem circleAddition = new JMenuItem("Add a circle...");
+		circleAddition.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				circlePanel.setVisible(true);
+				
+			}
+		});
+		edit.add(circleAddition);
+		
 		JMenuItem copy = new JMenuItem("Copy");
 		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_DOWN_MASK));
 		JMenuItem paste = new JMenuItem("Paste");

@@ -7,11 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
-* @author Fernando Bejarano
-*/
 public class MiddlePanel extends JPanel{
 
+	private static final long serialVersionUID = 1L;
 	private static final String title=" Swap ";
 	private static final java.awt.Color BACKGROUND_COLOR=Color.BLACK;
 	private static final java.awt.Color FONT_COLOR=Color.white;

@@ -4,17 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import org.apache.commons.io.FilenameUtils;
 
-/*
-* @author Fernando Bejarano
-*/
 public class OpenHandler implements ActionListener {
 	private JFileChooser fc;
 	private JFrame parentFrame;

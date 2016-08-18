@@ -1,7 +1,4 @@
 package view;
-/*
-* @author Fernando Bejarano
-*/
 
 import java.awt.event.KeyEvent;
 
@@ -10,6 +7,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 public class OpenItem extends JMenuItem {
+
+	private static final long serialVersionUID = 1L;
 
 	public OpenItem(ImageGeneralPanel originalImagePanel,ImageGeneralPanel modifiedImagePanel, JFrame parent) {
 		super("Open Image");

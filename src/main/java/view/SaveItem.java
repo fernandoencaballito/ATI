@@ -6,10 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-/*
-* @author Fernando Bejarano
-*/
 public class SaveItem extends JMenuItem {
+
+	private static final long serialVersionUID = 1L;
 
 	public SaveItem(ImageGeneralPanel modifiedImagePanel, JFrame parent) {
 		super("Save Image");

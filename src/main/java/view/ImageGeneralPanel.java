@@ -7,10 +7,11 @@ import javax.swing.JPanel;
 /*
  *clase que contiene al panel de la imagen y su respectivo título en la ventana("original image" o "modified Image").
  * 
- * @author Fernando Bejarano
  */
 
 public class ImageGeneralPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private ImagePanel imagePanel;
 	
