@@ -33,6 +33,7 @@ public class MyMenuBar extends JMenuBar {
 		
 		JMenuItem save = new SaveItem(modifiedImagePanel,parent);
 		
+		JMenu newMenu = new JMenu("New");
 		JMenuItem newFile = new JMenuItem("New Blank Page");
 		newFile.setAccelerator(KeyStroke.getKeyStroke('N', KeyEvent.CTRL_DOWN_MASK));
 		newFile.addActionListener(new ActionListener() {
@@ -45,8 +46,15 @@ public class MyMenuBar extends JMenuBar {
 				modifiedImagePanel.repaint();	
 			}
 		});
-
-		file.add(newFile);
+		
+		JMenuItem greyScaleFile = new JMenuItem("Grey Scale");
+		JMenuItem colorScaleFile = new JMenuItem("Color Scale");
+		
+		newMenu.add(newFile);
+		newMenu.add(greyScaleFile);
+		newMenu.add(colorScaleFile);
+		
+		file.add(newMenu);
 		file.add(open);
 		file.add(save);
 		this.add(file);
