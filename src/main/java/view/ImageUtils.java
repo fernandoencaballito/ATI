@@ -81,7 +81,6 @@ public class ImageUtils {
 		DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
 		byte[] imgData = buffer.getData();
 		System.arraycopy(pixels, 0, imgData, 0, pixels.length);
-
 		return image;
 
 	}

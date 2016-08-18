@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class RectangleAdditionPanel extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int window_width = 250;
+	private int window_width = 300;
 	private int window_height = 120;
 	private ColorMode mode = ColorMode.GREY;
 	private JTextField x = new JTextField("0", 3);
