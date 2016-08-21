@@ -2,16 +2,17 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
-import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -28,21 +29,30 @@ public class ImagePanel extends JPanel {
 	//selección de area
 	private int lastPressedX;
 	private int lastPressedY;
-	private JMenuItem selectAreaItem;
+	private JToggleButton selectAreaItem;
+	private Rectangle selectedRectangle;
 	//
 	public ImagePanel() {
 		super();
 
 	}
 
-	public ImagePanel(String fileName,JMenuItem selectAreaItem) {
+	public void setSelectAreaItem( JToggleButton selectAreaItem){
+		this.selectAreaItem=selectAreaItem;
+	}
+	public ImagePanel(String fileName) {
 		loadImageFromFile(fileName);
 		refreshExtension(fileName);
 		lastPressedX=0;
 		lastPressedY=0;
-		this.selectAreaItem=selectAreaItem;
+		
 		MouseListener mouseListener = new MouseListener() {
-
+			ImagePanel imagePanel;
+			private MouseListener init(ImagePanel imagePanel){
+				this.imagePanel=imagePanel;
+				return this;
+			}
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int x = e.getX();
@@ -74,7 +84,7 @@ public class ImagePanel extends JPanel {
 				lastPressedX=e.getX();
 				lastPressedY=e.getY();
 				
-System.out.println("mouse pressed");
+				System.out.println("mouse pressed");
 
 			}
 
@@ -83,6 +93,12 @@ System.out.println("mouse pressed");
 				int currentX=e.getX();
 				int currentY=e.getY();
 				
+				if(selectAreaItem.isSelected()){
+					selectedRectangle=new Rectangle(lastPressedX
+							, lastPressedY
+							, (currentX-lastPressedX),
+							(currentY-lastPressedY));
+					
 				System.out.println("mouse released");
 				System.out.println("cuadrado desde:("
 									+lastPressedX
@@ -95,9 +111,12 @@ System.out.println("mouse pressed");
 									+")"
 									)
 								;
+				imagePanel.repaint();
+				
 				
 
 			}
+				}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -111,7 +130,7 @@ System.out.println("mouse pressed");
 
 			}
 
-		};
+		}.init(this);
 		this.addMouseListener(mouseListener);
 
 	}
@@ -163,6 +182,13 @@ System.out.println("mouse pressed");
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
 										// parameters
+		if(selectedRectangle!=null){
+			 Graphics2D g2 = (Graphics2D) g;
+			 g2.setColor(Color.red);
+			 g2.draw(selectedRectangle);
+			 
+		}
+		selectedRectangle=null;
 	}
 
 	public int getImageWidth() {

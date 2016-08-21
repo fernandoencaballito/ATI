@@ -8,6 +8,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 
 public class MyMenuBar extends JMenuBar {	
@@ -17,7 +18,7 @@ public class MyMenuBar extends JMenuBar {
 	public CircleAdditionPanel circlePanel;
 	public RectangleAdditionPanel rectPanel;
 	public MainFrame parent;
-	private JMenuItem selectArea;
+	private JToggleButton selectArea;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -139,11 +140,11 @@ public class MyMenuBar extends JMenuBar {
 		JMenuItem greyLevels = new JMenu("Grey Levels");
 		this.add(greyLevels);
 		
-		selectArea = new JMenu("Select Area");
+		selectArea = new JToggleButton("Select Area");
 		this.add(selectArea);
 		
 	}
-	public  JMenuItem getSelectAreaItem(){
+	public  JToggleButton getSelectAreaItem(){
 		return selectArea;
 	}
 	

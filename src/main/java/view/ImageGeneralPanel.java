@@ -4,6 +4,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
 /*
  *clase que contiene al panel de la imagen y su respectivo t�tulo en la ventana("original image" o "modified Image").
@@ -16,12 +17,12 @@ public class ImageGeneralPanel extends JPanel {
 	private String title;
 	private ImagePanel imagePanel;
 	
-	public ImageGeneralPanel(String title, String imageFileName,JMenuItem selectAreaItem) {
+	public ImageGeneralPanel(String title, String imageFileName) {
 	
 		this.title=title;
 		JLabel label = new JLabel(title);
 		label.setAlignmentX(CENTER_ALIGNMENT);
-		imagePanel = new ImagePanel(imageFileName,selectAreaItem);
+		imagePanel = new ImagePanel(imageFileName);
 		
 		
 
@@ -30,7 +31,9 @@ public class ImageGeneralPanel extends JPanel {
 		this.add(imagePanel);
 		
 	}
-	
+	public void setSelectAreaItem( JToggleButton selectAreaItem){
+		imagePanel.setSelectAreaItem(selectAreaItem);
+	}
 	
 	public int getCurrentWidth() {
 		return imagePanel.getImageWidth();
