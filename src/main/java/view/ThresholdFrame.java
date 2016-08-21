@@ -22,7 +22,7 @@ public class ThresholdFrame extends JFrame {
 		super("Threshold");
 		this.slider = new ThresholdSlider(imagePanel);
 		this.setBounds(0, 500, 600, 120);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.add(slider);
 		this.setAlwaysOnTop(true);
 		
