@@ -17,6 +17,7 @@ public class MyMenuBar extends JMenuBar {
 	public CircleAdditionPanel circlePanel;
 	public RectangleAdditionPanel rectPanel;
 	public MainFrame parent;
+	public ThresholdFrame thresholdFrame;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -147,6 +148,17 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		pOperators.add(invert);
+		
+		JMenuItem umbral = new JMenuItem("Threshold");
+		umbral.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thresholdFrame = new ThresholdFrame(modifiedImagePanel.getImagePanel());
+				thresholdFrame.setVisible(true);
+			}
+		});
+		pOperators.add(umbral);
 		this.add(pOperators);
 		
 		
