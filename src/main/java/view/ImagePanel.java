@@ -87,6 +87,8 @@ public class ImagePanel extends JPanel {
 
 	public void setImage(Image image) {
 		this.image = (BufferedImage) image;
+		this.repaint();
+		
 	}
 
 	public BufferedImage getImage() {

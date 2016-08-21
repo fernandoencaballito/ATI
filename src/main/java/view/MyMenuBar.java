@@ -60,6 +60,7 @@ public class MyMenuBar extends JMenuBar {
 		this.add(file);
 		
 		JMenu edit = new JMenu("Edit");
+		file.setMnemonic(KeyEvent.VK_E);
 		
 		JMenuItem pixelValue = new JMenuItem("Pixel Value");
 		pixelValue.addActionListener(new ActionListener() {
@@ -134,6 +135,20 @@ public class MyMenuBar extends JMenuBar {
 		});
 		options.add(colorMode);
 		this.add(options);
+		
+		JMenu pOperators = new JMenu("Punctual Operators");
+		JMenuItem invert = new JMenuItem("Invert Colors");
+		invert.setAccelerator(KeyStroke.getKeyStroke('I', KeyEvent.CTRL_DOWN_MASK));
+		invert.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modifiedImagePanel.getImagePanel().setImage(ImageEffects.invertColors(modifiedImagePanel.getImagePanel().getImage()));
+			}
+		});
+		pOperators.add(invert);
+		this.add(pOperators);
+		
 		
 		JMenuItem greyLevels = new JMenu("Grey Levels");
 		this.add(greyLevels);
