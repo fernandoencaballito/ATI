@@ -7,11 +7,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.apache.commons.io.FilenameUtils;
+
+import image.ImageUtils;
 
 public class ImagePanel extends JPanel {
 
@@ -19,15 +23,24 @@ public class ImagePanel extends JPanel {
 	private String extension;
 	private BufferedImage image;
 	private PixelEditionPanel pixelPanel;
-
+	private ColorMode colorMode;
+	
+	//selección de area
+	private int lastPressedX;
+	private int lastPressedY;
+	private JMenuItem selectAreaItem;
+	//
 	public ImagePanel() {
 		super();
 
 	}
 
-	public ImagePanel(String fileName) {
+	public ImagePanel(String fileName,JMenuItem selectAreaItem) {
 		loadImageFromFile(fileName);
 		refreshExtension(fileName);
+		lastPressedX=0;
+		lastPressedY=0;
+		this.selectAreaItem=selectAreaItem;
 		MouseListener mouseListener = new MouseListener() {
 
 			@Override
@@ -58,13 +71,31 @@ public class ImagePanel extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				lastPressedX=e.getX();
+				lastPressedY=e.getY();
+				
+System.out.println("mouse pressed");
 
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+				int currentX=e.getX();
+				int currentY=e.getY();
+				
+				System.out.println("mouse released");
+				System.out.println("cuadrado desde:("
+									+lastPressedX
+									+","
+									+lastPressedY
+									+")hasta:("
+									+currentX
+									+","
+									+currentY
+									+")"
+									)
+								;
+				
 
 			}
 
@@ -85,6 +116,40 @@ public class ImagePanel extends JPanel {
 
 	}
 
+	private void detectColorMode() {
+		int height=image.getHeight();
+		int width=image.getWidth();
+		
+		for(int x=0;x<width;x++){
+			for(int y=0;y<height;y++){
+				
+				int rgb = image.getRGB(x, y);
+				Color c = new Color(rgb);
+				int red = c.getRed();
+				int green = c.getGreen();
+				int blue = c.getBlue();
+
+				if (!(red == green && red == blue && green == blue)){
+					//Color
+					System.out.println("[ImagePanel] color image loaded");
+					colorMode=ColorMode.COLOR;
+					return;
+				}
+
+			}
+		}
+		colorMode=ColorMode.GREY;
+		System.out.println("[ImagePanel] grey image loaded");
+	}
+
+	public boolean hasColor(){
+		return colorMode==ColorMode.COLOR;
+	}
+	
+	public boolean isGrey(){
+		return colorMode==ColorMode.GREY;
+	}
+	
 	public void setImage(Image image) {
 		this.image = (BufferedImage) image;
 	}
@@ -117,6 +182,7 @@ public class ImagePanel extends JPanel {
 			ex.printStackTrace();
 		}
 		refreshExtension(filename);
+		detectColorMode();
 	}
 
 	public void loadImageFromFile(String fileName, int width, int height) {
@@ -127,6 +193,7 @@ public class ImagePanel extends JPanel {
 			ex.printStackTrace();
 		}
 		refreshExtension(fileName);
+		detectColorMode();
 	}
 
 	public String getFormat() {

@@ -2,10 +2,11 @@ package view;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /*
- *clase que contiene al panel de la imagen y su respectivo título en la ventana("original image" o "modified Image").
+ *clase que contiene al panel de la imagen y su respectivo tï¿½tulo en la ventana("original image" o "modified Image").
  * 
  */
 
@@ -15,12 +16,12 @@ public class ImageGeneralPanel extends JPanel {
 	private String title;
 	private ImagePanel imagePanel;
 	
-	public ImageGeneralPanel(String title, String imageFileName) {
+	public ImageGeneralPanel(String title, String imageFileName,JMenuItem selectAreaItem) {
 	
 		this.title=title;
 		JLabel label = new JLabel(title);
 		label.setAlignmentX(CENTER_ALIGNMENT);
-		imagePanel = new ImagePanel(imageFileName);
+		imagePanel = new ImagePanel(imageFileName,selectAreaItem);
 		
 		
 

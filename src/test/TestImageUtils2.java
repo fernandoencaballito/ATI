@@ -10,8 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import image.ImageUtils;
 import junitx.framework.FileAssert;
-import view.ImageUtils;
 
 /*Se comprueba la escritura
 * @author Fernando Bejarano

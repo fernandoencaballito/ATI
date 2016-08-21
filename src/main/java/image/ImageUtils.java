@@ -1,4 +1,4 @@
-package view;
+package image;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -27,6 +27,7 @@ import org.im4java.core.IMOperation;
 import magick.ImageInfo;
 import magick.MagickException;
 import magick.MagickImage;
+import org.apache.commons.lang.ArrayUtils;
 
 public class ImageUtils {
 	private static final String auxFileName = "./aux.bmp";
@@ -77,6 +78,9 @@ public class ImageUtils {
 			throws FileNotFoundException, IOException {
 
 		byte[] pixels = IOUtils.toByteArray(new FileInputStream(fileName));
+		//arreglo problema de la imagen rotada
+		//ArrayUtils.reverse(pixels);
+		//
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 		DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
 		byte[] imgData = buffer.getData();

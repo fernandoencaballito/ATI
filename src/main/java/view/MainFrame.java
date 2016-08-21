@@ -37,12 +37,12 @@ public class MainFrame extends JFrame {
 
 		String initialFile="./src/main/resources/cameraman.png";
 		originalImagePanel = new ImageGeneralPanel("Original Image"
-												, initialFile);
+												, initialFile,null);
 		
 		
 
 		modifiedImagePanel = new ImageGeneralPanel("Modified Image"
-												, initialFile);
+												, initialFile,null);
 		JPanel middlePanel = new MiddlePanel(originalImagePanel,modifiedImagePanel);
 		
 		pixelPanel = new PixelEditionPanel("Pixel Edition", this);

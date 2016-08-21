@@ -17,6 +17,7 @@ public class MyMenuBar extends JMenuBar {
 	public CircleAdditionPanel circlePanel;
 	public RectangleAdditionPanel rectPanel;
 	public MainFrame parent;
+	private JMenuItem selectArea;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -138,8 +139,12 @@ public class MyMenuBar extends JMenuBar {
 		JMenuItem greyLevels = new JMenu("Grey Levels");
 		this.add(greyLevels);
 		
-		JMenuItem selectArea = new JMenu("Select Area");
+		selectArea = new JMenu("Select Area");
 		this.add(selectArea);
 		
 	}
+	public  JMenuItem getSelectAreaItem(){
+		return selectArea;
+	}
+	
 }
