@@ -119,7 +119,6 @@ public class ImageEffects {
 	}
 	
 	public static int[] linearNormalization(int[] matrix){
-		System.out.println("INSIDE LINEAR NORMALIZATION");
 		int[] result = new int[matrix.length];
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
@@ -146,7 +145,6 @@ public class ImageEffects {
 	}
 	
 	private static int[] dynamicRangeCompression(int[] matrix){
-		System.out.println("INSIDE DYNAMIC NORMALIZATION");
 		int[] result = new int[matrix.length];
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
@@ -160,6 +158,19 @@ public class ImageEffects {
 		}
 		return result;
 		
+	}
+	
+	private static int[] gammaFunction(int[] matrix, int pow){
+		int[] result = new int[matrix.length];
+		int max = Integer.MIN_VALUE;
+		for(int i = 0; i<matrix.length ; i++){
+			max = Math.max(max, matrix[i]);
+		}
+		double c = 255.0/Math.pow(max, pow);
+		for(int i=0;i<matrix.length;i++){
+			result[i] = (int) Math.round(c*Math.pow(matrix[i], pow));
+		}
+		return result;
 	}
 	
 	public static Color meanPixelValue(BufferedImage image){
