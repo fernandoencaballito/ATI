@@ -18,6 +18,7 @@ public class MyMenuBar extends JMenuBar {
 	public RectangleAdditionPanel rectPanel;
 	public MainFrame parent;
 	public ThresholdFrame thresholdFrame;
+	public ColorHistogram histogramFrame;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -73,6 +74,16 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		edit.add(pixelValue);
+		
+		JMenuItem histogram = new JMenuItem("Histogram");
+		histogram.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				histogramFrame = new ColorHistogram("Grey Scale Histogram", ImageEffects.getHistogram(modifiedImagePanel.getImagePanel().getImage()));			
+			}
+		});
+		edit.add(histogram);
 		
 		JMenuItem circleAddition = new JMenuItem("Add a circle...");
 		circleAddition.addActionListener(new ActionListener() {
@@ -159,6 +170,16 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		pOperators.add(umbral);
+		
+		JMenuItem grey = new JMenuItem("Grey Image");
+		grey.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modifiedImagePanel.getImagePanel().setImage(ImageEffects.getGreyImage(modifiedImagePanel.getImagePanel().getImage()));
+			}
+		});
+		pOperators.add(grey);
 		this.add(pOperators);
 		
 		
