@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.net.InterfaceAddress;
 
 public class ImageEffects {
 	
@@ -48,7 +49,7 @@ public class ImageEffects {
 				blue[j*newWidth+i] = pixel1Color.getBlue() + pixel2Color.getBlue();
 			}
 		}
-		return buildImage(red, green, blue, newWidth, newHeight, image1.getType());
+		return buildImage(red, green, blue, newWidth, newHeight, image1.getType(), ImageEffects::linearNormalization);
 	}
 	
 	public static BufferedImage minus(BufferedImage image1, BufferedImage image2){
@@ -66,7 +67,7 @@ public class ImageEffects {
 				blue[j*newWidth+i] = pixel1Color.getBlue() - pixel2Color.getBlue();
 			}
 		}
-		return buildImage(red, green, blue, newWidth, newHeight, image1.getType());
+		return buildImage(red, green, blue, newWidth, newHeight, image1.getType(), ImageEffects::linearNormalization);
 	}
 	
 	public static BufferedImage product(BufferedImage image1, BufferedImage image2){
@@ -84,7 +85,7 @@ public class ImageEffects {
 				blue[j*newWidth+i] = pixel1Color.getBlue() * pixel2Color.getBlue();
 			}
 		}
-		return buildImage(red, green, blue, newWidth, newHeight, image1.getType());
+		return buildImage(red, green, blue, newWidth, newHeight, image1.getType(), ImageEffects::linearNormalization);
 	}
 	
 	public static BufferedImage scalarProduct(BufferedImage image, int scalar){
@@ -101,14 +102,14 @@ public class ImageEffects {
 				blue[j*newWidth+i] = pixelColor.getBlue() * scalar;
 			}
 		}
-		return buildImage(red, green, blue, newWidth, newHeight, image.getType());
+		return buildImage(red, green, blue, newWidth, newHeight, image.getType(), ImageEffects::dynamicRangeCompression);
 	}
 	
-	private static BufferedImage buildImage(int[] red, int[] green, int[] blue, int width, int height, int type){
+	private static BufferedImage buildImage(int[] red, int[] green, int[] blue, int width, int height, int type, java.util.function.UnaryOperator<int[]> normalizationfunc){
 		BufferedImage newImage = new BufferedImage(width, height, type);
-		red = linearNormalization(red);
-		green = linearNormalization(green);
-		blue = linearNormalization(blue);
+		red = normalizationfunc.apply(red);//linearNormalization(red);
+		green = normalizationfunc.apply(green);//linearNormalization(green);
+		blue = normalizationfunc.apply(blue);//linearNormalization(blue);
 		for(int i=0;i<width;i++){
 			for(int j = 0; j < height; j++) {
 				newImage.setRGB(i, j, new Color(red[j*width+i], green[j*width+i], blue[j*width+i]).getRGB());
@@ -118,6 +119,7 @@ public class ImageEffects {
 	}
 	
 	public static int[] linearNormalization(int[] matrix){
+		System.out.println("INSIDE LINEAR NORMALIZATION");
 		int[] result = new int[matrix.length];
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
@@ -141,6 +143,23 @@ public class ImageEffects {
 			result[i] = (int) Math.round(scale*(matrix[i] - desp));
 		}
 		return result;
+	}
+	
+	private static int[] dynamicRangeCompression(int[] matrix){
+		System.out.println("INSIDE DYNAMIC NORMALIZATION");
+		int[] result = new int[matrix.length];
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+		for(int i = 0; i<matrix.length ; i++){
+			min = Math.min(min, matrix[i]);
+			max = Math.max(max, matrix[i]);
+		}
+		double c = 255.0/Math.log(1+max);
+		for(int i=0;i<matrix.length;i++){
+			result[i] = (int) Math.round(c*Math.log(1 + matrix[i]));
+		}
+		return result;
+		
 	}
 	
 	public static Color meanPixelValue(BufferedImage image){
