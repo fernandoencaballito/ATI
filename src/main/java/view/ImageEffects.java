@@ -126,18 +126,16 @@ public class ImageEffects {
 			max = Math.max(max, matrix[i]);
 		}
 		int delta = max-min;
-		while(min<0){
-			max+=delta;
-			min+=delta;
-		}
-		double scale = 255.0/(delta);
 		int desp = min;
-		if(delta <=255){
+		double scale = 255.0/(delta);
+		
+		if(delta <= 255){
 			scale = 1;
-			desp = max-255;
 		}
-		if(max <= 255)
+		
+		if(min>=0 && max<=255){
 			desp = 0;
+		}
 		
 		for(int i=0;i<matrix.length;i++){
 			result[i] = (int) Math.round(scale*(matrix[i] - desp));
