@@ -15,7 +15,7 @@ public class ImageGeneralPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private String title;
-	private ImagePanel imagePanel;
+	public ImagePanel imagePanel;
 	
 	public ImageGeneralPanel(String title, String imageFileName) {
 	
@@ -76,6 +76,11 @@ public class ImageGeneralPanel extends JPanel {
 
 	public ImagePanel getImagePanel() {
 		return imagePanel;
+	}
+	public void pasteSelectedArea(ImageGeneralPanel otherImage) {
+		imagePanel.pasteSelectedArea(otherImage.imagePanel);
+		this.repaint();
+		otherImage.repaint();
 	}
 	
 	

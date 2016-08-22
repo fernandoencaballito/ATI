@@ -30,7 +30,7 @@ public class ImagePanel extends JPanel {
 	private int lastPressedX;
 	private int lastPressedY;
 	private JToggleButton selectAreaItem;
-	private Rectangle selectedRectangle;
+	public Rectangle selectedRectangle;
 	//
 	public ImagePanel() {
 		super();
@@ -94,10 +94,11 @@ public class ImagePanel extends JPanel {
 				int currentY=e.getY();
 				
 				if(selectAreaItem.isSelected()){
-					selectedRectangle=new Rectangle(lastPressedX
+					 imagePanel.setSelectedRectangle(new Rectangle(lastPressedX
 							, lastPressedY
 							, (currentX-lastPressedX),
-							(currentY-lastPressedY));
+							(currentY-lastPressedY))
+							);
 					
 				System.out.println("mouse released");
 				System.out.println("cuadrado desde:("
@@ -113,8 +114,8 @@ public class ImagePanel extends JPanel {
 								;
 				imagePanel.repaint();
 				
-				
-
+//				System.out.println("Original ImagePanel id:"+imagePanel.hashCode());
+//				System.out.println("Rectangle en original:"+imagePanel.selectedRectangle);
 			}
 				}
 
@@ -133,6 +134,11 @@ public class ImagePanel extends JPanel {
 		}.init(this);
 		this.addMouseListener(mouseListener);
 
+	}
+
+	protected void setSelectedRectangle(Rectangle rectangle) {
+		this.selectedRectangle=rectangle;
+		
 	}
 
 	private void detectColorMode() {
@@ -188,7 +194,7 @@ public class ImagePanel extends JPanel {
 			 g2.draw(selectedRectangle);
 			 
 		}
-		selectedRectangle=null;
+		//selectedRectangle=null;
 	}
 
 	public int getImageWidth() {
@@ -253,5 +259,27 @@ public class ImagePanel extends JPanel {
 
 	public void setPixelPanel(PixelEditionPanel pixelPanel) {
 		this.pixelPanel = pixelPanel;
+	}
+
+	public void pasteSelectedArea(ImagePanel otherImagePanel) {
+		BufferedImage toPaste=otherImagePanel.getSelectedImage();
+		
+		if(toPaste!=null)
+			this.image=toPaste;
+		
+		
+	}
+
+	protected BufferedImage getSelectedImage() {
+		if(selectedRectangle==null)
+			return null;
+		BufferedImage ans=image.getSubimage(selectedRectangle.x
+				,selectedRectangle.y
+				, selectedRectangle.width
+				,selectedRectangle.height);
+		
+		selectedRectangle=null;
+		
+		return ans;
 	}
 }

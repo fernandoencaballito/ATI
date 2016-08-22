@@ -98,7 +98,7 @@ public class MyMenuBar extends JMenuBar {
 		
 		JMenuItem copy = new JMenuItem("Copy");
 		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_DOWN_MASK));
-		JMenuItem paste = new JMenuItem("Paste");
+		JMenuItem paste = new PasteMenuItem(originalImagePanel, modifiedImagePanel);
 		paste.setAccelerator(KeyStroke.getKeyStroke('V', KeyEvent.CTRL_DOWN_MASK));
 		JMenuItem undo = new JMenuItem("Undo Changes");
 		undo.setAccelerator(KeyStroke.getKeyStroke('Z', KeyEvent.CTRL_DOWN_MASK));
