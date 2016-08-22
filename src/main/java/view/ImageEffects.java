@@ -87,6 +87,23 @@ public class ImageEffects {
 		return buildImage(red, green, blue, newWidth, newHeight, image1.getType());
 	}
 	
+	public static BufferedImage scalarProduct(BufferedImage image, int scalar){
+		int newWidth = image.getWidth();
+		int newHeight = image.getHeight();
+		int[] red = new int[newWidth*newHeight];
+		int[] green = new int[newWidth*newHeight];
+		int[] blue = new int[newWidth*newHeight];
+		for(int i=0;i<newWidth;i++){
+			for(int j = 0; j < newHeight; j++) {
+				Color pixelColor = new Color(image.getRGB(i, j));
+				red[j*newWidth+i] = pixelColor.getRed() * scalar;
+				green[j*newWidth+i] = pixelColor.getGreen() * scalar;
+				blue[j*newWidth+i] = pixelColor.getBlue() * scalar;
+			}
+		}
+		return buildImage(red, green, blue, newWidth, newHeight, image.getType());
+	}
+	
 	private static BufferedImage buildImage(int[] red, int[] green, int[] blue, int width, int height, int type){
 		BufferedImage newImage = new BufferedImage(width, height, type);
 		red = linearNormalization(red);
