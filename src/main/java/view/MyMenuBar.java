@@ -50,10 +50,23 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		
+		JMenuItem newBlackFile = new JMenuItem("New Black Page");
+		newBlackFile.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				originalImagePanel.loadBlackImage(200,200);
+				originalImagePanel.repaint();
+				modifiedImagePanel.loadBlackImage(200,200);
+				modifiedImagePanel.repaint();	
+			}
+		});
+		
 		JMenuItem greyScaleFile = new JMenuItem("Grey Scale");
 		JMenuItem colorScaleFile = new JMenuItem("Color Scale");
 		
 		newMenu.add(newFile);
+		newMenu.add(newBlackFile);
 		newMenu.add(greyScaleFile);
 		newMenu.add(colorScaleFile);
 		

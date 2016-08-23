@@ -302,4 +302,20 @@ public class ImagePanel extends JPanel {
 		
 		return subThree;
 	}
+
+	public void loadBlackImage(int width, int height) {
+		this.image=new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+		
+		int blackRgb=0;
+		for(int x=0;x<width;x++){
+			for(int y=0;y<height;y++){
+				this.image.setRGB(x, y, blackRgb);
+				}
+			}
+		
+		this.repaint();
+		
+		}
+		
+	
 }

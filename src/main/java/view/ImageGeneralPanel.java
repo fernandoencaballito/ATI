@@ -93,5 +93,9 @@ public class ImageGeneralPanel extends JPanel {
 	public boolean isColor(){
 		return imagePanel.hasColor();
 	}
+	public void loadBlackImage(int width, int height) {
+		imagePanel.loadBlackImage(width,height);
+		
+	}
 	
 }
