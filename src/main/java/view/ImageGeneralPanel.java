@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -33,6 +36,10 @@ public class ImageGeneralPanel extends JPanel {
 	}
 	public void setSelectAreaItem( JToggleButton selectAreaItem){
 		imagePanel.setSelectAreaItem(selectAreaItem);
+	}
+	
+	public BufferedImage getSelectedArea(){
+		return imagePanel.getSelectedImage();
 	}
 	
 	public int getCurrentWidth() {
@@ -83,5 +90,8 @@ public class ImageGeneralPanel extends JPanel {
 		otherImage.repaint();
 	}
 	
+	public boolean isColor(){
+		return imagePanel.hasColor();
+	}
 	
 }

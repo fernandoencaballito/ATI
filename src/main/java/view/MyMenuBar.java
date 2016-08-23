@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -137,7 +138,7 @@ public class MyMenuBar extends JMenuBar {
 		options.add(colorMode);
 		this.add(options);
 		
-		JMenuItem greyLevels = new JMenu("Grey Levels");
+		JButton greyLevels = new GreyLevelsButton(originalImagePanel,parent);
 		this.add(greyLevels);
 		
 		selectArea = new JToggleButton("Select Area");
