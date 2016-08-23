@@ -273,13 +273,33 @@ public class ImagePanel extends JPanel {
 	protected BufferedImage getSelectedImage() {
 		if(selectedRectangle==null)
 			return null;
-		BufferedImage ans=image.getSubimage(selectedRectangle.x
+		BufferedImage subImage1=image.getSubimage(selectedRectangle.x
 				,selectedRectangle.y
 				, selectedRectangle.width
 				,selectedRectangle.height);
+		//(image.getColorModel(),image.getRaster().createCompatibleWritableRaster(selectedRectangle.width, selectedRectangle.height));
+//		BufferedImage subImage2=new BufferedImage(image.getColorModel()
+//									,image.getRaster().createCompatibleWritableRaster(selectedRectangle.width, selectedRectangle.height) 
+//									, image.isAlphaPremultiplied()
+//									, null);
+//		
+//		subImage1.copyData(subImage2.getRaster());
+		
+		
+		BufferedImage subThree = new BufferedImage((int)selectedRectangle.getWidth()
+									,(int)selectedRectangle.getHeight(), image.getType());
+
+		
+		Graphics2D g = subThree.createGraphics();
+		try {
+		    g.drawImage(subImage1, 0, 0, null);
+		}
+		finally {
+		    g.dispose();
+		}
 		
 		selectedRectangle=null;
 		
-		return ans;
+		return subThree;
 	}
 }
