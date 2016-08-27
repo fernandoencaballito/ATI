@@ -20,6 +20,8 @@ public class MyMenuBar extends JMenuBar {
 	public RectangleAdditionPanel rectPanel;
 	public MainFrame parent;
 	private JToggleButton selectArea;
+	public ThresholdFrame thresholdFrame;
+	public ColorHistogram histogramFrame;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -76,6 +78,7 @@ public class MyMenuBar extends JMenuBar {
 		this.add(file);
 		
 		JMenu edit = new JMenu("Edit");
+		file.setMnemonic(KeyEvent.VK_E);
 		
 		JMenuItem pixelValue = new JMenuItem("Pixel Value");
 		pixelValue.addActionListener(new ActionListener() {
@@ -87,6 +90,16 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		edit.add(pixelValue);
+		
+		JMenuItem histogram = new JMenuItem("Histogram");
+		histogram.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				histogramFrame = new ColorHistogram("Grey Scale Histogram", ImageEffects.getHistogram(modifiedImagePanel.getImagePanel().getImage()));			
+			}
+		});
+		edit.add(histogram);
 		
 		JMenuItem circleAddition = new JMenuItem("Add a circle...");
 		circleAddition.addActionListener(new ActionListener() {
@@ -151,7 +164,44 @@ public class MyMenuBar extends JMenuBar {
 		options.add(colorMode);
 		this.add(options);
 		
+
 		JButton greyLevels = new GreyLevelsButton(originalImagePanel,parent);
+
+		JMenu pOperators = new JMenu("Punctual Operators");
+		JMenuItem invert = new JMenuItem("Invert Colors");
+		invert.setAccelerator(KeyStroke.getKeyStroke('I', KeyEvent.CTRL_DOWN_MASK));
+		invert.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modifiedImagePanel.getImagePanel().setImage(ImageEffects.invertColors(modifiedImagePanel.getImagePanel().getImage()));
+			}
+		});
+		pOperators.add(invert);
+		
+		JMenuItem umbral = new JMenuItem("Threshold");
+		umbral.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thresholdFrame = new ThresholdFrame(modifiedImagePanel.getImagePanel());
+				thresholdFrame.setVisible(true);
+			}
+		});
+		pOperators.add(umbral);
+		
+		JMenuItem grey = new JMenuItem("Grey Image");
+		grey.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modifiedImagePanel.getImagePanel().setImage(ImageEffects.getGreyImage(modifiedImagePanel.getImagePanel().getImage()));
+			}
+		});
+		pOperators.add(grey);
+		this.add(pOperators);
+		
+		
 		this.add(greyLevels);
 		
 		selectArea = new JToggleButton("Select Area");

@@ -2,7 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.net.InterfaceAddress;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ImageEffects {
 	
@@ -21,13 +22,17 @@ public class ImageEffects {
 	}
 	
 	public static BufferedImage threshold(BufferedImage image, int limit){
+		return threshold(image, limit, limit, limit);
+	}
+	
+	public static BufferedImage threshold(BufferedImage image, int redLimit, int greenLimit, int blueLimit){
 		BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
 		for(int i=0;i<image.getWidth();i++){
 			for(int j = 0; j < image.getHeight(); j++) {
 				Color pixelColor = new Color(image.getRGB(i, j));
-				int red = (pixelColor.getRed()<limit) ? BLACK : WHITE;
-				int green = (pixelColor.getGreen()<limit) ? BLACK : WHITE;
-				int blue = (pixelColor.getBlue()<limit) ? BLACK : WHITE;
+				int red = (pixelColor.getRed()<redLimit) ? BLACK : WHITE;
+				int green = (pixelColor.getGreen()<greenLimit) ? BLACK : WHITE;
+				int blue = (pixelColor.getBlue()<blueLimit) ? BLACK : WHITE;
 				newImage.setRGB(i, j, new Color(red, green, blue).getRGB());
 			}
 		}
@@ -196,5 +201,43 @@ public class ImageEffects {
 		int green = (int) Math.round(accum[1]);
 		int blue = (int) Math.round(accum[2]);
 		return new Color(red, green, blue);
+	}
+	
+	private static Map<Integer,Double> histogram(int[] matrix){
+		Map<Integer,Double> histogram = new TreeMap<Integer, Double>();
+		for(int i = 0; i<256; i++)
+			histogram.put(i, 0.0);
+		for (int i = 0; i < matrix.length; i++) {
+            int value = matrix[i];
+            double amount = 0;
+            if (histogram.containsKey(value)) {
+                amount = histogram.get(value);
+                amount+=1;
+            } else {
+                amount = 1.0;
+            }
+            histogram.put(value, amount);
+        }
+		for(int i = 0; i<256; i++)
+			histogram.put(i, histogram.get(i)/matrix.length);
+		return histogram;
+	}
+	
+	public static Map<Integer,Double> getHistogram(BufferedImage image){
+		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
+		int[] redMatrix = new int[matrix.length];
+		for (int i = 0; i < redMatrix.length; i++) {
+			redMatrix[i] = new Color(matrix[i]).getRed();
+		}
+		return histogram(redMatrix);
+	}
+	
+	public static BufferedImage getGreyImage(BufferedImage image){
+		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
+		for (int i = 0; i < matrix.length; i++) {
+			Color pixel = new Color(matrix[i]);
+			matrix[i] = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
+		}
+		return buildImage(matrix, matrix, matrix, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::linearNormalization);
 	}
 }
