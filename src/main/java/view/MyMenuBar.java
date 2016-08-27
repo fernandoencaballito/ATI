@@ -168,7 +168,7 @@ public class MyMenuBar extends JMenuBar {
 		JButton greyLevels = new GreyLevelsButton(originalImagePanel,parent);
 
 		JMenu pOperators = new JMenu("Punctual Operators");
-		JMenuItem invert = new JMenuItem("Invert Colors");
+		JMenuItem invert = new JMenuItem("Negative");
 		invert.setAccelerator(KeyStroke.getKeyStroke('I', KeyEvent.CTRL_DOWN_MASK));
 		invert.addActionListener(new ActionListener() {
 			
@@ -189,6 +189,25 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		pOperators.add(umbral);
+		
+		
+		
+		JMenuItem equalize= new JMenuItem("Equalize");
+		equalize.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				modifiedImagePanel
+						.getImagePanel()
+						.setImage(
+								ImageEffects.ecualizeHistogram(modifiedImagePanel.getImagePanel().getImage()));
+				
+			}
+		});
+		pOperators.add(equalize);
+		
+		
 		
 		JMenuItem grey = new JMenuItem("Grey Image");
 		grey.addActionListener(new ActionListener() {

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -231,6 +233,59 @@ public class ImageEffects {
 		}
 		return histogram(redMatrix);
 	}
+	
+	public static Map<Integer,Double> acumHistogram(Map<Integer,Double> histogram){
+		
+		double currentAcum=0;
+		Map<Integer,Double> acumMap=new HashMap<Integer,Double>();
+		
+		for(int i=0;i<256; i++){
+			currentAcum+=histogram.get(i);
+			acumMap.put(i, currentAcum);
+			
+		}
+		return acumMap;
+		
+		
+		
+		
+		
+	
+	}
+	
+	public static BufferedImage ecualizeHistogram(BufferedImage image){
+		Map<Integer,Double> hist=getHistogram(image);
+		Map<Integer,Double> acumHistogram=acumHistogram(hist);
+		int[] normalizedValues=new int[256];
+		double s_min=acumHistogram.get(0);
+				
+		for(int i=0;i<256;i++){
+			double notNormalized=acumHistogram.get(i);
+			
+			normalizedValues[i]=(int) Math.round(255*(notNormalized-s_min)/(1-s_min));
+			
+		}
+		
+		System.out.println("Equalizer, mapped values:"+ Arrays.toString(normalizedValues));
+		BufferedImage modified= new BufferedImage(image.getWidth(), image.getHeight(), image.getType());//ImagePanel.deepCopy(image);
+		
+		for(int x=0;x<image.getWidth();x++){
+			
+			for(int y=0;y<image.getHeight();y++){
+				Color pixel_color=new Color(image.getRGB(x, y));
+				int final_grey_value=normalizedValues[pixel_color.getRed()];
+				Color normalized_color=new Color(final_grey_value,final_grey_value,final_grey_value);
+				modified.setRGB(x, y, normalized_color.getRGB());
+			}
+			
+		}
+		
+		
+		return modified;
+		
+		
+	}
+	
 	
 	public static BufferedImage getGreyImage(BufferedImage image){
 		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());

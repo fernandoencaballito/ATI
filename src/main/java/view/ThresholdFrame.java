@@ -40,6 +40,7 @@ public class ThresholdFrame extends JFrame {
 		public ThresholdSlider(ImagePanel imagePanel) {
 			panel = imagePanel;
 			originalImage = panel.getImage();
+			
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 			JLabel sliderLabel = new JLabel("Threshold value", JLabel.CENTER);

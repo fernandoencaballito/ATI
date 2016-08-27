@@ -252,7 +252,7 @@ public class ImagePanel extends JPanel {
 
 	}
 
-	static BufferedImage deepCopy(BufferedImage bi) {
+	static public BufferedImage deepCopy(BufferedImage bi) {
 		ColorModel cm = bi.getColorModel();
 		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
 		WritableRaster raster = bi.copyData(null);
