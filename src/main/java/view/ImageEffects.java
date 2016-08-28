@@ -332,4 +332,12 @@ public class ImageEffects {
 
 		return band_arr;
 	}
+	
+	public static int[] moduloNormalization(int[] matrix){
+		for(int i=0;i<matrix.length;i++){
+			int value=matrix[i];
+			matrix[i]=value%255;
+		}
+		return matrix;
+	}
 }

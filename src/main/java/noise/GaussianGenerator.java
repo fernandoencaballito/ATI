@@ -2,6 +2,7 @@ package noise;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import view.ImageEffects;
@@ -48,6 +49,7 @@ public class GaussianGenerator implements RandomNumberGenerator {
 		double y2_normal = mean_value + std_deviation * y2_std_normal;
 
 		double[] ans = { y1_normal, y2_normal };
+//		System.out.println(Arrays.toString(ans));
 		return ans;
 	}
 

@@ -17,8 +17,10 @@ import javax.swing.JToggleButton;
 import org.apache.commons.io.FilenameUtils;
 
 import image.ImageUtils;
+import noise.ExponentialGenerator;
 import noise.GaussianGenerator;
 import noise.Noise;
+import noise.Rayleigh;
 
 public class ImagePanel extends JPanel {
 
@@ -44,7 +46,11 @@ public class ImagePanel extends JPanel {
 	}
 	public ImagePanel(String fileName) {
 		loadImageFromFile(fileName);
-		this.image=Noise.generateNoise(image, 0.1, new GaussianGenerator(0.05, 128));
+		//
+		this.image=Noise.generateNoise(image, 1.0, new GaussianGenerator(0.5, 150.0));
+		//this.image=Noise.generateNoise(image, 1.0, new Rayleigh(4));
+		//this.image=Noise.generateNoise(image, 1, new ExponentialGenerator(0.5));
+		//
 		refreshExtension(fileName);
 		lastPressedX=0;
 		lastPressedY=0;

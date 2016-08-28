@@ -38,7 +38,8 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.setBackground(Color.black);
 
-		String initialFile="./src/main/resources/probandoRuido.png";
+		//String initialFile="./src/main/resources/newImage.png";
+		String initialFile="/home/administrator/negro.png";
 		originalImagePanel = new ImageGeneralPanel("Original Image"
 												, initialFile);
 		
