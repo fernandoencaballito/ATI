@@ -20,7 +20,11 @@ public class GaussianGenerator implements RandomNumberGenerator {
 		this.mean_value=mean_value;
 	}
 	
-	
+	@Override
+	public boolean isAdditive() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 	// genera un par de números con distribución gausiana
 	//Minimo valor:

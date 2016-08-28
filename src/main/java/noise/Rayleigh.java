@@ -19,4 +19,9 @@ public class Rayleigh implements RandomNumberGenerator{
 	public double generate() {
 		return generateRandomNumber(this.xi);
 	}
+	@Override
+	public boolean isAdditive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

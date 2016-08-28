@@ -21,4 +21,10 @@ public class ExponentialGenerator implements RandomNumberGenerator{
 	public double generate() {
 		return generateRandomNumber(this.lambda);
 	}
+
+	@Override
+	public boolean isAdditive() {
+		
+		return false;
+	}
 }
