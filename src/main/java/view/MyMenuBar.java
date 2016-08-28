@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 
+import view.NoiseAdditionFrame.NoiseType;
+
 public class MyMenuBar extends JMenuBar {	
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,7 @@ public class MyMenuBar extends JMenuBar {
 	private JToggleButton selectArea;
 	public ThresholdFrame thresholdFrame;
 	public ColorHistogram histogramFrame;
+	public NoiseAdditionFrame noiseFrame = new NoiseAdditionFrame(NoiseType.GAUSSIAN);
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -122,6 +125,40 @@ public class MyMenuBar extends JMenuBar {
 			}
 		});
 		edit.add(rectAddition);
+		
+		JMenu noiseAddition = new JMenu("Add noise...");
+		
+		JMenuItem gaussianNoise = new JMenuItem("Gaussian Noise");
+		gaussianNoise.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noiseFrame.changeNoiseType(NoiseType.GAUSSIAN);
+				noiseFrame.setVisible(true);
+			}
+		});
+		noiseAddition.add(gaussianNoise);
+		
+		JMenuItem rayleighNoise = new JMenuItem("Rayleigh Noise");
+		rayleighNoise.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noiseFrame.changeNoiseType(NoiseType.RAYLEIGH);
+				noiseFrame.setVisible(true);
+			}
+		});
+		noiseAddition.add(rayleighNoise);
+		
+		JMenuItem exponentialNoise = new JMenuItem("Exponential Noise");
+		exponentialNoise.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noiseFrame.changeNoiseType(NoiseType.EXPONENTIAL);
+				noiseFrame.setVisible(true);
+			}
+		});
+		noiseAddition.add(exponentialNoise);
+		
+		edit.add(noiseAddition);
 		
 		JMenuItem copy = new JMenuItem("Copy");
 		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_DOWN_MASK));
