@@ -39,6 +39,7 @@ public class MainFrame extends JFrame {
 		contentPane.setBackground(Color.black);
 
 		String initialFile="./src/main/resources/cameraman-chopped.png";
+		//String initialFile="/home/administrator/negro.png";
 		originalImagePanel = new ImageGeneralPanel("Original Image"
 												, initialFile);
 		
