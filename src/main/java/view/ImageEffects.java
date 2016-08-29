@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import masks.SquareMask;
+
 public class ImageEffects {
 	
 	private static final int BLACK = 0;
@@ -294,5 +296,25 @@ public class ImageEffects {
 			matrix[i] = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
 		}
 		return buildImage(matrix, matrix, matrix, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::linearNormalization);
+	}
+	
+	public static BufferedImage filter(BufferedImage image, SquareMask mask){
+		int width = image.getWidth();
+		int height = image.getHeight();
+		BufferedImage result = new BufferedImage(width, height, image.getType());
+		double[][] matrix = new double[width][height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				matrix[i][j] = new Color(image.getRGB(i, j)).getRed();
+			}
+		}
+		double[][] resultMatrix = mask.filterImage(matrix);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int pixelValue = (int) Math.round(resultMatrix[i][j]);
+				result.setRGB(i, j, new Color(pixelValue,pixelValue,pixelValue).getRGB());
+			}
+		}
+		return result;
 	}
 }
