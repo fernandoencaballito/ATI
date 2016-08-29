@@ -36,7 +36,8 @@ public class Noise {
 			modifiedPixels.add(currentPixel);
 			
 			int original_color = red_band[y * width + x];
-			int noise = (int) Math.round(generator.generate());
+			//int noise = (int) Math.round(generator.generate());
+			int noise = (int) generator.generate();
 			assert (noise >= 0);
 			int finalColor;
 
@@ -50,7 +51,12 @@ public class Noise {
 			red_band[y * width + x] = finalColor;
 
 		}
-		ans = ImageEffects.buildImage(red_band, red_band, red_band, width, height, original.getType(),
+		int type=original.getType();
+		if(type==BufferedImage.TYPE_BYTE_BINARY){
+			type=BufferedImage.TYPE_BYTE_GRAY;
+		}
+		
+		ans = ImageEffects.buildImage(red_band, red_band, red_band, width, height, type,
 				ImageEffects::linearNormalization);
 		return ans;
 	}

@@ -49,7 +49,7 @@ public class GaussianGenerator implements RandomNumberGenerator {
 		double y2_normal = mean_value + std_deviation * y2_std_normal;
 
 		double[] ans = { y1_normal, y2_normal };
-//		System.out.println(Arrays.toString(ans));
+		//System.out.println(Arrays.toString(ans));
 		return ans;
 	}
 
