@@ -24,7 +24,7 @@ public class MyMenuBar extends JMenuBar {
 	private JToggleButton selectArea;
 	public ThresholdFrame thresholdFrame;
 	public ColorHistogram histogramFrame;
-	public NoiseAdditionFrame noiseFrame = new NoiseAdditionFrame(NoiseType.GAUSSIAN);
+	public NoiseAdditionFrame noiseFrame ;
 	
 	public MyMenuBar(MainFrame parent){
 		this.parent = parent;
@@ -263,6 +263,7 @@ public class MyMenuBar extends JMenuBar {
 		selectArea = new JToggleButton("Select Area");
 		this.add(selectArea);
 		
+		noiseFrame = new NoiseAdditionFrame(NoiseType.GAUSSIAN, modifiedImagePanel.getImagePanel());
 	}
 	public  JToggleButton getSelectAreaItem(){
 		return selectArea;

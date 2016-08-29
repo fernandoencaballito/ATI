@@ -20,6 +20,12 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import noise.ExponentialGenerator;
+import noise.GaussianGenerator;
+import noise.Noise;
+import noise.RandomNumberGenerator;
+import noise.Rayleigh;
+
 public class NoiseAdditionFrame extends JFrame {
 	
 
@@ -34,8 +40,9 @@ public class NoiseAdditionFrame extends JFrame {
 	JPanel gaussianPanel;
 	JPanel exponentialPanel;
 	JPanel rayleighPanel;
+	private ImagePanel imagePanel;
 	
-	public NoiseAdditionFrame(NoiseType type){
+	public NoiseAdditionFrame(NoiseType type, ImagePanel imagePanel){
 		noiseType = type;
 		slider = new NoiseSlider(this);
 		this.setBounds(0, 500, 500, 120);
@@ -80,26 +87,38 @@ public class NoiseAdditionFrame extends JFrame {
 				double mediaValue = Double.valueOf(media.getText());
 				double standardDeviationValue = Double.valueOf(standardDeviation.getText());
 				double rayleighValue = Double.valueOf(rayleighParameter.getText());
+				
+				BufferedImage image=imagePanel.getImage();
+				RandomNumberGenerator generator=null;
 				switch (noiseType) {
 				case GAUSSIAN:
 					//aca llama al metodo de ruido gaussiano con los parametros porcentaje = percentage, mu: mediaValue y sigma = standardDeviationValue 
 					System.out.println("Aplicando ruido Gaussiano con porcentaje = " + percentage + " mu = " + mediaValue + " sigma = "+ standardDeviationValue);
+					generator=new GaussianGenerator(standardDeviationValue, mediaValue);
+					
+					
 					break;
 				case RAYLEIGH:
 					//aca llama al metodo de ruido de rayleigh con los parametros porcentaje = percentage, xi = rayleighValue
 					System.out.println("Aplicando ruido Rayleigh con porcentaje = " + percentage + " param = " + rayleighValue);
+					generator=new Rayleigh(rayleighValue);
 					break;
 				case EXPONENTIAL:
 					//aca llama al metodo de ruido exponencial con los parametros porcentaje = percentage, lambda = exponentialValue
 					System.out.println("Aplicando ruido Exponencial con porcentaje = " + percentage + "param = " + exponentialValue);
+					generator=new ExponentialGenerator(exponentialValue);
 					break;
 				default:
+					
 					break;
 				}
+				BufferedImage modified=Noise.generateNoise(image, percentage, generator);
+				imagePanel.setImage(modified);
 				
 			}
 		});
 		this.add(confirmButton);
+		this.imagePanel=imagePanel;
 		
 		this.setAlwaysOnTop(true);
 		this.setVisible(false);
