@@ -47,7 +47,7 @@ public class ImagePanel extends JPanel {
 	public ImagePanel(String fileName) {
 		loadImageFromFile(fileName);
 		//
-		this.image=Noise.generateNoise(image, 1.0, new GaussianGenerator(5, 150.0));
+		//this.image=Noise.generateNoise(image, 1.0, new GaussianGenerator(5, 150.0));
 		//this.image=Noise.generateNoise(image, 1.0, new Rayleigh(4));
 		//this.image=Noise.generateNoise(image, 1, new ExponentialGenerator(0.5));
 		//
