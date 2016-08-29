@@ -32,7 +32,7 @@ public class ThresholdFrame extends JFrame {
 
 		private static final long serialVersionUID = 1L;
 		static final int PIXEL_MIN = 0;
-		static final int PIXEL_MAX = 255;
+		static final int PIXEL_MAX = 256;
 		static final int PIXEL_INIT = 50;
 		ImagePanel panel;
 		BufferedImage originalImage;
