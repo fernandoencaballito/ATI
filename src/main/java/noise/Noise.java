@@ -15,6 +15,13 @@ public class Noise {
 
 	public static BufferedImage generateNoise(BufferedImage original, double image_percentage,
 			RandomNumberGenerator generator) {
+		
+		if(image_percentage>1.0){
+			throw new RuntimeException("[Noise] noise percentage must be lower than 1.0");
+		}
+		
+		
+		
 		BufferedImage ans = null;
 		Set<Point> modifiedPixels=new HashSet<Point>();
 		int height = original.getHeight();

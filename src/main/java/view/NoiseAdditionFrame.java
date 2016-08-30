@@ -79,7 +79,13 @@ public class NoiseAdditionFrame extends JFrame {
 		this.changeNoiseType(noiseType);
 		
 		JButton confirmButton = new JButton("OK");
-		confirmButton.addActionListener(new ActionListener() {
+		ActionListener listener=new ActionListener() {
+			JFrame parentFrame=null;
+			
+			private ActionListener init(JFrame parent){
+				this.parentFrame=parent;
+				return this;
+			}
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,6 +96,7 @@ public class NoiseAdditionFrame extends JFrame {
 				
 				BufferedImage image=imagePanel.getImage();
 				RandomNumberGenerator generator=null;
+				
 				switch (noiseType) {
 				case GAUSSIAN:
 					//aca llama al metodo de ruido gaussiano con los parametros porcentaje = percentage, mu: mediaValue y sigma = standardDeviationValue 
@@ -102,21 +109,31 @@ public class NoiseAdditionFrame extends JFrame {
 					//aca llama al metodo de ruido de rayleigh con los parametros porcentaje = percentage, xi = rayleighValue
 					System.out.println("Aplicando ruido Rayleigh con porcentaje = " + percentage + " param = " + rayleighValue);
 					generator=new Rayleigh(rayleighValue);
+					
+					
+					
 					break;
 				case EXPONENTIAL:
 					//aca llama al metodo de ruido exponencial con los parametros porcentaje = percentage, lambda = exponentialValue
 					System.out.println("Aplicando ruido Exponencial con porcentaje = " + percentage + "param = " + exponentialValue);
 					generator=new ExponentialGenerator(exponentialValue);
+					
 					break;
 				default:
 					
 					break;
 				}
-				BufferedImage modified=Noise.generateNoise(image, percentage, generator);
+				
+				
+				BufferedImage modified=Noise.generateNoise(image, percentage/100.0, generator);
 				imagePanel.setImage(modified);
+				imagePanel.repaint();
 				
 			}
-		});
+		}.init(this);
+		
+		
+		confirmButton.addActionListener(listener);
 		this.add(confirmButton);
 		this.imagePanel=imagePanel;
 		
@@ -126,25 +143,31 @@ public class NoiseAdditionFrame extends JFrame {
 	
 	public void changeNoiseType(NoiseType type){
 		noiseType = type;
+		String title = "";
+		
 		switch (noiseType) {
 		case GAUSSIAN:
 			exponentialPanel.setVisible(false);
 			rayleighPanel.setVisible(false);
 			gaussianPanel.setVisible(true);
+			title="Gaussian noise";
 			break;
 		case RAYLEIGH:
 			exponentialPanel.setVisible(false);
 			gaussianPanel.setVisible(false);
 			rayleighPanel.setVisible(true);
+			title="Rayleigh noise";
 			break;
 		case EXPONENTIAL:
 			gaussianPanel.setVisible(false);
 			rayleighPanel.setVisible(false);
 			exponentialPanel.setVisible(true);
+			title="Exponential noise";
 			break;
 		default:
 			break;
 		}
+		this.setTitle(title);
 	}
 	
 	
