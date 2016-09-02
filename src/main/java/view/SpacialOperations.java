@@ -16,7 +16,7 @@ public class SpacialOperations extends JMenu {
 	public SpacialOperations(ImagePanel imagePanel){
 		super("Spacial Operations");
 		filterFrame = new FilterFrame(FilterType.MEAN, imagePanel);
-		JMenuItem mediaFilter = new JMenuItem("Media Filter");
+		JMenuItem mediaFilter = new JMenuItem("Mean Filter");
 		mediaFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

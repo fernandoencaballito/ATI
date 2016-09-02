@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,6 +60,11 @@ public class FilterFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int sizeValue = Integer.valueOf(size.getText());
+				if((sizeValue%2)==0){
+					System.out.println("El tamaño de la mascara tiene que ser impar");
+					return;
+				}
+					
 				double mediaValue = Double.valueOf(media.getText());
 				double standardDeviationValue = Double.valueOf(standardDeviation.getText());
 				switch (filterType) {
