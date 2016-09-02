@@ -230,6 +230,7 @@ public class MyMenuBar extends JMenuBar {
 		options.add(colorMode);
 		this.add(options);
 		
+		this.add(new SpacialOperations(modifiedImagePanel.getImagePanel()));
 
 		JButton greyLevels = new GreyLevelsButton(originalImagePanel,parent);
 
