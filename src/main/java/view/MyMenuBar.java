@@ -6,9 +6,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 
@@ -171,6 +173,21 @@ public class MyMenuBar extends JMenuBar {
 		noiseAddition.add(saltPepperNoise);
 		
 		edit.add(noiseAddition);
+		
+		///Contraste
+		JFrame contrastPanel=new ContrastPanel(modifiedImagePanel.getImagePanel());
+		JMenuItem contrast=new JMenuItem("Contrast");
+		contrast.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				contrastPanel.setVisible(true);
+			}
+		});
+		edit.add(contrast);
+		///
+		
+		
 		
 		JMenuItem copy = new JMenuItem("Copy");
 		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_DOWN_MASK));
