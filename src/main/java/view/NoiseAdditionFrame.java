@@ -40,6 +40,7 @@ public class NoiseAdditionFrame extends JFrame {
 	JPanel gaussianPanel;
 	JPanel exponentialPanel;
 	JPanel rayleighPanel;
+	JPanel saltPepperPanel;
 	private ImagePanel imagePanel;
 	
 	public NoiseAdditionFrame(NoiseType type, ImagePanel imagePanel){
@@ -76,6 +77,12 @@ public class NoiseAdditionFrame extends JFrame {
 
 		this.add(exponentialPanel);
 		
+		
+		saltPepperPanel=new JPanel();
+		saltPepperPanel.setLayout(new FlowLayout());
+		saltPepperPanel.setVisible(false);
+		this.add(saltPepperPanel);
+		
 		this.changeNoiseType(noiseType);
 		
 		JButton confirmButton = new JButton("OK");
@@ -98,27 +105,34 @@ public class NoiseAdditionFrame extends JFrame {
 				RandomNumberGenerator generator=null;
 				
 				switch (noiseType) {
-				case GAUSSIAN:
+				case GAUSSIAN:{
 					//aca llama al metodo de ruido gaussiano con los parametros porcentaje = percentage, mu: mediaValue y sigma = standardDeviationValue 
 					System.out.println("Aplicando ruido Gaussiano con porcentaje = " + percentage + " mu = " + mediaValue + " sigma = "+ standardDeviationValue);
 					generator=new GaussianGenerator(standardDeviationValue, mediaValue);
 					
 					
-					break;
-				case RAYLEIGH:
+					break;}
+				case RAYLEIGH:{
 					//aca llama al metodo de ruido de rayleigh con los parametros porcentaje = percentage, xi = rayleighValue
 					System.out.println("Aplicando ruido Rayleigh con porcentaje = " + percentage + " param = " + rayleighValue);
 					generator=new Rayleigh(rayleighValue);
 					
 					
 					
-					break;
-				case EXPONENTIAL:
+					break;}
+				case EXPONENTIAL:{
 					//aca llama al metodo de ruido exponencial con los parametros porcentaje = percentage, lambda = exponentialValue
 					System.out.println("Aplicando ruido Exponencial con porcentaje = " + percentage + "param = " + exponentialValue);
 					generator=new ExponentialGenerator(exponentialValue);
 					
-					break;
+					break;}
+				case SALT_PEPPER:{
+					System.out.println("Aplicando ruido salt & peper con porcentaje = " + percentage);
+					BufferedImage modified=Noise.generateSaltPepper(image, percentage/100.0);
+					imagePanel.setImage(modified);
+					imagePanel.repaint();
+					return;
+				}
 				default:
 					
 					break;
@@ -149,21 +163,31 @@ public class NoiseAdditionFrame extends JFrame {
 		case GAUSSIAN:
 			exponentialPanel.setVisible(false);
 			rayleighPanel.setVisible(false);
+			saltPepperPanel.setVisible(false);
 			gaussianPanel.setVisible(true);
 			title="Gaussian noise";
 			break;
 		case RAYLEIGH:
 			exponentialPanel.setVisible(false);
 			gaussianPanel.setVisible(false);
+			saltPepperPanel.setVisible(false);
 			rayleighPanel.setVisible(true);
 			title="Rayleigh noise";
 			break;
 		case EXPONENTIAL:
 			gaussianPanel.setVisible(false);
 			rayleighPanel.setVisible(false);
+			saltPepperPanel.setVisible(false);
 			exponentialPanel.setVisible(true);
 			title="Exponential noise";
 			break;
+		case SALT_PEPPER:
+			gaussianPanel.setVisible(false);
+			rayleighPanel.setVisible(false);
+			saltPepperPanel.setVisible(true);
+			exponentialPanel.setVisible(false);
+			title="Salt & pepper noise";
+			
 		default:
 			break;
 		}
@@ -218,6 +242,7 @@ public class NoiseAdditionFrame extends JFrame {
 	public enum NoiseType {
 		GAUSSIAN,
 		RAYLEIGH,
-		EXPONENTIAL;
+		EXPONENTIAL,
+		SALT_PEPPER;
 	}
 }

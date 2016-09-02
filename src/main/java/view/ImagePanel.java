@@ -66,6 +66,11 @@ public class ImagePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				int x = e.getX();
 				int y = e.getY();
+				
+				if((x>=image.getWidth() )  ||   (y>=image.getHeight())   )
+					return;
+					
+					
 				int rgb = image.getRGB(x, y);
 				//System.out.println(image.getType());
 				Color c = new Color(rgb);
@@ -101,6 +106,9 @@ public class ImagePanel extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				int currentX=e.getX();
 				int currentY=e.getY();
+				
+				if(selectAreaItem==null)
+					return;
 				
 				if(selectAreaItem.isSelected()){
 					 imagePanel.setSelectedRectangle(new Rectangle(lastPressedX

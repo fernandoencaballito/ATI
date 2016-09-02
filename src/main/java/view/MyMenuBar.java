@@ -158,6 +158,18 @@ public class MyMenuBar extends JMenuBar {
 		});
 		noiseAddition.add(exponentialNoise);
 		
+		
+		JMenuItem saltPepperNoise=new JMenuItem("Salt & pepper noise");
+		saltPepperNoise.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noiseFrame.changeNoiseType(NoiseType.SALT_PEPPER);
+				noiseFrame.setVisible(true);
+			}
+		});
+		noiseAddition.add(saltPepperNoise);
+		
 		edit.add(noiseAddition);
 		
 		JMenuItem copy = new JMenuItem("Copy");

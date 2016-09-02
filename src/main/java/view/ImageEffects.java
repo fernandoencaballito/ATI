@@ -340,4 +340,8 @@ public class ImageEffects {
 		}
 		return matrix;
 	}
+	
+	public static int[] identityNormalization(int[] matrix){
+		return matrix;
+	}
 }
