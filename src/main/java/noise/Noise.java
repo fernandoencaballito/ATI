@@ -48,14 +48,14 @@ public class Noise {
 			
 			int original_color = red_band[y * width + x];
 			//int noise = (int) Math.round(generator.generate());
-			int noise = (int) generator.generate();
+			double noise =  generator.generate();
 			assert (noise >= 0);
 			int finalColor;
 
 			if (generator.isAdditive()) {
-				finalColor = original_color + noise;
+				finalColor =(int) Math.round(original_color + noise);
 			}else{
-				finalColor = original_color * noise;
+				finalColor =(int)Math.round( original_color * noise);
 			}
 			
 			
