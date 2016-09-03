@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-/*
-* @author Fernando Bejarano
-*/
+
 public class CustomArrayUtils {
 
 	//recibe un arragle que se corresponde con la lectura por fila de una matriz y devuelve la lectura por columna de la matriz.
@@ -17,7 +15,7 @@ public class CustomArrayUtils {
 		
 		
 		int currentRowSize=0;
-		List currentRow=null;
+		List<T> currentRow=null;
 		for(T elem:array){
 			if(currentRowSize==0){
 				currentRow=new ArrayList<T>();

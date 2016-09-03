@@ -27,7 +27,6 @@ import org.im4java.core.IMOperation;
 import magick.ImageInfo;
 import magick.MagickException;
 import magick.MagickImage;
-import org.apache.commons.lang.ArrayUtils;
 
 public class ImageUtils {
 	private static final String auxFileName = "./aux.bmp";
@@ -91,6 +90,7 @@ public class ImageUtils {
 
 	// usa dcraw, falla(dcraw no reconoce el formato, no se le puede ingresar
 	// las dimensiones)
+	@SuppressWarnings("unused")
 	private static Image convertFromRAW(String fileName, int width, int height)
 			throws IOException, InterruptedException, IM4JavaException {
 		// se convierte a bmp y se lo guarda en un archivo auxiliar

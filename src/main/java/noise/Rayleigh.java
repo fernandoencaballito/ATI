@@ -1,7 +1,5 @@
 package noise;
-/*
-* @author Fernando Bejarano
-*/
+
 public class Rayleigh implements RandomNumberGenerator{
 
 	private double xi;

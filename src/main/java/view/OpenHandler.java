@@ -12,13 +12,13 @@ import org.apache.commons.io.FilenameUtils;
 public class OpenHandler implements ActionListener {
 	private JFileChooser fc;
 	private JFrame parentFrame;
-	private OpenItem parentButton;
+//	private OpenItem parentButton;
 	private ImageGeneralPanel originalImageGeneralPanel, modifiedImageGeneralPanel;
 
 	public OpenHandler(OpenItem parentItem, ImageGeneralPanel originalImagePanel,
 			ImageGeneralPanel modifiedImagePanel,JFrame parent) {
 		fc = new JFileChooser("./src/main/resources");
-		this.parentButton = parentItem;
+//		this.parentButton = parentItem;
 		this.originalImageGeneralPanel = originalImagePanel;
 		this.modifiedImageGeneralPanel = modifiedImagePanel;
 		this.parentFrame=parent;

@@ -5,10 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-/*
-* @author Fernando Bejarano
-*/
 public class PasteMenuItem extends JMenuItem {
+
+	private static final long serialVersionUID = 1L;
 	private ImageGeneralPanel originalImagePanel;
 	private ImageGeneralPanel modifiedImagePanel;
 	

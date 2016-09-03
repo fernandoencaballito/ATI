@@ -1,16 +1,5 @@
 package noise;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
-
-import view.ImageEffects;
-import view.ImagePanel;
-
-/*
-* @author Fernando Bejarano
-*/
 public class GaussianGenerator implements RandomNumberGenerator {
 	
 	private double std_deviation, mean_value;

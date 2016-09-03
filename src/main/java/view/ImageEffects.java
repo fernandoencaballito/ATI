@@ -179,6 +179,7 @@ public class ImageEffects {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static int[] gammaFunction(int[] matrix, int pow) {
 		int[] result = new int[matrix.length];
 		int max = Integer.MIN_VALUE;

@@ -18,7 +18,7 @@ public class PixelEditionPanel extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private int window_width = 250;
 	private int window_height = 120;
-	private ColorMode mode = ColorMode.GREY;
+//	private ColorMode mode = ColorMode.GREY;
 	private JLabel x = new JLabel("0");
 	private JLabel y = new JLabel("0");
 	private int red=0, green=0, blue=0, color=0;
@@ -109,7 +109,7 @@ public class PixelEditionPanel extends JFrame{
 	}
 	
 	public void setMode(ColorMode mode){
-		this.mode = mode;
+//		this.mode = mode;
 		if(mode == ColorMode.GREY){
 			colorPixelValuePanel.setVisible(false);
 			greyPixelValuePanel.setVisible(true);

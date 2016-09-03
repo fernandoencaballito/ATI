@@ -17,10 +17,6 @@ import javax.swing.JToggleButton;
 import org.apache.commons.io.FilenameUtils;
 
 import image.ImageUtils;
-import noise.ExponentialGenerator;
-import noise.GaussianGenerator;
-import noise.Noise;
-import noise.Rayleigh;
 
 public class ImagePanel extends JPanel {
 

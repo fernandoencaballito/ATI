@@ -8,19 +8,20 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import image.Contrast;
 
 public class ContrastPanel extends JFrame{
+
+	private static final long serialVersionUID = 1L;
 	private JTextField r1TextField;
 	private JTextField r2TextField;
 	
-	private ImagePanel imagePanel;
+//	private ImagePanel imagePanel;
 	
 	public ContrastPanel(ImagePanel imagePanel){
-		this.imagePanel=imagePanel;
+//		this.imagePanel=imagePanel;
 		
 		this.setBounds(0, 500, 500, 120);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -36,11 +37,11 @@ public class ContrastPanel extends JFrame{
 		JButton confirmButton=new JButton("Ok");
 		ActionListener listener=new ActionListener() {
 			
-			JFrame parent;
+//			JFrame parent;
 			
-			public void init(JFrame parent){
-				this.parent=parent;
-			}
+//			public void init(JFrame parent){
+//				this.parent=parent;
+//			}
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int r1=Integer.valueOf(r1TextField.getText());

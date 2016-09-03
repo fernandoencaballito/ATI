@@ -7,11 +7,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/*
-* @author Fernando Bejarano
-*/
 public class GreyLevelDialog extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private static final String TITLE="Grey levels";
 	public GreyLevelDialog(ImageGeneralPanel imagePanel,BufferedImage selected, JFrame parent) {
 		super(parent,TITLE);

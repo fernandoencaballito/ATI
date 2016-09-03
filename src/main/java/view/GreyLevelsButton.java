@@ -7,11 +7,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-/*
-* @author Fernando Bejarano
-*/
 public class GreyLevelsButton extends JButton {
 
+	private static final long serialVersionUID = 1L;
 	private ImageGeneralPanel imagePanel;
 
 	public GreyLevelsButton(ImageGeneralPanel originalImagePanel, JFrame parent) {

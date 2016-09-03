@@ -8,9 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import view.ImageEffects;
 
-/*
-* @author Fernando Bejarano
-*/
 public class Noise {
 
 	 //valores para sal y pimienta

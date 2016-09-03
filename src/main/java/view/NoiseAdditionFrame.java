@@ -39,7 +39,7 @@ public class NoiseAdditionFrame extends JFrame {
 	JPanel exponentialPanel;
 	JPanel rayleighPanel;
 	JPanel saltPepperPanel;
-	private ImagePanel imagePanel;
+//	private ImagePanel imagePanel;
 	
 	public NoiseAdditionFrame(NoiseType type, ImagePanel imagePanel){
 		noiseType = type;
@@ -85,12 +85,12 @@ public class NoiseAdditionFrame extends JFrame {
 		
 		JButton confirmButton = new JButton("OK");
 		ActionListener listener=new ActionListener() {
-			JFrame parentFrame=null;
-			
-			private ActionListener init(JFrame parent){
-				this.parentFrame=parent;
-				return this;
-			}
+//			JFrame parentFrame=null;
+//			
+//			private ActionListener init(JFrame parent){
+//				this.parentFrame=parent;
+//				return this;
+//			}
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -142,12 +142,12 @@ public class NoiseAdditionFrame extends JFrame {
 				imagePanel.repaint();
 				
 			}
-		}.init(this);
+		};//.init(this);
 		
 		
 		confirmButton.addActionListener(listener);
 		this.add(confirmButton);
-		this.imagePanel=imagePanel;
+//		this.imagePanel=imagePanel;
 		
 		this.setAlwaysOnTop(true);
 		this.setVisible(false);

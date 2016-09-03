@@ -1,11 +1,9 @@
 package view;
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 

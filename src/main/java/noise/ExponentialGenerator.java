@@ -1,7 +1,5 @@
 package noise;
-/*
-* @author Fernando Bejarano
-*/
+
 public class ExponentialGenerator implements RandomNumberGenerator{
 
 	private double lambda;
