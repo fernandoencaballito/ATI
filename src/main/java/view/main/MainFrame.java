@@ -1,4 +1,4 @@
-package view;
+package view.main;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -6,8 +6,13 @@ import java.awt.HeadlessException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+
+import view.menu.MyMenuBar;
+import view.panels.ImageGeneralPanel;
+import view.panels.ImagePanel;
+import view.panels.MiddlePanel;
+import view.panels.PixelEditionPanel;
 
 public class MainFrame extends JFrame {
 
@@ -22,6 +27,7 @@ public class MainFrame extends JFrame {
 	
 	public ImageGeneralPanel originalImagePanel;
 	public ImageGeneralPanel modifiedImagePanel;
+	public MiddlePanel middlePanel;
 	public PixelEditionPanel pixelPanel;
 	
 	public MainFrame() throws HeadlessException {
@@ -45,7 +51,7 @@ public class MainFrame extends JFrame {
 
 		modifiedImagePanel = new ImageGeneralPanel("Modified Image"
 												, initialFile);
-		JPanel middlePanel = new MiddlePanel(originalImagePanel,modifiedImagePanel);
+		middlePanel = new MiddlePanel(originalImagePanel,modifiedImagePanel);
 		
 		pixelPanel = new PixelEditionPanel("Pixel Edition", this);
 		originalImagePanel.getImagePanel().setPixelPanel(pixelPanel);

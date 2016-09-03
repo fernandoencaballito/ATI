@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import view.panels.GreyLevelDialog;
+import view.panels.ImageGeneralPanel;
 
 public class GreyLevelsButton extends JButton {
 

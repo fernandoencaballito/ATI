@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import view.ImageEffects;
 
 public class ThresholdFrame extends JFrame {
 

@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import view.ColorMode;
+import view.main.MainFrame;
 
 public class PixelEditionPanel extends JFrame{
 	

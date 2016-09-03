@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import org.apache.commons.io.FilenameUtils;
+
+import view.RawDialog;
+import view.panels.ImageGeneralPanel;
 
 public class OpenHandler implements ActionListener {
 	private JFileChooser fc;

@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import view.ImageEffects;
 
 public class GreyLevelDialog extends JDialog {
 

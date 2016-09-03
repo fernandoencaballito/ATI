@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+
+import view.panels.ImageGeneralPanel;
 
 public class SaveHandler implements ActionListener {
 

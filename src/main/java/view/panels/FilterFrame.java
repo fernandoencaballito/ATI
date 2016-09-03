@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ import masks.GaussianMask;
 import masks.MeanMask;
 import masks.MedianMask;
 import masks.PasaAltosMask;
+import view.ImageEffects;
 
 public class FilterFrame extends JFrame {
 

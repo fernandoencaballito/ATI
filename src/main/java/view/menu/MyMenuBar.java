@@ -1,11 +1,10 @@
-package view;
+package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,7 +12,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 
-import view.NoiseAdditionFrame.NoiseType;
+import view.ColorHistogram;
+import view.ColorMode;
+import view.ImageEffects;
+import view.main.MainFrame;
+import view.panels.CircleAdditionPanel;
+import view.panels.ContrastPanel;
+import view.panels.ImageGeneralPanel;
+import view.panels.NoiseAdditionFrame;
+import view.panels.NoiseAdditionFrame.NoiseType;
+import view.panels.PixelEditionPanel;
+import view.panels.RectangleAdditionPanel;
+import view.panels.ThresholdFrame;
 
 public class MyMenuBar extends JMenuBar {	
 
@@ -209,27 +219,12 @@ public class MyMenuBar extends JMenuBar {
 		edit.add(undo);
 		this.add(edit);
 		
-		JMenu options = new JMenu("Options");
-		JCheckBoxMenuItem colorMode = new JCheckBoxMenuItem("Color enabled");
-		colorMode.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ColorMode color;
-				if(colorMode.isSelected()){
-					color = ColorMode.COLOR;
-				} else {
-					color = ColorMode.GREY;
-				}
-				pixelPanel.setMode(color);
-				circlePanel.setMode(color);
-				rectPanel.setMode(color);
-			}
-		});
-		options.add(colorMode);
-		this.add(options);
+		this.add(new OptionsMenu(this, parent));
+//		JMenu options = new JMenu("Options");
+//		
+//		this.add(options);
 		
-		this.add(new SpacialOperations(modifiedImagePanel.getImagePanel()));
+		this.add(new SpacialOperationsMenu(modifiedImagePanel.getImagePanel()));
 
 		JButton greyLevels = new GreyLevelsButton(originalImagePanel,parent);
 
@@ -294,8 +289,15 @@ public class MyMenuBar extends JMenuBar {
 		
 		noiseFrame = new NoiseAdditionFrame(NoiseType.GAUSSIAN, modifiedImagePanel.getImagePanel());
 	}
+	
 	public  JToggleButton getSelectAreaItem(){
 		return selectArea;
+	}
+	
+	public void changeColorMode(ColorMode mode){
+		pixelPanel.setMode(mode);
+		circlePanel.setMode(mode);
+		rectPanel.setMode(mode);
 	}
 	
 }

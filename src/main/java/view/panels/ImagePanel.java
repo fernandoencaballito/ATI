@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +17,7 @@ import javax.swing.JToggleButton;
 import org.apache.commons.io.FilenameUtils;
 
 import image.ImageUtils;
+import view.ColorMode;
 
 public class ImagePanel extends JPanel {
 

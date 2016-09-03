@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,14 +6,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import view.FilterFrame.FilterType;
+import view.panels.FilterFrame;
+import view.panels.ImagePanel;
+import view.panels.FilterFrame.FilterType;
 
-public class SpacialOperations extends JMenu {
+public class SpacialOperationsMenu extends JMenu {
 
 	private static final long serialVersionUID = 1L;
 	private FilterFrame filterFrame;
 	
-	public SpacialOperations(ImagePanel imagePanel){
+	public SpacialOperationsMenu(ImagePanel imagePanel){
 		super("Spacial Operations");
 		filterFrame = new FilterFrame(FilterType.MEAN, imagePanel);
 		JMenuItem mediaFilter = new JMenuItem("Mean Filter");

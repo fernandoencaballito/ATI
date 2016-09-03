@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

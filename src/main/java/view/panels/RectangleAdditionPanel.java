@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -14,10 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CircleAdditionPanel extends JFrame {
+import view.ColorMode;
+import view.main.MainFrame;
+
+public class RectangleAdditionPanel extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int window_width = 250;
+	private int window_width = 300;
 	private int window_height = 120;
 //	private ColorMode mode = ColorMode.GREY;
 	private JTextField x = new JTextField("0", 3);
@@ -27,16 +30,17 @@ public class CircleAdditionPanel extends JFrame {
 	JTextField g;
 	JTextField b;
 	JTextField c;
-	JTextField radius = new JTextField("0", 3);
+	JTextField width = new JTextField("0", 3);
+	JTextField height = new JTextField("0", 3);
 	private ImageGeneralPanel currentPanel;
-	private JPanel centerPanel;
-	private JPanel radiusPanel;
+	private JPanel topLeftPanel;
+	private JPanel widthHeightPanel;
 	private JPanel colorValuePanel;
 	private JPanel greyValuePanel;
 	
 	private Container contentPane;
 
-	public CircleAdditionPanel(String title, MainFrame parent){
+	public RectangleAdditionPanel(String title, MainFrame parent){
 		super(title);
 		this.setBounds(0, 0, window_width, window_height);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -46,21 +50,23 @@ public class CircleAdditionPanel extends JFrame {
 		currentPanel = parent.modifiedImagePanel;
 		this.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		centerPanel = new JPanel();
-		centerPanel.setLayout(new FlowLayout());
-		centerPanel.add(new JLabel("CENTER:  x ="));
-		centerPanel.add(x);
-		centerPanel.add(new JLabel(" y ="));
-		centerPanel.add(y);
+		topLeftPanel = new JPanel();
+		topLeftPanel.setLayout(new FlowLayout());
+		topLeftPanel.add(new JLabel("TOP LEFT CORNER:  x ="));
+		topLeftPanel.add(x);
+		topLeftPanel.add(new JLabel(" y ="));
+		topLeftPanel.add(y);
 
-		contentPane.add(centerPanel);
+		contentPane.add(topLeftPanel);
 		
-		radiusPanel = new JPanel();
-		radiusPanel.setLayout(new FlowLayout());
-		radiusPanel.add(new JLabel("RADIUS:"));
-		radiusPanel.add(radius);
+		widthHeightPanel = new JPanel();
+		widthHeightPanel.setLayout(new FlowLayout());
+		widthHeightPanel.add(new JLabel("width:"));
+		widthHeightPanel.add(width);
+		widthHeightPanel.add(new JLabel("height:"));
+		widthHeightPanel.add(height);
 
-		contentPane.add(radiusPanel);
+		contentPane.add(widthHeightPanel);
 		
 		colorValuePanel = new JPanel();
 		colorValuePanel.setLayout(new FlowLayout());
@@ -85,8 +91,7 @@ public class CircleAdditionPanel extends JFrame {
 				Color circleColor = new Color(red, green, blue);
 				Graphics g = currentPanel.getImagePanel().getImage().createGraphics();
 				g.setColor(circleColor);
-				Integer diam = Integer.valueOf(radius.getText()) * 2;
-				g.fillOval(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), diam, diam);
+				g.fillRect(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), Integer.valueOf(width.getText()), Integer.valueOf(height.getText()));
 				currentPanel.repaint();
 			}
 		});
@@ -108,8 +113,7 @@ public class CircleAdditionPanel extends JFrame {
 				Color circleColor = new Color(color, color, color);
 				Graphics g = currentPanel.getImagePanel().getImage().createGraphics();
 				g.setColor(circleColor);
-				Integer diam = Integer.valueOf(radius.getText()) * 2;
-				g.fillOval(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), diam, diam);
+				g.fillRect(Integer.valueOf(x.getText()), Integer.valueOf(y.getText()), Integer.valueOf(width.getText()), Integer.valueOf(height.getText()));
 				currentPanel.repaint();
 			}
 		});

@@ -1,10 +1,12 @@
-package view;
+package view.menu;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+
+import view.panels.ImageGeneralPanel;
 
 public class SaveItem extends JMenuItem {
 
