@@ -2,10 +2,13 @@ package view.panels;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,11 +26,10 @@ public class ThresholdFrame extends JFrame {
 	public ThresholdFrame(ImagePanel imagePanel){
 		super("Threshold");
 		this.slider = new ThresholdSlider(imagePanel);
-		this.setBounds(0, 500, 600, 120);
+		this.setBounds(0, 500, 600, 150);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.add(slider);
 		this.setAlwaysOnTop(true);
-		
 	}
 
 	class ThresholdSlider extends JPanel implements ChangeListener {
@@ -64,6 +66,16 @@ public class ThresholdFrame extends JFrame {
 			add(sliderLabel);
 			add(pixelLimitValue);
 			setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+			JButton undo = new JButton("Undo");
+			undo.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					panel.setImage(originalImage);
+					ThresholdFrame.this.setVisible(false);
+				}
+			});
+			add(undo);
 		}
 
 		public void stateChanged(ChangeEvent e) {

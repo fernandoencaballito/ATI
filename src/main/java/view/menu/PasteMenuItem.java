@@ -2,8 +2,10 @@ package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import view.panels.ImageGeneralPanel;
 
@@ -27,5 +29,6 @@ public class PasteMenuItem extends JMenuItem {
 				modifiedImagePanel.pasteSelectedArea(originalImagePanel);
 			}
 		});
+		this.setAccelerator(KeyStroke.getKeyStroke('V', KeyEvent.CTRL_DOWN_MASK));
 	}	
 }
