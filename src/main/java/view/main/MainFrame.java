@@ -51,6 +51,15 @@ public class MainFrame extends JFrame {
 
 		modifiedImagePanel = new ImageGeneralPanel("Modified Image"
 												, initialFile);
+		
+
+//		modifiedImagePanel = new ImageGeneralPanel("Modified Image"
+//												, "./src/main/resources/JackSig.bmp");
+//		
+//		BufferedImage buf=modifiedImagePanel.imagePanel.getImage();
+//		
+		
+		
 		middlePanel = new MiddlePanel(originalImagePanel,modifiedImagePanel);
 		
 		pixelPanel = new PixelEditionPanel("Pixel Edition", this);

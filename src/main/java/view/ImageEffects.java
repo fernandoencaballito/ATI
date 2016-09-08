@@ -119,7 +119,7 @@ public class ImageEffects {
 			}
 		}
 		return buildImage(red, green, blue, newWidth, newHeight, image.getType(),
-				ImageEffects::dynamicRangeCompression);
+				ImageEffects::dynamicRange);
 	}
 
 	public static BufferedImage buildImage(int[] red, int[] green, int[] blue, int width, int height, int type,
@@ -163,7 +163,7 @@ public class ImageEffects {
 		return result;
 	}
 
-	private static int[] dynamicRangeCompression(int[] matrix) {
+	private static int[] dynamicRange(int[] matrix) {
 		int[] result = new int[matrix.length];
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
@@ -179,20 +179,30 @@ public class ImageEffects {
 
 	}
 
-	@SuppressWarnings("unused")
-	private static int[] gammaFunction(int[] matrix, int pow) {
+	private static int[] gammaFunction(int[] matrix, double gamma) {
 		int[] result = new int[matrix.length];
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < matrix.length; i++) {
 			max = Math.max(max, matrix[i]);
 		}
-		double c = 255.0 / Math.pow(max, pow);
+		double c = 255.0 / Math.pow(max, gamma);
 		for (int i = 0; i < matrix.length; i++) {
-			result[i] = (int) Math.round(c * Math.pow(matrix[i], pow));
+			result[i] = (int) Math.round(c * Math.pow(matrix[i], gamma));
 		}
 		return result;
 	}
 
+	public static BufferedImage gammaFunction(BufferedImage image, double gamma){
+		int[] matrix = getBand(image, 'r');
+		int[] result = gammaFunction(matrix, gamma);
+		return buildImage(result, result, result, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::linearNormalization);
+	}
+	
+	public static BufferedImage dynamicRangeCompression(BufferedImage image){
+		int[] matrix = getBand(image, 'r');
+		return buildImage(matrix, matrix, matrix, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::dynamicRange);
+	}
+	
 	public static Color meanPixelValue(BufferedImage image) {
 		double[] accum = new double[3];
 		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());

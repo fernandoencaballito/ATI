@@ -7,7 +7,7 @@ public class GaussianMask extends SquareMask {
 		int halfSize = (size-1)/2;
 		for (int i = -halfSize; i <= halfSize; i++) {
 			for (int j = -halfSize; j <= halfSize; j++) {
-				double normalValue = (1/Math.sqrt(2*Math.PI*sigma)) * Math.exp((-i*i-j*j)/(2*sigma*sigma));
+				double normalValue = (1/(2*Math.PI*sigma*sigma)) * Math.exp((-i*i-j*j)/(sigma*sigma));
 				set(i+halfSize, j+halfSize, normalValue);
 			}
 		}

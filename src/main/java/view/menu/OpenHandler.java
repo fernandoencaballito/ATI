@@ -47,11 +47,11 @@ public class OpenHandler implements ActionListener {
 				int width=rawDialog.getInputWidth();
 				int height=rawDialog.getInputHeight();
 				
-				originalImageGeneralPanel.loadImageFromFile(fileName,width,height);
+				//originalImageGeneralPanel.loadImageFromFile(fileName,width,height);
 				modifiedImageGeneralPanel.loadImageFromFile(fileName,width,height);
 				
 			} else {
-				originalImageGeneralPanel.loadImageFromFile(fileName);
+				//originalImageGeneralPanel.loadImageFromFile(fileName);     // comentar para poder cargar dos imagenes distintas
 				//TODO descomentar esta linea!!!
 				modifiedImageGeneralPanel.loadImageFromFile(fileName);
 			}

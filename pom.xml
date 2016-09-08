@@ -74,7 +74,8 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>view.Main</mainClass>
+							
+<mainClass>view.main.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

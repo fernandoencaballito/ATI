@@ -29,9 +29,10 @@ public class MyMenuBar extends JMenuBar {
 		this.add(new SpacialOperationsMenu(modifiedImagePanel.getImagePanel()));
 		
 		this.add(new PunctualOperatorsMenu(modifiedImagePanel.getImagePanel()));
+
+		this.add(new OperationsMenu(parent));
 		
 		this.add(new GreyLevelsButton(originalImagePanel,parent));
-		
 		selectArea = new JToggleButton("Select Area");
 		this.add(selectArea);
 		
