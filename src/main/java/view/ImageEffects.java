@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import masks.SquareMask;
+import masks.FilterMask;
 
 public class ImageEffects {
 
@@ -358,7 +358,7 @@ public class ImageEffects {
 		return matrix;
 	}
 	
-	public static BufferedImage filter(BufferedImage image, SquareMask mask){
+	public static BufferedImage filter(BufferedImage image, FilterMask mask){
 		int width = image.getWidth();
 		int height = image.getHeight();
 		BufferedImage result = new BufferedImage(width, height, image.getType());
