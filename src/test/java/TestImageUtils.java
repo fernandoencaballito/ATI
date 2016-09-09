@@ -1,9 +1,12 @@
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,11 +14,6 @@ import org.junit.Test;
 
 import image.ImageUtils;
 
-import static org.junit.Assert.*;
-
-/*
-* @author Fernando Bejarano
-*/
 public class TestImageUtils {
 	@Before
 	@After

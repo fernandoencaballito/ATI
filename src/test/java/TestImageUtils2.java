@@ -1,9 +1,10 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.Files;
 
 import org.apache.commons.io.FilenameUtils;
 import org.junit.After;
@@ -13,9 +14,6 @@ import org.junit.Test;
 import image.ImageUtils;
 import junitx.framework.FileAssert;
 
-/*Se comprueba la escritura
-* @author Fernando Bejarano
-*/
 public class TestImageUtils2 {
 
 	@Before
