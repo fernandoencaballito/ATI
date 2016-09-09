@@ -162,6 +162,36 @@ public class ImageEffects {
 		}
 		return result;
 	}
+	
+	public static double[][] linearNormalization(double[][] matrix) {
+		double[][] result = new double[matrix.length][matrix[0].length];
+		double min = Double.MAX_VALUE;
+		double max = Double.MIN_VALUE;
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				min = Math.min(min, matrix[i][j]);
+				max = Math.max(max, matrix[i][j]);
+			}
+		}
+		double delta = max - min;
+		double desp = min;
+		double scale = 255.0 / (delta);
+
+		if (delta <= 255) {
+			scale = 1;
+		}
+
+		if (min >= 0 && max <= 255) {
+			desp = 0;
+		}
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				result[i][j] = scale * (matrix[i][j] - desp);				
+			}
+		}
+		return result;
+	}
 
 	private static int[] dynamicRange(int[] matrix) {
 		int[] result = new int[matrix.length];

@@ -26,19 +26,7 @@ public class XYSquareMask implements FilterMask{
 		double[][] imageX = xMask.filterImage(image);
 		double[][] imageY = yMask.filterImage(image);
 		double[][] sintesisResult = sintesis(imageX, imageY);
-		int[] normalized = new int[sintesisResult.length * sintesisResult[0].length];
-		for (int i = 0; i < sintesisResult.length; i++) {
-			for (int j = 0; j < sintesisResult[i].length; j++) {
-				normalized[j*sintesisResult.length + i] = (int) Math.round(sintesisResult[i][j]);
-			}
-		}
-		normalized = ImageEffects.linearNormalization(normalized);
-		for (int i = 0; i < sintesisResult.length; i++) {
-			for (int j = 0; j < sintesisResult[i].length; j++) {
-				sintesisResult[i][j] = normalized[j*sintesisResult.length + i];
-			}
-		}
-		return sintesisResult;
+		return ImageEffects.linearNormalization(sintesisResult);
 	}
 	
 	private double[][] sintesis(double[][] xImage, double[][] yImage){
