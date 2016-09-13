@@ -20,6 +20,8 @@ public class SquareMask implements FilterMask{
 			throw new IllegalArgumentException("x and y can´t be outsidde the matrix.");
 	}
 	
+	//x:fila??
+	//y:columna??
 	public void set(int x, int y, double value) throws IllegalArgumentException{
 		if(x>=0 && x<size && y>=0 && y<size){
 			mask[x][y] = value;
