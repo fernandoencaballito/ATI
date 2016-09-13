@@ -63,6 +63,8 @@ public class SpacialOperationsMenu extends JMenu {
 		this.add(borderFilter);
 		
 		this.add(new GradientOperatorsMenu(imagePanel));
+		this.add(new SecondDerivativeMenu(imagePanel));
+		
 		
 	}
 }

@@ -396,14 +396,21 @@ public class ImageEffects {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				matrix[i][j] = new Color(image.getRGB(i, j)).getRed();
-			}
+				
+						}
 		}
 		double[][] resultMatrix = mask.filterImage(matrix);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				int pixelValue = (int) Math.round(resultMatrix[i][j]);
+				double aux=resultMatrix[i][j];
+				try{
 				result.setRGB(i, j, new Color(pixelValue,pixelValue,pixelValue).getRGB());
-			}
+				}catch(IllegalArgumentException e){
+					System.err.println("fallo color");
+				}
+				
+				}
 		}
 		return result;
 	}

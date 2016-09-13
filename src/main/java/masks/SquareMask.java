@@ -55,6 +55,9 @@ public class SquareMask implements FilterMask{
 						}
 					}
 					newImage[i][j] = filter(values);
+					double aux=newImage[i][j];
+					if(aux<0)
+						System.out.println("error");
 				}
 			}
 		}
