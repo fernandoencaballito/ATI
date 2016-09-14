@@ -51,9 +51,19 @@ public class LaplacianMask extends SquareMask{
 		//cruces por cero
 		int[][] ceroCrossed=crossByCero(mask_applied);
 		//BufferedImage ans=crossByCero(mask_applied);
-		int[] flatArray=Arrays.stream(ceroCrossed)
-						.flatMapToInt(Arrays::stream)
-						.toArray();
+//		int[] flatArray=Arrays.stream(ceroCrossed)
+//						.flatMapToInt(Arrays::stream)
+//						.toArray();
+//		
+		int flatArray[]=new int[width*height];
+		for(int j=0;j<width;j++){
+			for(int i=0;i<height;i++){
+				int index=i*height+j;
+				flatArray[index]=ceroCrossed[j][i];
+			}
+		}
+		
+				
 		
 		BufferedImage ans=ImageEffects.buildImage(flatArray, 
 												flatArray, 
@@ -72,7 +82,7 @@ public class LaplacianMask extends SquareMask{
 		
 		
 		int[][] ans=new int[rows][cols];
-		
+		/*
 		//busca cruces por cero por fila
 		for(int row=0;row<rows;row++){
 			double previous=bandMatrix[row][0];
@@ -94,9 +104,9 @@ public class LaplacianMask extends SquareMask{
 			}
 			
 		}
-		
+		*/
 		//busca cruces por cero por columna
-		/*
+		
 		for(int col=0;col<cols;col++){
 			double previous=bandMatrix[0][col];
 			for(int row=1;row<rows;row++){
@@ -117,7 +127,7 @@ public class LaplacianMask extends SquareMask{
 			
 		}
 		
-		*/
+		
 //		return ImageEffects.buildImage(red, red, red, width, height, bandMatrix.getType(), ImageEffects::identityNormalization);
 		return ans;
 		
