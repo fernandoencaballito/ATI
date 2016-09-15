@@ -16,6 +16,9 @@ public class TestLOGmask {
 		assertEquals(0.008,mask.get(6, 6),epsilon);
 		assertEquals(0,mask.get(2, 2),epsilon);
 		
+		
+		
+
 	}
 	
 
