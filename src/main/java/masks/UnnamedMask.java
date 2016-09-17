@@ -1,18 +1,20 @@
 package masks;
 
-public class PrewittMask extends SquareMask{
+public class UnnamedMask extends SquareMask {
 
-	public PrewittMask() {
+	public UnnamedMask() {
 		super(3);
 		set(0, 0, 1);
 		set(0, 1, 1);
 		set(0, 2, 1);
-		for (int i = 0; i < 3; i++) {
-			set(1, i, 0);
-		}
+		
+		set(1, 0, 1);
+		set(1, 1, -2);
+		set(1, 2, 1);
+		
 		set(2, 0, -1);
 		set(2, 1, -1);
 		set(2, 2, -1);
 	}
-	
+
 }
