@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import masks.LOGmask;
+import masks.LaplacianInclinationMask;
 import masks.LaplacianMask;
 import view.panels.ImagePanel;
 
@@ -19,6 +20,7 @@ public class SecondDerivativeMenu extends JMenu {
 	public SecondDerivativeMenu(ImagePanel imagePanel) {
 		super("Second Deriv. op");
 
+		//laplaciano con cruce por cero cuando cambia de signo
 		JMenuItem laplacianItem = new JMenuItem("Laplacian");
 		laplacianItem.addActionListener(new ActionListener() {
 
@@ -30,7 +32,37 @@ public class SecondDerivativeMenu extends JMenu {
 			}
 		});
 		this.add(laplacianItem);
-
+		
+		//laplaciano con pendiente
+		JMenuItem laplacianInclination=new JMenuItem("Laplacian inclination");
+		this.add(laplacianInclination);
+		laplacianInclination.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 String input = (String)JOptionPane.showInputDialog(imagePanel
+				 , "Insert threshold:"
+				 , "Laplacian filter with innclination evaluation"
+				 , JOptionPane.PLAIN_MESSAGE);
+				//
+				 if(input ==null || input.length()==0)
+				 return;
+				 
+				 int threshold=0;
+				 try{
+					 threshold=Integer.valueOf(input);
+				 }catch(NumberFormatException ex){
+					 System.out.println("[SecondDerivativeMenu,log]:invalid threshold");
+					 return;
+				 }
+				LaplacianInclinationMask mask=new LaplacianInclinationMask(threshold);
+				
+				imagePanel.setImage(mask.filter(imagePanel));
+				
+			}
+		});
+		
+		//Laplaciando del gausiano
 		JMenuItem log_item = new JMenuItem("LoG");
 		log_item.addActionListener(new ActionListener() {
 
