@@ -34,10 +34,10 @@ public abstract class LaplacianGenericMask extends SquareMask {
 
 		mask_applied = filterImage(matrix);
 
-		for(double[] currentRow: mask_applied){
+		for (double[] currentRow : mask_applied) {
 			System.out.println(Arrays.toString(currentRow));
 		}
-		
+
 		///
 
 		// cruces por cero
@@ -66,27 +66,27 @@ public abstract class LaplacianGenericMask extends SquareMask {
 		int cols = bandMatrix[0].length;
 
 		int[][] ans = new int[rows][cols];
-		/*
-		 * //busca cruces por cero por fila for(int row=0;row<rows;row++){
-		 * double previous=bandMatrix[row][0];
-		 * 
-		 * for(int col=1;col<cols;col++){
-		 * 
-		 * double current=bandMatrix[row][col];
-		 * 
-		 * 
-		 * //se evalua si hubo cambio de signo if((previous>0 && current<0) ||
-		 * (previous<0 && current>0)){
-		 * 
-		 * ans[row][col]=WHITE; }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
+		int[][] byRow = new int[rows][cols];
+		int[][] byCol = new int[rows][cols];
+
+		// busca cruces por cero por fila
+		for (int row = 0; row < rows; row++) {
+			double previous = bandMatrix[row][0];
+
+			for (int col = 1; col < cols; col++) {
+
+				double current = bandMatrix[row][col];
+
+				// se evalua si hubo cambio de signo
+				if ((previous > 0 && current < 0) || (previous < 0 && current > 0)) {
+
+					byRow[row][col] = WHITE;
+				}
+
+			}
+
+		}
+
 		// busca cruces por cero por columna
 
 		for (int col = 0; col < cols; col++) {
@@ -98,7 +98,7 @@ public abstract class LaplacianGenericMask extends SquareMask {
 				// se evalua si hubo cambio de signo
 				if ((previous > 0 && current < 0) || (previous < 0 && current > 0)) {
 
-					ans[row][col] = WHITE;
+					byCol[row][col] = WHITE;
 				}
 				previous = current;
 
@@ -106,8 +106,21 @@ public abstract class LaplacianGenericMask extends SquareMask {
 
 		}
 
-		// return ImageEffects.buildImage(red, red, red, width, height,
-		// bandMatrix.getType(), ImageEffects::identityNormalization);
+		//intersección entre cruces por fila y por columna
+		
+		for(int i=0;i<rows;i++ ){
+			
+			for(int j=0;j<cols;j++){
+				
+				if(byCol[i][j]== WHITE && byRow[i][j]==WHITE){
+					ans[i][j]=WHITE;
+				}
+				
+			}
+		}
+		
+		
+		
 		return ans;
 
 	}
