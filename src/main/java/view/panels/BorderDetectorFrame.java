@@ -34,7 +34,7 @@ public class BorderDetectorFrame extends JFrame {
 	public BorderDetectorFrame(BorderDetectorType type, ImagePanel imagePanel){
 		this.imagePanel = imagePanel;
 		borderType = type;
-		this.setBounds(0, 500, 250, 120);
+		this.setBounds(0, 500, 400, 120);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));		
 		

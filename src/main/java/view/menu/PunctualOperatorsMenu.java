@@ -10,12 +10,11 @@ import javax.swing.KeyStroke;
 
 import view.ImageEffects;
 import view.panels.ImagePanel;
-import view.panels.ThresholdFrame;
 
 public class PunctualOperatorsMenu extends JMenu{
 
 	private static final long serialVersionUID = 1L;
-	public ThresholdFrame thresholdFrame;
+	
 
 	public PunctualOperatorsMenu(ImagePanel target){
 		super("Punctual Operators");
@@ -31,17 +30,8 @@ public class PunctualOperatorsMenu extends JMenu{
 		});
 		this.add(invert);
 		
-		JMenuItem umbral = new JMenuItem("Threshold");
-		umbral.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				thresholdFrame = new ThresholdFrame(target);
-				thresholdFrame.setVisible(true);
-			}
-		});
-		this.add(umbral);
 		
+		this.add(new ThresholdMenu(target));
 		
 		
 		JMenuItem equalize= new JMenuItem("Equalize");

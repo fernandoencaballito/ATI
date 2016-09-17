@@ -2,10 +2,15 @@ package view;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import masks.FilterMask;
 
@@ -407,4 +412,73 @@ public class ImageEffects {
 		}
 		return result;
 	}
+	
+	public static BufferedImage globalThreshold(BufferedImage image){
+		double T = 128.0;
+		double auxT = 0;
+		int iterations = 0;
+		while(T-auxT > 1){
+			auxT = T;
+			int whiteCount = 0;
+			int blackCount = 0;
+			double m1 = 0;
+			double m2 = 0;
+			for (int i = 0; i < image.getWidth(); i++) {
+				for (int j = 0; j < image.getHeight(); j++) {
+					int color = new Color(image.getRGB(i, j)).getRed();
+					if(color>=T){
+						m1+=color;
+						whiteCount++;
+					} else{
+						m2+=color;
+						blackCount++;
+					}
+				}
+			}
+			m1/=whiteCount;
+			m2/=blackCount;
+			T = (m1+m2)/2;
+			iterations++;
+		}
+		JOptionPane.showMessageDialog(new JFrame("Global Threshold"), "Global Threshold: " + (int)Math.round(T) + "\n Iterations: " + iterations);
+		return threshold(image, (int) Math.round(T));
+	}
+	
+	public static BufferedImage otzuThreshold(BufferedImage image){
+		Map<Integer, Double> p1 = getHistogram(image);
+		Map<Integer, Double> P1 = acumHistogram(p1);
+		double[] varianza = new double[256];
+		double[] mi = new double[256];
+		double mg = 0;
+		for (int i = 0; i < mi.length; i++) {
+			mg += i*p1.get(i);
+			mi[i] = (i==0) ? i*p1.get(i) : mi[i-1]+i*p1.get(i);
+		}
+		for(int i = 0; i < varianza.length; i++){
+			double Pi = P1.get(i);
+			varianza[i] = (Math.pow(mg*Pi-mi[i], 2))/(Pi*(1-Pi));
+		}
+		double max = Double.MIN_VALUE;
+		List<Integer> results = new ArrayList<>();
+		for(int i  = 0; i< varianza.length; i++){
+			double value = varianza[i];
+			if(value>max){
+				results.clear();
+				results.add(i);
+				max = value;
+			} else if(value == max){
+				results.add(i);
+			}
+		}
+		double threshold = 0;
+		for(Integer i : results){
+			threshold+=i;
+		}
+		threshold/=results.size();
+		
+		JOptionPane.showMessageDialog(new JFrame("Otzu Threshold"), "Otzu Threshold: " + (int)Math.round(threshold));
+		return threshold(image, (int) Math.round(threshold));
+		
+	}
+	
 }
