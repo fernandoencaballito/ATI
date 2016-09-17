@@ -397,17 +397,26 @@ public class ImageEffects {
 		int width = image.getWidth();
 		int height = image.getHeight();
 		BufferedImage result = new BufferedImage(width, height, image.getType());
-		double[][] matrix = new double[width][height];
+		double[][] redMatrix = new double[width][height];
+		double[][] greenMatrix = new double[width][height];
+		double[][] blueMatrix = new double[width][height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				matrix[i][j] = new Color(image.getRGB(i, j)).getRed();
+				Color color = new Color(image.getRGB(i, j));
+				redMatrix[i][j] = color.getRed();
+				greenMatrix[i][j] = color.getGreen();
+				blueMatrix[i][j] = color.getBlue();
 			}
 		}
-		double[][] resultMatrix = mask.filterImage(matrix);
+		double[][] resultRedMatrix = mask.filterImage(redMatrix);
+		double[][] resultGreenMatrix = mask.filterImage(greenMatrix);
+		double[][] resultBlueMatrix = mask.filterImage(blueMatrix);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				int pixelValue = (int) Math.round(resultMatrix[i][j]);
-				result.setRGB(i, j, new Color(pixelValue,pixelValue,pixelValue).getRGB());
+				int red = (int) Math.round(resultRedMatrix[i][j]);
+				int green = (int) Math.round(resultGreenMatrix[i][j]);
+				int blue = (int) Math.round(resultBlueMatrix[i][j]);
+				result.setRGB(i, j, new Color(red,green,blue).getRGB());
 			}
 		}
 		return result;
