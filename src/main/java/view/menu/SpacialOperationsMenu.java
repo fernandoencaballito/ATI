@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import view.panels.DiffusionFrame;
 import view.panels.FilterFrame;
 import view.panels.ImagePanel;
 import view.panels.FilterFrame.FilterType;
@@ -14,10 +15,12 @@ public class SpacialOperationsMenu extends JMenu {
 
 	private static final long serialVersionUID = 1L;
 	private FilterFrame filterFrame;
+	private DiffusionFrame diffusionFrame;
 	
 	public SpacialOperationsMenu(ImagePanel imagePanel){
 		super("Spacial Operations");
 		filterFrame = new FilterFrame(FilterType.MEAN, imagePanel);
+		diffusionFrame = new DiffusionFrame(imagePanel);
 		JMenuItem mediaFilter = new JMenuItem("Mean Filter");
 		mediaFilter.addActionListener(new ActionListener() {
 			@Override
@@ -63,6 +66,16 @@ public class SpacialOperationsMenu extends JMenu {
 		this.add(borderFilter);
 		
 		this.add(new GradientOperatorsMenu(imagePanel));
+		
+		JMenuItem diffusion = new JMenuItem("Diffusion");
+		diffusion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				diffusionFrame.setImagePanel(imagePanel);
+				diffusionFrame.setVisible(true);
+			}
+		});
+		this.add(diffusion);
 		
 	}
 }

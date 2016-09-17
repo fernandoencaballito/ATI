@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import detectors.Detector;
 import masks.FilterMask;
 
 public class ImageEffects {
@@ -486,8 +487,58 @@ public class ImageEffects {
 		threshold/=results.size();
 		
 		JOptionPane.showMessageDialog(new JFrame("Otzu Threshold"), "Otzu Threshold: " + (int)Math.round(threshold));
-		return threshold(image, (int) Math.round(threshold));
-		
+		return threshold(image, (int) Math.round(threshold));	
 	}
 	
+	public static BufferedImage ansotropicDiffusion(BufferedImage image, int T, double sigma, Detector detector, Boolean isIsotropic){
+		int width = image.getWidth();
+		int height = image.getHeight();
+		double lambda = 0.25;
+		BufferedImage result = new BufferedImage(width, height, image.getType());
+		double[][] matrix = new double[width][height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				Color color = new Color(image.getRGB(i, j));
+				matrix[i][j] = color.getRed();
+			}
+		}
+		double[][] aux = new double[width][height];
+		for(int t = 0; t<T; t++){
+			for (int i = 0; i < width; i++) {
+				for (int j = 0; j < height; j++) {
+					aux[i][j] = matrix[i][j];
+				}
+			}
+			for (int i = 1; i < width-1; i++) {
+				for (int j = 1; j < height-1; j++) {
+					double DN = aux[i+1][j] - aux[i][j];
+					double DS = aux[i-1][j] - aux[i][j];
+					double DE = aux[i][j+1] - aux[i][j];
+					double DO = aux[i][j-1] - aux[i][j];
+					
+					double cn;
+					double cs;
+					double ce;
+					double co;
+					if(isIsotropic){
+						cn = cs = ce = co = 1.0;
+					} else{
+						cn = detector.g(DN*aux[i][j], sigma);
+						cs = detector.g(DS*aux[i][j], sigma);
+						ce = detector.g(DE*aux[i][j], sigma);
+						co = detector.g(DO*aux[i][j], sigma);
+					}
+					matrix[i][j] = aux[i][j] + lambda*(cn*DN+cs*DS+ce*DE+co*DO);
+				}
+			}
+		}
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int color = (int) Math.round(matrix[i][j]);
+				result.setRGB(i, j, new Color(color,color,color).getRGB());
+			}
+		}
+		System.out.println("DONE");
+		return result;
+	}
 }
