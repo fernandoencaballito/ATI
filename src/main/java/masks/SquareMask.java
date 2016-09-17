@@ -1,5 +1,7 @@
 package masks;
 
+import java.util.Arrays;
+
 public class SquareMask implements FilterMask{
 	protected double[][] mask;
 	protected int size = 0;
@@ -63,5 +65,15 @@ public class SquareMask implements FilterMask{
 		return newImage;
 	}
 	
+	public String toString(){
+		StringBuffer buffer=new StringBuffer();
+		buffer.append("Mask values:\n");
+		for(double[] currentLine:mask){
+			buffer.append(Arrays.toString(currentLine));
+			buffer.append("\n");
+		}
+		return buffer.toString();
+			
+	}
 	
 }

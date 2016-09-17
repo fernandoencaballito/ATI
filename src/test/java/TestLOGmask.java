@@ -21,5 +21,18 @@ public class TestLOGmask {
 
 	}
 	
+	@Test
+	public void test2(){
+		LOGmask mask=new LOGmask(7, 1);
+//		System.out.println(mask);
+		
+	}
+	@Test
+	public void test3(){
+		LOGmask mask=new LOGmask(9, 1.4);
+		System.out.println(mask);
+		
+	}
+	
 
 }

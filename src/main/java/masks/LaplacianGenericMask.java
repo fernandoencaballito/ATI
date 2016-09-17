@@ -11,7 +11,7 @@ import view.panels.ImagePanel;
 */
 public abstract class LaplacianGenericMask extends SquareMask {
 	public static final int WHITE = 255;
-
+	public static final double DELTA=0.1;
 	public LaplacianGenericMask(int size) {
 		super(size);
 
@@ -31,29 +31,32 @@ public abstract class LaplacianGenericMask extends SquareMask {
 		double[][] matrix = ImageEffects.getBandMatrix(original, 'r');// SOLO
 																		// BANDA
 																		// ROJA
-
-		mask_applied = filterImage(matrix);
-
-		for (double[] currentRow : mask_applied) {
-			System.out.println(Arrays.toString(currentRow));
+		double [][] aux=new double [height][width];
+		for (int j = 0; j < width; j++) {
+			for (int i = 0; i < height; i++) {
+				
+				aux[i][j] =matrix[j][i];
+			}
 		}
+		
+		mask_applied = filterImage(aux);
 
-		///
+
+		
 
 		// cruces por cero
 		int[][] ceroCrossed = crossByCero(mask_applied);
-		// BufferedImage ans=crossByCero(mask_applied);
-		// int[] flatArray=Arrays.stream(ceroCrossed)
-		// .flatMapToInt(Arrays::stream)
-		// .toArray();
-		//
-		int flatArray[] = new int[width * height];
-		for (int j = 0; j < width; j++) {
-			for (int i = 0; i < height; i++) {
-				int index = i * height + j;
-				flatArray[index] = ceroCrossed[j][i];
-			}
-		}
+		 int[] flatArray=Arrays.stream(ceroCrossed)
+		 .flatMapToInt(Arrays::stream)
+		 .toArray();
+		
+//		int flatArray[] = new int[width * height];
+//		for (int j = 0; j < width; j++) {
+//			for (int i = 0; i < height; i++) {
+//				int index = i * height + j;
+//				flatArray[index] = ceroCrossed[j][i];
+//			}
+//		}
 
 		BufferedImage ans = ImageEffects.buildImage(flatArray, flatArray, flatArray, width, height, original.getType(),
 				ImageEffects::identityNormalization);
@@ -61,7 +64,7 @@ public abstract class LaplacianGenericMask extends SquareMask {
 		return ans;
 	}
 
-	private int[][] crossByCero(double[][] bandMatrix) {
+	protected int[][] crossByCero(double[][] bandMatrix) {
 		int rows = bandMatrix.length;
 		int cols = bandMatrix[0].length;
 
@@ -82,7 +85,8 @@ public abstract class LaplacianGenericMask extends SquareMask {
 
 					byRow[row][col] = WHITE;
 				}
-
+				if(!(current>=-DELTA  && current<=DELTA))
+					previous = current;
 			}
 
 		}
@@ -100,19 +104,21 @@ public abstract class LaplacianGenericMask extends SquareMask {
 
 					byCol[row][col] = WHITE;
 				}
-				previous = current;
+				
+				if(!(current>=-DELTA  && current<=DELTA))
+					previous = current;
 
 			}
 
 		}
 
-		//intersección entre cruces por fila y por columna
+		//union entre cruces por fila y por columna
 		
 		for(int i=0;i<rows;i++ ){
 			
 			for(int j=0;j<cols;j++){
 				
-				if(byCol[i][j]== WHITE && byRow[i][j]==WHITE){
+				if(byCol[i][j]== WHITE ||  byRow[i][j]==WHITE){
 					ans[i][j]=WHITE;
 				}
 				

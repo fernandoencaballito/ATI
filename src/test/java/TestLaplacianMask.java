@@ -39,5 +39,7 @@ public class TestLaplacianMask {
 		LaplacianMask mask=new LaplacianMask();
 		BufferedImage result=mask.filter(original);
 	}
+	
 
+	
 }
