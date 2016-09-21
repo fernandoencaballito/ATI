@@ -1,5 +1,7 @@
 package masks;
 
+import java.util.Arrays;
+
 public class SquareMask implements FilterMask{
 	protected double[][] mask;
 	protected int size = 0;
@@ -20,6 +22,8 @@ public class SquareMask implements FilterMask{
 			throw new IllegalArgumentException("x and y can´t be outsidde the matrix.");
 	}
 	
+	//x:fila??
+	//y:columna??
 	public void set(int x, int y, double value) throws IllegalArgumentException{
 		if(x>=0 && x<size && y>=0 && y<size){
 			mask[x][y] = value;
@@ -53,11 +57,23 @@ public class SquareMask implements FilterMask{
 						}
 					}
 					newImage[i][j] = filter(values);
+					double aux=newImage[i][j];
+					
 				}
 			}
 		}
 		return newImage;
 	}
 	
+	public String toString(){
+		StringBuffer buffer=new StringBuffer();
+		buffer.append("Mask values:\n");
+		for(double[] currentLine:mask){
+			buffer.append(Arrays.toString(currentLine));
+			buffer.append("\n");
+		}
+		return buffer.toString();
+			
+	}
 	
 }

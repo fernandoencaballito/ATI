@@ -124,8 +124,7 @@ public class ImageEffects {
 				blue[j * newWidth + i] = pixelColor.getBlue() * scalar;
 			}
 		}
-		return buildImage(red, green, blue, newWidth, newHeight, image.getType(),
-				ImageEffects::dynamicRange);
+		return buildImage(red, green, blue, newWidth, newHeight, image.getType(), ImageEffects::dynamicRange);
 	}
 
 	public static BufferedImage buildImage(int[] red, int[] green, int[] blue, int width, int height, int type,
@@ -168,7 +167,7 @@ public class ImageEffects {
 		}
 		return result;
 	}
-	
+
 	public static double[][] linearNormalization(double[][] matrix) {
 		double[][] result = new double[matrix.length][matrix[0].length];
 		double min = Double.MAX_VALUE;
@@ -193,7 +192,7 @@ public class ImageEffects {
 
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
-				result[i][j] = scale * (matrix[i][j] - desp);				
+				result[i][j] = scale * (matrix[i][j] - desp);
 			}
 		}
 		return result;
@@ -228,17 +227,19 @@ public class ImageEffects {
 		return result;
 	}
 
-	public static BufferedImage gammaFunction(BufferedImage image, double gamma){
+	public static BufferedImage gammaFunction(BufferedImage image, double gamma) {
 		int[] matrix = getBand(image, 'r');
 		int[] result = gammaFunction(matrix, gamma);
-		return buildImage(result, result, result, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::linearNormalization);
+		return buildImage(result, result, result, image.getWidth(), image.getHeight(), image.getType(),
+				ImageEffects::linearNormalization);
 	}
-	
-	public static BufferedImage dynamicRangeCompression(BufferedImage image){
+
+	public static BufferedImage dynamicRangeCompression(BufferedImage image) {
 		int[] matrix = getBand(image, 'r');
-		return buildImage(matrix, matrix, matrix, image.getWidth(), image.getHeight(), image.getType(), ImageEffects::dynamicRange);
+		return buildImage(matrix, matrix, matrix, image.getWidth(), image.getHeight(), image.getType(),
+				ImageEffects::dynamicRange);
 	}
-	
+
 	public static Color meanPixelValue(BufferedImage image) {
 		double[] accum = new double[3];
 		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
@@ -352,49 +353,48 @@ public class ImageEffects {
 		int width = img.getWidth();
 		int height = img.getHeight();
 		int[] band_arr = new int[width * height];
-		int current=0;
+		int current = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				
-				Color color=new Color(img.getRGB(x, y));
-				
+
+				Color color = new Color(img.getRGB(x, y));
+
 				switch (channel) {
 				case 'r': {
-					current=color.getRed();
+					current = color.getRed();
 					break;
 
 				}
 				case 'g': {
-					current=color.getGreen();
+					current = color.getGreen();
 					break;
 				}
 				case 'b': {
-					current=color.getBlue();
+					current = color.getBlue();
 					break;
 				}
 				}
 
-				
-				band_arr[y * width + x]=current;
+				band_arr[y * width + x] = current;
 			}
 		}
 
 		return band_arr;
 	}
-	
-	public static int[] moduloNormalization(int[] matrix){
-		for(int i=0;i<matrix.length;i++){
-			int value=matrix[i];
-			matrix[i]=value%255;
+
+	public static int[] moduloNormalization(int[] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			int value = matrix[i];
+			matrix[i] = value % 255;
 		}
 		return matrix;
 	}
-	
-	public static int[] identityNormalization(int[] matrix){
+
+	public static int[] identityNormalization(int[] matrix) {
 		return matrix;
 	}
-	
-	public static BufferedImage filter(BufferedImage image, FilterMask mask){
+
+	public static BufferedImage filter(BufferedImage image, FilterMask mask) {
 		int width = image.getWidth();
 		int height = image.getHeight();
 		BufferedImage result = new BufferedImage(width, height, image.getType());
@@ -540,5 +540,45 @@ public class ImageEffects {
 		}
 		System.out.println("DONE");
 		return result;
+	}
+
+	public static double[][] getBandMatrix(BufferedImage image, char band) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+		BufferedImage result = new BufferedImage(width, height, image.getType());
+		double[][] matrix = new double[width][height];
+		double currentValue=-1;
+		Color currentColor;
+		
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				currentColor=new Color(image.getRGB(i, j));
+				
+				switch (band) {
+				case 'r':{
+					currentValue=currentColor.getRed();
+					break;
+				}
+				case 'g':{
+					currentValue=currentColor.getGreen();
+					break;
+					
+				}
+				case 'b':{
+					currentValue=currentColor.getBlue();
+					break;
+				}
+				
+				default:
+					
+					System.out.println("[ImageEffects,getBandMatrix]: invalid band");
+				}
+				matrix[i][j] = currentValue;
+
+			}
+		}
+
+		return matrix;
+
 	}
 }
