@@ -132,7 +132,9 @@ Cameraman
 b) Laplaciano con pendiente
 
 Cameraman:
-* original: segun el umbral, muy pocos 
+* original sin ruido : segun el umbral, muy pocos bordes falsos.
+
+
 
 
 
