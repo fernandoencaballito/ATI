@@ -177,4 +177,4 @@ Isotropica se ve borroso y se agrandan los bordes.
 ##### 9)Umbralizacion global y Otsu.
 * Cameraman original, Lena original: se ven iguales 
 * Lena sal y pimienta: un poco mejor con Otsu.Se ve un poco mas claro en Otsu.
-* Lena ruido gauss: mejor en Otsu, mas detalles.
+* Cameraman ruido gauss:
