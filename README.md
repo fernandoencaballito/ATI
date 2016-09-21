@@ -58,4 +58,10 @@ Box.createHorizontalBox()//caja horizontal
  La mediana quita el ruido siempre que se use mascara tamaño mayor o igual a 5.
  La media no quita este ruido, quedan manchones y se ve borroso.
 
+###TP2
+
+#### 2) Detectores de borde para imagenes con ruido
+ * Sal y pimienta: con sobel y con prewitt deja circulitos por todos lados. No sirve.
+ * Gaussiano: bastante mejor, no se notan tanto los manchones, pero aunque umbralicemos se siguen viendo.
+ 
  
