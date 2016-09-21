@@ -1,22 +1,76 @@
 package masks;
 
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+
+import view.ImageEffects;
+import view.panels.CrossByCeroFrame;
+import view.panels.ImagePanel;
+
 /*
 * @author Fernando Bejarano
 */
 public class LaplacianInclinationMask extends LaplacianMask {
 	int threshold;
+	ImagePanel imagePanel;
 
 	public LaplacianInclinationMask(int threshold) {
 		super();
 		this.threshold=threshold;
 	}
 	
-	@Override
-	protected int[][] crossByCero(double[][] bandMatrix) {
+	public void semiFilter(ImagePanel imagePanel) {
+		this.imagePanel = imagePanel;
+		this.semiFilter(imagePanel.getImage());
+	}
+	
+	public void semiFilter(BufferedImage original) {
+		double[][] mask_applied;
+
+		/// aplica mascara
+		int width = original.getWidth();
+		int height = original.getHeight();
+		BufferedImage result = new BufferedImage(width, height, original.getType());
+		double[][] matrix = ImageEffects.getBandMatrix(original, 'r');// SOLO
+																		// BANDA
+																		// ROJA
+		double [][] aux=new double [height][width];
+		for (int j = 0; j < width; j++) {
+			for (int i = 0; i < height; i++) {
+				
+				aux[i][j] =matrix[j][i];
+			}
+		}
+		
+		mask_applied = filterImage(aux);
+
+		crossByCeros(mask_applied);
+		
+		// cruces por cero
+		//crossByCeros(mask_applied);
+//		 int[] flatArray=Arrays.stream(ceroCrossed)
+//		 .flatMapToInt(Arrays::stream)
+//		 .toArray();
+		
+//		int flatArray[] = new int[width * height];
+//		for (int j = 0; j < width; j++) {
+//			for (int i = 0; i < height; i++) {
+//				int index = i * height + j;
+//				flatArray[index] = ceroCrossed[j][i];
+//			}
+//		}
+
+//		BufferedImage ans = ImageEffects.buildImage(flatArray, flatArray, flatArray, width, height, original.getType(),
+//				ImageEffects::identityNormalization);
+//
+//		return ans;
+	}
+	
+	
+	protected void crossByCeros(double[][] bandMatrix) {
 		int rows = bandMatrix.length;
 		int cols = bandMatrix[0].length;
 
-		int[][] ans = new int[rows][cols];
 		double[][] byRowSums = new double[rows][cols];
 		double[][] byColSums = new double[rows][cols];
 
@@ -59,20 +113,32 @@ public class LaplacianInclinationMask extends LaplacianMask {
 			}
 
 		}
+		
+		double max = Double.MIN_VALUE; 
+		double min = Double.MAX_VALUE;
+		for (int i = 0; i < byRowSums.length; i++) {
+			for (int j = 0; j < byRowSums[i].length; j++) {
+				max = Math.max(Math.max(max, byRowSums[i][j]), byColSums[i][j]);
+				min = Math.min(Math.min(min, byRowSums[i][j]), byColSums[i][j]);
+			}
+		}
+
+		CrossByCeroFrame frame = new CrossByCeroFrame(imagePanel, byRowSums, byColSums, min, max);
+		frame.setVisible(true);
 
 		// umbralización
 
 		//se necesita el umbral!!!
-		int currentTheshold=0;
+		//int currentTheshold=0;
 		
 
-		return threshold(currentTheshold, byRowSums, byColSums);
+		//return threshold(currentTheshold, byRowSums, byColSums);
 
 	}
 	
 	
-public static int[][] threshold(int threshold, double[][] byRowSums ,
-							double[][] byColSums ){
+public static BufferedImage threshold(int threshold, double[][] byRowSums ,
+							double[][] byColSums, BufferedImage image){
 	
 	int rows=byRowSums.length;
 	int cols=byRowSums[0].length;
@@ -114,7 +180,13 @@ public static int[][] threshold(int threshold, double[][] byRowSums ,
 		}
 	}
 
-	return ans;
+	int[] flatArray=Arrays.stream(ans)
+			 .flatMapToInt(Arrays::stream)
+			 .toArray();
+	
+	return ImageEffects.buildImage(flatArray, flatArray, flatArray, image.getWidth(), image.getHeight(), image.getType(),
+			ImageEffects::identityNormalization);
+	
 
 	
 }
