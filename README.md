@@ -61,7 +61,81 @@ Box.createHorizontalBox()//caja horizontal
 ###TP2
 
 #### 2) Detectores de borde para imagenes con ruido
- * Sal y pimienta: con sobel y con prewitt deja circulitos por todos lados. No sirve.
- * Gaussiano: bastante mejor, no se notan tanto los manchones, pero aunque umbralicemos se siguen viendo.
+ * Sal y pimienta: con sobel y con prewitt deja circulitos por todos lados. No sirve, anda pesimo.
+ * Gaussiano: bastante mejor, no se notan tanto los manchones, pero aunque umbralicemos se siguen viendo.Esta pasable
+ * Raleigh: sobel y prewit tienen circulos. Igual los bordes estan bien. Esta pasable.
+ 
+#### 3) Prewit y sobel a color( sin ruido)
+Marca bien los bordes. Los detecta mejor cuando hay mucho contraste entre el borde y el fondo.
+Marca un borde por banda en nuestra implementación.
+
+#### 4) Eliminar primero el ruido en las imagenes del punto anterior con los filtros de la media,mediana, Gaussiano y luego aplicar los detectores de borde.
+ [Se usa mascara Prewit, y tambien la de Sobel en todos los casos]
+ 
+ Arregla imagen con la filtro de la media.
+ Imagen con ruido:
+ * Salt & peper:quedan mucho mas gruesos los bordes y quedan manchones
+ * Gausiano: quedan mas gruesos los bordes.
+ * Rayleigh: muchos bordes falsos. Da cualquier cosa. 
+ 
+ Arregla imagen con filto de la mediana
+ * Salt and peper: se detecta casi perfecto los bordes. Aparecen muy poco circulos. Algunos bordes falsos los borra.
+ * Gausiano: aparecen falsas arrugas en toda la imagen (parece un mapa topografico). Un poco peor la definicion de bordes. 
+ * Rayleigh: bordes gruesos, bordes los vibran en formas extrañas.
  
  
+ Arregla imagen con filtro gausiano (deja muchos manchones)
+ *Salta and peper: quedan muchos bordes falsos.Bordes un poco mas grusos.
+ *ruido gauss: aparecen arrugas. Destaca bordes secundarios.
+ *Rayleigh:obtiene bordes de todo, incluye bordes de cosas borrosas en la imagen original 
+ 
+ 
+ 
+#### 5)
+a)Mascara sin nombre
+Imagen de Lena| cameraman: 
+	* Ruido Sal y pimienta: detacta mas o menos los bordes. Aparecen los circulos.| muy marcados los puntos de ruido.
+	* Ruido gauss: detecta bordes, aunque queda ciertos puntos por el ruido.|se siguen viendo los puntos del ruido pero apenas
+	
+b) Mascara Kirsh | cameraman.
+Imagen de Lena:
+	* Ruido Sal y pimienta: quedan los puntos del ruido.| b
+	* Ruido gauss: quedan un poco los puntos del ruido, los bordes estan bien.|
+	
+c) Mascara Prewitt | cameraman.
+En general, deja la imagen mas oscura (incluso sin ruido)
+Imagen de Lena | cameraman:
+	* Ruido Sal y pimienta: quedan los puntos del ruido |
+	* Ruido gauss:  aparecen bordes falsos (como "pelos" sobre la superficie) | 
+
+
+
+d) Mascara Sobel | cameraman.
+En general, deja la imagen mas oscura (incluso sin ruido)
+Imagen de Lena:
+	* Ruido Sal y pimienta: quedan los puntos del ruido. |
+	* Ruido gauss:  aparecen bordes falsos (como "pelos" sobre la superficie) | 
+	
+	
+#### 6) 
+a) Laplaciano con cruces por cero
+Lena
+* sin ruido: muchos bordes falsos.
+* ruido sal y pimienta: no se ven los bordes. Parece una imagen aleatoria.
+* ruido gauss: muchos bordes falsos. Se distinguen poco los bordes verdaderos.
+
+Cameraman
+* original: mucho borde falsos, algo se ve.
+* ruido sal y pimienta: se ve peor.
+* gausiano: se ve peor que sal y pimienta. Peor que la original.No se ve casi nada.
+
+b) Laplaciano con pendiente
+
+Cameraman:
+* original: segun el umbral, muy pocos 
+
+
+
+	
+	
+	

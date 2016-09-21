@@ -62,41 +62,61 @@ public class LaplacianInclinationMask extends LaplacianMask {
 
 		// umbralización
 
-		int[][] byRow = new int[rows][cols];
-		int[][] byCol = new int[rows][cols];
+		//se necesita el umbral!!!
+		int currentTheshold=0;
+		
 
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-
-				if (byRowSums[i][j] > threshold)
-					byRow[i][j] = WHITE;
-
-			}
-		}
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-
-				if (byColSums[i][j] > threshold)
-					byCol[i][j] = WHITE;
-
-			}
-		}
-
-		// union entre cruces por fila y por columna
-
-		for (int i = 0; i < rows; i++) {
-
-			for (int j = 0; j < cols; j++) {
-
-				if (byCol[i][j] == WHITE || byRow[i][j] == WHITE) {
-					ans[i][j] = WHITE;
-				}
-
-			}
-		}
-
-		return ans;
+		return threshold(currentTheshold, byRowSums, byColSums);
 
 	}
+	
+	
+public static int[][] threshold(int threshold, double[][] byRowSums ,
+							double[][] byColSums ){
+	
+	int rows=byRowSums.length;
+	int cols=byRowSums[0].length;
+	
+	int[][] ans = new int[rows][cols];
+	int[][] byRow = new int[rows][cols];
+	int[][] byCol = new int[rows][cols];
+
+	// umbralización
+
+	
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+
+			if (byRowSums[i][j] > threshold)
+				byRow[i][j] = WHITE;
+
+		}
+	}
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+
+			if (byColSums[i][j] > threshold)
+				byCol[i][j] = WHITE;
+
+		}
+	}
+
+	// union entre cruces por fila y por columna
+
+	for (int i = 0; i < rows; i++) {
+
+		for (int j = 0; j < cols; j++) {
+
+			if (byCol[i][j] == WHITE || byRow[i][j] == WHITE) {
+				ans[i][j] = WHITE;
+			}
+
+		}
+	}
+
+	return ans;
+
+	
+}
 
 }
