@@ -114,7 +114,7 @@ public class DiffusionFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int tValue = Integer.valueOf(t.getText());
-				int sigmaValue = Integer.valueOf(sigma.getText());
+				double sigmaValue = Double.valueOf(sigma.getText());
 					
 				Detector detector = lorentziano.isSelected() ? new Lorentziano() : new Leclerc();
 				Boolean isIsotropic = DiffusionFrame.this.isotropic.isSelected();
