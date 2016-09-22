@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import view.ImageEffects;
 import view.main.MainFrame;
@@ -81,7 +82,13 @@ public class OperationsMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BufferedImage image2 = modifiedImagePanel.getImagePanel().getImage();
-				modifiedImagePanel.getImagePanel().setImage(ImageEffects.gammaFunction(image2, 0.5));
+				 String input = (String)JOptionPane.showInputDialog(parent
+						 , "Insert gamma value:"
+						 , "Gamma power function"
+						 , JOptionPane.PLAIN_MESSAGE);
+		
+				double gamma=Double.valueOf(input);
+				modifiedImagePanel.getImagePanel().setImage(ImageEffects.gammaFunction(image2, gamma));
 			}
 		});
 		this.add(gammaFunction);
