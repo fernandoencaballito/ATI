@@ -18,8 +18,6 @@ public class DirectionalSquareMask implements FilterMask{
 		}
 	}
 
-
-
 	private SquareMask getDirectionMask(SquareMask mask, Direction dir) {
 		SquareMask result = new SquareMask(mask.size);
 		switch (dir) {
@@ -60,15 +58,18 @@ public class DirectionalSquareMask implements FilterMask{
 		}
 		return result;
 	}
-
-
-
-	public double[][] filterImage(double[][] image){
+	
+	public List<double[][]> getFilteredImages(double[][] image){
 		List<double[][]> images = new ArrayList<>();
 		for (SquareMask mask : masks) {
 			images.add(mask.filterImage(image));
 		}
-		double[][] sintesisResult = sintesis(images);
+		return images;
+	}
+
+	public double[][] filterImage(double[][] image){
+		
+		double[][] sintesisResult = sintesis(getFilteredImages(image));
 		return ImageEffects.linearNormalization(sintesisResult);
 	}
 	
@@ -102,7 +103,6 @@ public class DirectionalSquareMask implements FilterMask{
 		}
 		return null;
 	}
-
 
 	@Override
 	public double filter(double[] values) {
