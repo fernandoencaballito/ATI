@@ -13,7 +13,7 @@ import masks.SquareMask;
 import view.panels.ImagePanel;
 import view.panels.InterestPointsThresholdFrame;
 
-public class InterestPoint {
+public class InterestPoints {
 
 	public static void harris(ImagePanel imagePanel, SquareMask referenceMask, int size, double sigma, BufferedImage image){		//pedimos despues el porcentaje para umbralizar
 		int width = image.getWidth();

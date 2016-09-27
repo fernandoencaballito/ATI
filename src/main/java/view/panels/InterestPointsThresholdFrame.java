@@ -16,7 +16,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import interestPoints.InterestPoint;
+import interestPoints.InterestPoints;
 
 public class InterestPointsThresholdFrame extends JFrame {
 
@@ -88,7 +88,7 @@ public class InterestPointsThresholdFrame extends JFrame {
 			JSlider source = (JSlider) e.getSource();
 			if (!source.getValueIsAdjusting()) {
 				int percentageValue = (int) source.getValue();
-				panel.setImage(InterestPoint.threshold(percentageValue, redCim, originalBufferedImage));//, greenCim, blueCim, originalBufferedImage));
+				panel.setImage(InterestPoints.threshold(percentageValue, redCim, originalBufferedImage));//, greenCim, blueCim, originalBufferedImage));
 			}
 		}
 	}

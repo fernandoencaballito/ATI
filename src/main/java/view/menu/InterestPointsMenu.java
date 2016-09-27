@@ -6,15 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import interestPoints.InterestPoint;
-import masks.KirshMask;
-import masks.PrewittMask;
-import masks.SobelMask;
 import view.panels.ImagePanel;
+import view.panels.InterestPointsParametersFrame;
 
 public class InterestPointsMenu extends JMenu {
 
 	private static final long serialVersionUID = 1L;
+	InterestPointsParametersFrame frame;
 	
 	public InterestPointsMenu(ImagePanel target){
 		super("Interest Points");
@@ -24,7 +22,8 @@ public class InterestPointsMenu extends JMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InterestPoint.harris(target, new PrewittMask(), 7, 2, target.getImage());
+				frame = new InterestPointsParametersFrame(target);
+				frame.setVisible(true);
 			}
 		});
 		this.add(harris);
