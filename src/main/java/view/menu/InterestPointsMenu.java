@@ -7,6 +7,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import interestPoints.InterestPoint;
+import masks.KirshMask;
+import masks.PrewittMask;
 import masks.SobelMask;
 import view.panels.ImagePanel;
 
@@ -22,7 +24,7 @@ public class InterestPointsMenu extends JMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InterestPoint.harris(target, new SobelMask(), 7, 2, target.getImage());
+				InterestPoint.harris(target, new PrewittMask(), 7, 2, target.getImage());
 			}
 		});
 		this.add(harris);

@@ -6,9 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.xerces.dom.DeepNodeListImpl;
-
-import image.ImageUtils;
 import masks.Direction;
 import masks.DirectionalSquareMask;
 import masks.GaussianMask;
@@ -104,11 +101,12 @@ public class InterestPoint {
 	public static BufferedImage threshold(int percentage, double[][] redCim, BufferedImage image){
 		int width = image.getWidth();
 		int height = image.getHeight();
-		BufferedImage result = ImagePanel.deepCopy(image);
+		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		double max = Double.MIN_VALUE;
 		double min = Double.MAX_VALUE;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
+				result.setRGB(i, j, image.getRGB(i, j));
 				max = Math.max(max, redCim[i][j]);
 				min = Math.min(min, redCim[i][j]);
 			}
@@ -122,10 +120,10 @@ public class InterestPoint {
 		Color circleColor = Color.GREEN;
 		Graphics g = result.createGraphics();
 		g.setColor(circleColor);
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
+		for (int i = 1; i < width-1; i++) {
+			for (int j = 1; j < height-1; j++) {
 				if(redCim[i][j] >= limitValue){
-					g.fillOval(i, j, 3, 3);
+					g.fillOval(i-1, j-1, 3, 3);
 				}
 			}
 		}
