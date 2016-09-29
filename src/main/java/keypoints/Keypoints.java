@@ -96,13 +96,14 @@ public class Keypoints {
 		scale = 1-scale;
 		double limitValue = min + (max-min)*scale;
 		System.out.println("limitValue: "+ limitValue);
-		Color circleColor = Color.cyan;
+		Color circleColor = Color.RED;
 		Graphics g = result.createGraphics();
 		g.setColor(circleColor);
+		int circleSize = 3;
 		for (int i = 1; i < width-1; i++) {
 			for (int j = 1; j < height-1; j++) {
 				if(redCim[i][j] >= limitValue){
-					g.fillOval(i-1, j-1, 3, 3);
+					g.fillOval(i-(circleSize-1)/2, j-(circleSize-1)/2, circleSize, circleSize);
 				}
 			}
 		}
