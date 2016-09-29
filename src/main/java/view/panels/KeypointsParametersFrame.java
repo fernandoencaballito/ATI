@@ -15,12 +15,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import interestPoints.InterestPoints;
+import keypoints.Keypoints;
 import masks.PrewittMask;
 import masks.SobelMask;
 import masks.SquareMask;
 
-public class InterestPointsParametersFrame extends JFrame {
+public class KeypointsParametersFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField size = new JTextField("0", 3);
@@ -31,10 +31,10 @@ public class InterestPointsParametersFrame extends JFrame {
 	private ImagePanel imagePanel;
 	JPanel typePanel;
 	JPanel detectorPanel;
-	SquareMask mask;
+	SquareMask mask = new SobelMask();
 	
-	public InterestPointsParametersFrame(ImagePanel imagePanel) {
-		super("Choose Interest Points Detector Parameters");
+	public KeypointsParametersFrame(ImagePanel imagePanel) {
+		super("Choose Keypoints Detector Parameters");
 		this.imagePanel = imagePanel;
 		this.setBounds(0, 500, 250, 220);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -100,8 +100,8 @@ public class InterestPointsParametersFrame extends JFrame {
 				}
 					
 				double standardDeviationValue = Double.valueOf(standardDeviation.getText());
-				InterestPoints.harris(imagePanel, mask, sizeValue, standardDeviationValue, imagePanel.getImage());
-				InterestPointsParametersFrame.this.setVisible(false);
+				Keypoints.harris(imagePanel, mask, sizeValue, standardDeviationValue, imagePanel.getImage());
+				KeypointsParametersFrame.this.setVisible(false);
 			}
 		});
 		this.add(confirmButton);

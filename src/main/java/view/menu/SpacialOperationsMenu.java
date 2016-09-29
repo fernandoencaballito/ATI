@@ -79,7 +79,7 @@ public class SpacialOperationsMenu extends JMenu {
 		});
 		this.add(diffusion);
 		
-		this.add(new InterestPointsMenu(imagePanel));
+		this.add(new KeypointsMenu(imagePanel));
 		
 	}
 }

@@ -16,39 +16,35 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import interestPoints.InterestPoints;
+import keypoints.Keypoints;
 
-public class InterestPointsThresholdFrame extends JFrame {
+public class KeypointsThresholdFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private InterestPointsThresholdSlider slider;
+	private KeypointsThresholdSlider slider;
 	
-	public InterestPointsThresholdFrame(ImagePanel imagePanel, double[][] redCim){//, double[][] greenCim, double[][] blueCim){
+	public KeypointsThresholdFrame(ImagePanel imagePanel, double[][] redCim){
 		super("Threshold percentage");
-		this.slider = new InterestPointsThresholdSlider(imagePanel, redCim);//, greenCim, blueCim);
+		this.slider = new KeypointsThresholdSlider(imagePanel, redCim);
 		this.setBounds(0, 500, 600, 150);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		this.add(slider);
 		this.setAlwaysOnTop(true);
 	}
 
-	class InterestPointsThresholdSlider extends JPanel implements ChangeListener {
+	class KeypointsThresholdSlider extends JPanel implements ChangeListener {
 
 		private static final long serialVersionUID = 1L;
 		private final int PERCENTAGE_MIN = 0;
 		private final int PERCENTAGE_MAX = 100;
 		static final int PIXEL_INIT = 0;
 		double[][] redCim;
-//		double[][] greenCim;
-//		double[][] blueCim;
 		ImagePanel panel;
 		BufferedImage originalBufferedImage;
 
-		public InterestPointsThresholdSlider(ImagePanel imagePanel, double[][] redCim){//, double[][] greenCim, double[][] blueCim) {
+		public KeypointsThresholdSlider(ImagePanel imagePanel, double[][] redCim){
 			panel = imagePanel;
 			this.redCim = redCim;
-//			this.greenCim = greenCim;
-//			this.blueCim = blueCim;
 			originalBufferedImage = imagePanel.getImage();
 			
 			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -78,7 +74,7 @@ public class InterestPointsThresholdFrame extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					panel.setImage(originalBufferedImage);
-					InterestPointsThresholdFrame.this.setVisible(false);
+					KeypointsThresholdFrame.this.setVisible(false);
 				}
 			});
 			add(undo);
@@ -88,8 +84,8 @@ public class InterestPointsThresholdFrame extends JFrame {
 			JSlider source = (JSlider) e.getSource();
 			if (!source.getValueIsAdjusting()) {
 				int percentageValue = (int) source.getValue();
-				panel.setImage(InterestPoints.threshold(percentageValue, redCim, originalBufferedImage));//, greenCim, blueCim, originalBufferedImage));
-			}
+				panel.setImage(Keypoints.threshold(percentageValue, redCim, originalBufferedImage));
+				}
 		}
 	}
 

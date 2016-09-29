@@ -1,4 +1,4 @@
-package interestPoints;
+package keypoints;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,22 +11,18 @@ import masks.DirectionalSquareMask;
 import masks.GaussianMask;
 import masks.SquareMask;
 import view.panels.ImagePanel;
-import view.panels.InterestPointsThresholdFrame;
+import view.panels.KeypointsThresholdFrame;
 
-public class InterestPoints {
+public class Keypoints {
 
 	public static void harris(ImagePanel imagePanel, SquareMask referenceMask, int size, double sigma, BufferedImage image){		//pedimos despues el porcentaje para umbralizar
 		int width = image.getWidth();
 		int height = image.getHeight();
 		double[][] redMatrix = new double[width][height];
-//		double[][] greenMatrix = new double[width][height];
-//		double[][] blueMatrix = new double[width][height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				Color color = new Color(image.getRGB(i, j));
 				redMatrix[i][j] = color.getRed();
-//				greenMatrix[i][j] = color.getGreen();
-//				blueMatrix[i][j] = color.getBlue();
 			}
 		}
 		GaussianMask gaussianFilterMask = new GaussianMask(size, 0, sigma);
@@ -35,30 +31,16 @@ public class InterestPoints {
 		directions.add(Direction.VERTICAL);
 		DirectionalSquareMask mask = new DirectionalSquareMask(referenceMask, directions);
 		List<double[][]> redImages = mask.getFilteredImages(redMatrix);
-//		List<double[][]> greenImages = mask.getFilteredImages(greenMatrix);
-//		List<double[][]> blueImages = mask.getFilteredImages(blueMatrix);
 		double[][] redImageX = redImages.get(0);
 		double[][] redImageY = redImages.get(1);
-//		double[][] greenImageX = greenImages.get(0);
-//		double[][] greenImageY = greenImages.get(1);
-//		double[][] blueImageX = blueImages.get(0);
-//		double[][] blueImageY = blueImages.get(1);
 		
 		double[][] redImageX2 = gaussianFilterMask.filterImage(square(redImageX));
 		double[][] redImageY2 = gaussianFilterMask.filterImage(square(redImageY));
-//		double[][] greenImageX2 = gaussianFilterMask.filterImage(square(greenImageX));
-//		double[][] greenImageY2 = gaussianFilterMask.filterImage(square(greenImageY));
-//		double[][] blueImageX2 = gaussianFilterMask.filterImage(square(blueImageX));
-//		double[][] blueImageY2 = gaussianFilterMask.filterImage(square(blueImageY));
 		double[][] redImageXY = gaussianFilterMask.filterImage(mult(redImageX, redImageY));
-//		double[][] greenImageXY = gaussianFilterMask.filterImage(mult(greenImageX, greenImageY));
-//		double[][] blueImageXY = gaussianFilterMask.filterImage(mult(blueImageX, blueImageY));
 		
 		double[][] redCim = cim(redImageX2, redImageY2, redImageXY);
-//		double[][] greenCim = cim(greenImageX2, greenImageY2, greenImageXY);
-//		double[][] blueCim = cim(blueImageX2, blueImageY2, blueImageXY);	
 		
-		InterestPointsThresholdFrame frame = new InterestPointsThresholdFrame(imagePanel, redCim);//, greenCim, blueCim);
+		KeypointsThresholdFrame frame = new KeypointsThresholdFrame(imagePanel, redCim);//, greenCim, blueCim);
 		frame.setVisible(true);
 		
 	}
@@ -94,10 +76,7 @@ public class InterestPoints {
 		}
 		return result;
 	}
-	
-//	public static BufferedImage threshold(int percentage, double[][] redCim, double[][] greenCim, double[][] blueCim, BufferedImage image){
-//	 ???
-//	}
+
 	public static BufferedImage threshold(int percentage, double[][] redCim, BufferedImage image){
 		int width = image.getWidth();
 		int height = image.getHeight();
@@ -117,7 +96,7 @@ public class InterestPoints {
 		scale = 1-scale;
 		double limitValue = min + (max-min)*scale;
 		System.out.println("limitValue: "+ limitValue);
-		Color circleColor = Color.GREEN;
+		Color circleColor = Color.cyan;
 		Graphics g = result.createGraphics();
 		g.setColor(circleColor);
 		for (int i = 1; i < width-1; i++) {

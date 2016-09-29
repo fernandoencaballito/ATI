@@ -7,22 +7,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import view.panels.ImagePanel;
-import view.panels.InterestPointsParametersFrame;
+import view.panels.KeypointsParametersFrame;
 
-public class InterestPointsMenu extends JMenu {
+public class KeypointsMenu extends JMenu {
 
 	private static final long serialVersionUID = 1L;
-	InterestPointsParametersFrame frame;
+	KeypointsParametersFrame frame;
 	
-	public InterestPointsMenu(ImagePanel target){
-		super("Interest Points");
+	public KeypointsMenu(ImagePanel target){
+		super("Keypoints");
 		
 		JMenuItem harris = new JMenuItem("Harris");
 		harris.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame = new InterestPointsParametersFrame(target);
+				frame = new KeypointsParametersFrame(target);
 				frame.setVisible(true);
 			}
 		});
