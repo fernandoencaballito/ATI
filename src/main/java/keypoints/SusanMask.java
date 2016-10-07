@@ -1,5 +1,7 @@
 package keypoints;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /*
@@ -7,6 +9,7 @@ import java.awt.image.BufferedImage;
 */
 public class SusanMask {
 
+	private static final double DELTA = 0.01;
 	private static boolean[][] mask = new boolean[][] { { false, false, true, true, true, false, false },
 			{ false, true, true, true, true, true, false }, { true, true, true, true, true, true, true },
 			{ true, true, true, false, true, true, true }, { true, true, true, true, true, true, true },
@@ -16,6 +19,9 @@ public class SusanMask {
 	private static int MASK_PIXELS = 36;
 	private static int THRESHOLD=27;//umbral que se usa para comparar niveles de gris con el núcleo en la máscara.
 	
+	private static Color borderColor = Color.RED;//borders
+	private static Color CORNER_COLOR = Color.green;//corners
+	private static int circleSize = 3;
 	
 	// devuelve elementos de la imagen que caen dentro de la máscara
 	// recibe la posición en la que se ubica el centro de la máscara respecto de
@@ -59,6 +65,12 @@ public class SusanMask {
 				}
 		}
 	
+
+		Graphics cornerGraphics = result.createGraphics();
+		cornerGraphics.setColor(CORNER_COLOR);
+		
+		Graphics borderGraphics = result.createGraphics();
+		borderGraphics.setColor(borderColor);
 		
 		//se itera por la imagen original
 		
@@ -74,24 +86,35 @@ public class SusanMask {
 				
 				
 				//calculo de s
-				int s=1-same_grey_count/MASK_PIXELS;
+				double s=1-same_grey_count/MASK_PIXELS;
 				
 				
 				//se evalua s
 				
-				evaluateBordersAndCorners(row,col,s,result);
+				evaluateCorners(row,col,s,cornerGraphics);
 				
+				evaluateBorders(row,col,s,borderGraphics);
 				
 			}
 		}
 		
 		
 		
-		return null;
+		return result;
 	}
 
-	private void evaluateBordersAndCorners(int row, int col, int s, BufferedImage result) {
-		// TODO Auto-generated method stub
+	
+
+	private void evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
+		if(Math.abs(s-0.75) <DELTA){
+			cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+		}
+		
+	}
+	private void evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
+		if(Math.abs(s-0.75) <DELTA){
+			borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+		}
 		
 	}
 
