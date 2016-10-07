@@ -2,10 +2,12 @@ package view.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import keypoints.SusanMask;
 import view.panels.ImagePanel;
 import view.panels.KeypointsParametersFrame;
 
@@ -34,6 +36,9 @@ public class KeypointsMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("S.U.S.A.N. clicked");
+				BufferedImage original=target.getImage();
+				BufferedImage modified=SusanMask.getBordersAndCorners(original);
+				target.setImage(modified);
 			}
 		});
 		this.add(susan);

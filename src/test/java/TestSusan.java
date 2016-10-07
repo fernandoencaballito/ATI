@@ -1,9 +1,13 @@
 import static org.junit.Assert.*;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.stream.IntStream;
 
 import org.junit.Test;
 
+import image.ImageUtils;
 import keypoints.SusanMask;
 
 /*
@@ -35,6 +39,19 @@ public class TestSusan {
 		assertTrue(IntStream.of(ans).anyMatch(x -> x == 36));
 		
 		
+	}
+	@Test 
+	public void test2() throws IOException, InterruptedException{
+		String image_src="./src/main/resources/lenaGrande.png";
+		Image image = ImageUtils.loadImage(image_src,0,0);
+		assertNotNull(image);
+		BufferedImage bufferedImage = (BufferedImage) image;
+		int ansHeight=bufferedImage.getHeight();
+		int ansWidth=bufferedImage.getWidth();
+		System.out.println("Image: "+image_src+ " width:"+ansWidth+ " height: "+ ansHeight);
+		
+		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image);
+		assertNotNull(result);
 	}
 	
 }

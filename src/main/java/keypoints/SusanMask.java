@@ -49,7 +49,7 @@ public class SusanMask {
 		return ans;
 	}
 
-	public BufferedImage getBordersAndCorners(BufferedImage originalImage) {
+	public static BufferedImage getBordersAndCorners(BufferedImage originalImage) {
 		int width = originalImage.getWidth();
 		int height = originalImage.getHeight();
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -74,8 +74,8 @@ public class SusanMask {
 		
 		//se itera por la imagen original
 		
-		for(int row=HALF;row<height;row++){
-			for(int col=HALF;col<width;col++){
+		for(int row=HALF;row<(height-HALF);row++){
+			for(int col=HALF;col<(width-HALF);col++){
 				int current_pixel=result.getRGB(col, row);
 				//se obtienen los elementos que caen dentro de la máscara
 				int [] elements_in_mask=getElementsInMask(col, row, original_image_matrix);
@@ -105,20 +105,20 @@ public class SusanMask {
 
 	
 
-	private void evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
+	private static void evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
 		if(Math.abs(s-0.75) <DELTA){
 			cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
 		}
 		
 	}
-	private void evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
+	private static void evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
 		if(Math.abs(s-0.75) <DELTA){
 			borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
 		}
 		
 	}
 
-	public int getSameGreyCount(int[] elements_in_mask, int current_pixel,int threshold) {
+	public static int getSameGreyCount(int[] elements_in_mask, int current_pixel,int threshold) {
 		
 		int count=0;
 		for(int elem:elements_in_mask){
