@@ -3,20 +3,20 @@ package keypoints;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
+import org.junit.Test;
 /*
 * @author Fernando Bejarano
 */
 public class SusanMask {
 
-	private static final double DELTA = 0.01;
+	private static final double DELTA = 0.1;
 	private static boolean[][] mask = new boolean[][] { { false, false, true, true, true, false, false },
 			{ false, true, true, true, true, true, false }, { true, true, true, true, true, true, true },
 			{ true, true, true, false, true, true, true }, { true, true, true, true, true, true, true },
 			{ false, true, true, true, true, true, false }, { false, false, true, true, true, false, false } };
 	private static int SIZE = 7;
 	private static int HALF = (SIZE - 1) / 2;
-	private static int MASK_PIXELS = 36;
+	private static int MASK_PIXELS = 37;
 	private static int THRESHOLD=27;//umbral que se usa para comparar niveles de gris con el núcleo en la máscara.
 	
 	private static Color borderColor = Color.RED;//borders
@@ -28,7 +28,7 @@ public class SusanMask {
 	// la imagen
 	public static int[] getElementsInMask(int center_col, int center_row, int[][] image) {
 
-		int[] ans = new int[MASK_PIXELS];
+		int[] ans = new int[MASK_PIXELS-1];
 		int ans_index = 0;
 
 		for (int mask_row = 0; mask_row < SIZE; mask_row++) {
@@ -73,7 +73,7 @@ public class SusanMask {
 		borderGraphics.setColor(borderColor);
 		
 		//se itera por la imagen original
-		
+		boolean corner,border;
 		for(int row=HALF;row<(height-HALF);row++){
 			for(int col=HALF;col<(width-HALF);col++){
 				int current_pixel=result.getRGB(col, row);
@@ -82,7 +82,7 @@ public class SusanMask {
 				
 				
 				//conteo de pixeles con mismo nivel de gris
-				int same_grey_count=getSameGreyCount(elements_in_mask,current_pixel, THRESHOLD);
+				double same_grey_count=getSameGreyCount(elements_in_mask,current_pixel, THRESHOLD);
 				
 				
 				//calculo de s
@@ -91,9 +91,11 @@ public class SusanMask {
 				
 				//se evalua s
 				
-				evaluateCorners(row,col,s,cornerGraphics);
+				 corner=evaluateCorners(row,col,s,cornerGraphics);
 				
-				evaluateBorders(row,col,s,borderGraphics);
+				 border=evaluateBorders(row,col,s,borderGraphics);
+				 if(corner && border)
+					 throw new RuntimeException("Error: point row="+row+ " col="+col+ "is corner and border at the same time!");
 				
 			}
 		}
@@ -105,17 +107,19 @@ public class SusanMask {
 
 	
 
-	private static void evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
+	private static boolean evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
 		if(Math.abs(s-0.75) <DELTA){
 			cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+			return true;
 		}
-		
+		return false;
 	}
-	private static void evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
-		if(Math.abs(s-0.75) <DELTA){
+	private static boolean evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
+		if(Math.abs(s-0.5) <DELTA){
 			borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+			return true;
 		}
-		
+		return false;
 	}
 
 	public static int getSameGreyCount(int[] elements_in_mask, int current_pixel,int threshold) {

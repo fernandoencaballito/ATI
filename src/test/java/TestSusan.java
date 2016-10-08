@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -42,13 +43,52 @@ public class TestSusan {
 	}
 	@Test 
 	public void test2() throws IOException, InterruptedException{
-		String image_src="./src/main/resources/lenaGrande.png";
-		Image image = ImageUtils.loadImage(image_src,0,0);
+		String image_src="./src/main/resources/borderTest2.ppm";
+		genericFileTest(image_src);
+	}
+	
+	@Test
+	public void test3(){
+		Color color=Color.WHITE;
+		int rgb=color.getRGB();
+		BufferedImage image = new BufferedImage(7, 7, BufferedImage.TYPE_INT_RGB);
+		image.setRGB(2, 0, rgb);
+		image.setRGB(3,0 , rgb);
+		image.setRGB(4, 0, rgb);
+		image.setRGB(1,1 , rgb);
+		image.setRGB(2,1 , rgb);
+		image.setRGB(3,1 , rgb);
+		image.setRGB(4,1 , rgb);
+		image.setRGB(5,1 , rgb);
+		image.setRGB(0,2 , rgb);
+		image.setRGB(1,2 , rgb);
+		image.setRGB(2,2 , rgb);
+		image.setRGB(3,2 , rgb);
+		image.setRGB(4,2 , rgb);
+		image.setRGB(5,2 , rgb);
+		image.setRGB(6,2 , rgb);
+		image.setRGB(0,3 , rgb);
+		image.setRGB(1, 3, rgb);
+		image.setRGB(2,3 , rgb);
+		image.setRGB(3,3 , rgb);
+		
+		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image);
+		assertNotNull(result);
+	}
+	@Test 
+	public void test5() throws IOException, InterruptedException{
+		String image_src="./src/main/resources/TEST.PGM";
+		genericFileTest(image_src);
+	}
+	
+	private void genericFileTest(String filename) throws IOException, InterruptedException{
+		
+		Image image = ImageUtils.loadImage(filename,0,0);
 		assertNotNull(image);
 		BufferedImage bufferedImage = (BufferedImage) image;
 		int ansHeight=bufferedImage.getHeight();
 		int ansWidth=bufferedImage.getWidth();
-		System.out.println("Image: "+image_src+ " width:"+ansWidth+ " height: "+ ansHeight);
+		System.out.println("Image: "+filename+ " width:"+ansWidth+ " height: "+ ansHeight);
 		
 		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image);
 		assertNotNull(result);
