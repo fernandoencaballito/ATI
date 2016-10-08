@@ -2,8 +2,10 @@ package keypoints;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 /*
 * @author Fernando Bejarano
 */
@@ -74,6 +76,9 @@ public class SusanMask {
 		
 		//se itera por la imagen original
 		boolean corner,border;
+		List<Point> cornerList=new ArrayList<Point>();
+		List<Point> borderList=new ArrayList<Point>();
+		
 		for(int row=HALF;row<(height-HALF);row++){
 			for(int col=HALF;col<(width-HALF);col++){
 				int current_pixel=result.getRGB(col, row);
@@ -92,8 +97,16 @@ public class SusanMask {
 				//se evalua s
 				
 				 corner=evaluateCorners(row,col,s,cornerGraphics);
-				
 				 border=evaluateBorders(row,col,s,borderGraphics);
+				 
+				 if(corner)
+					 cornerList.add(new Point(col,row));
+				 
+				
+				 
+				 if(border)
+					 borderList.add(new Point(col,row));
+				 
 				 if(corner && border)
 					 throw new RuntimeException("Error: point row="+row+ " col="+col+ "is corner and border at the same time!");
 				
@@ -101,22 +114,42 @@ public class SusanMask {
 		}
 		
 		
+		//se pintan los puntos de borde (capa de atras)
+		int col,row;
+		for(Point point: borderList){
+			col=(int) point.getX();
+			row=(int)point.getY();
+			borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+		}
+		
+		
+		
+		
+		//se pintan las esquinas (capa superior)
+		
+		for(Point p:cornerList){
+			col=(int)p.getX();
+			row=(int)p.getY();
+			cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+		}
+		
 		
 		return result;
 	}
 
 	
 
+	//se detecta si es un borde
 	private static boolean evaluateCorners(int row, int col, double s, Graphics cornerGraphics) {
 		if(Math.abs(s-0.75) <DELTA){
-			cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+			//cornerGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
 			return true;
 		}
 		return false;
 	}
 	private static boolean evaluateBorders(int row, int col, double s, Graphics borderGraphics) {
 		if(Math.abs(s-0.5) <DELTA){
-			borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
+			//borderGraphics.fillOval(col-(circleSize-1)/2, row-(circleSize-1)/2, circleSize, circleSize);
 			return true;
 		}
 		return false;
