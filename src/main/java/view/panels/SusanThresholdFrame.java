@@ -83,7 +83,7 @@ public class SusanThresholdFrame extends JFrame {
 			JSlider source = (JSlider) e.getSource();
 			if (!source.getValueIsAdjusting()) {
 				int pixelValue = (int) source.getValue();
-				System.out.println("[SusanThreshold]: valor de threshold"+ pixelValue);
+				//System.out.println("[SusanThreshold]: valor de threshold"+ pixelValue);
 				panel.setImage(SusanMask.getBordersAndCorners(originalImage,pixelValue));
 			}
 		}

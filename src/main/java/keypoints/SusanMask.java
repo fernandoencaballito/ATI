@@ -12,13 +12,13 @@ import java.util.List;
 public class SusanMask {
 
 	private static final double DELTA = 0.1;
-	private static boolean[][] mask = new boolean[][] { { false, false, true, true, true, false, false },
+	private static final boolean[][] mask = new boolean[][] { { false, false, true, true, true, false, false },
 			{ false, true, true, true, true, true, false }, { true, true, true, true, true, true, true },
 			{ true, true, true, false, true, true, true }, { true, true, true, true, true, true, true },
 			{ false, true, true, true, true, true, false }, { false, false, true, true, true, false, false } };
-	private static int SIZE = 7;
-	private static int HALF = (SIZE - 1) / 2;
-	private static int MASK_PIXELS = 37;
+	private static final int SIZE = 7;
+	private static final int HALF = (SIZE - 1) / 2;
+	private static final int MASK_PIXELS = 37;
 	//private static int THRESHOLD=27;//umbral que se usa para comparar niveles de gris con el núcleo en la máscara.
 	
 	private static Color borderColor = Color.RED;//borders
@@ -63,7 +63,7 @@ public class SusanMask {
 			for (int j = 0; j < height; j++) {
 				int color=originalImage.getRGB(i, j);
 				result.setRGB(i, j,color);
-				original_image_matrix[j][i]=color;
+				original_image_matrix[j][i]=new Color(color).getRed();
 				}
 		}
 	
@@ -78,10 +78,10 @@ public class SusanMask {
 		boolean corner,border;
 		List<Point> cornerList=new ArrayList<Point>();
 		List<Point> borderList=new ArrayList<Point>();
-		
+		System.out.println("[SusanMask]: threshold"+threshold);
 		for(int row=HALF;row<(height-HALF);row++){
 			for(int col=HALF;col<(width-HALF);col++){
-				int current_pixel=result.getRGB(col, row);
+				int current_pixel=new Color(result.getRGB(col, row)).getRed();
 				//se obtienen los elementos que caen dentro de la máscara
 				int [] elements_in_mask=getElementsInMask(col, row, original_image_matrix);
 				
@@ -92,7 +92,7 @@ public class SusanMask {
 				
 				//calculo de s
 				double s=1-same_grey_count/MASK_PIXELS;
-				
+				//System.out.println("susanmask: s="+s);
 				
 				//se evalua s
 				
@@ -156,6 +156,7 @@ public class SusanMask {
 	}
 
 	public static int getSameGreyCount(int[] elements_in_mask, int current_pixel,int threshold) {
+		
 		
 		int count=0;
 		for(int elem:elements_in_mask){
