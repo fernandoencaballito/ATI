@@ -178,3 +178,56 @@ Isotropica se ve borroso y se agrandan los bordes.
 * Cameraman original, Lena original: se ven iguales 
 * Lena sal y pimienta: un poco mejor con Otsu.Se ve un poco mas claro en Otsu.
 * Lena ruido gauss: mejor en Otsu, mas detalles.
+
+
+### TP3
+
+#### Harris.
+a)Imagen test.
+No detecta la barra de la izquierda con tonos de gris.Le cuesta detectar correctamente esquinas con poco contraste.
+
+Con estos valores va mejor SIZE15/7, SIGMA 3/2, PORCENTAJE THRESHOLD : 60, mascara prewitt
+
+
+b)Imagen test contaminada (ruido gausiano con sigma 20).
+Detecta igual que antes. Incluso con el ruido, comienza a encontrar puntos de la banda izquierda.
+
+c)Pares de imagenes:
+* Rotacion: funciona igual. 
+* Traslación: anda igual en el nuevo lugar 
+* Cambio de iluminación: funciona bastante bien
+* Cambio de escala:(prueba_escala.png) falla cuando en la original tenía esquinas redondeas y la escalada la toma con esquinas (eran bordes redondeados también). 
+* Movimiento de perspectiva: funciona bien.
+
+
+#### Susan
+a)Imagen test.
+Funciona bastante bien. Pero falla con el cuadrado con con variación de gris en degrade. (cuadrado de abajo 
+
+b)Imagen test contaminada.
+Falla con ruido. Se borronean los bordes, aparecen esquinas falsas.
+
+c)Pares de imagenes:
+
+* Rotacion: 
+45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas.
+90 grados perfecto, igual a la original. 
+* Traslación: perfecto.
+* Cambio de iluminación:
+* Cambio de escala: 
+* Movimiento de perspectiva:
+
+### SIFT 
+ a)Pares de imagenes:
+* Rotacion: 
+* Traslación:
+* Cambio de iluminación:
+* Cambio de escala: 
+* Movimiento de perspectiva:
+
+b)Ruido :
+* Rotacion: 
+* Traslación:
+* Cambio de iluminación:
+* Cambio de escala: 
+* Movimiento de perspectiva:

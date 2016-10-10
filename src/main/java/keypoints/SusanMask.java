@@ -19,7 +19,7 @@ public class SusanMask {
 	private static int SIZE = 7;
 	private static int HALF = (SIZE - 1) / 2;
 	private static int MASK_PIXELS = 37;
-	private static int THRESHOLD=27;//umbral que se usa para comparar niveles de gris con el núcleo en la máscara.
+	//private static int THRESHOLD=27;//umbral que se usa para comparar niveles de gris con el núcleo en la máscara.
 	
 	private static Color borderColor = Color.RED;//borders
 	private static Color CORNER_COLOR = Color.green;//corners
@@ -51,7 +51,7 @@ public class SusanMask {
 		return ans;
 	}
 
-	public static BufferedImage getBordersAndCorners(BufferedImage originalImage) {
+	public static BufferedImage getBordersAndCorners(BufferedImage originalImage,int threshold) {
 		int width = originalImage.getWidth();
 		int height = originalImage.getHeight();
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -87,7 +87,7 @@ public class SusanMask {
 				
 				
 				//conteo de pixeles con mismo nivel de gris
-				double same_grey_count=getSameGreyCount(elements_in_mask,current_pixel, THRESHOLD);
+				double same_grey_count=getSameGreyCount(elements_in_mask,current_pixel, threshold);
 				
 				
 				//calculo de s
