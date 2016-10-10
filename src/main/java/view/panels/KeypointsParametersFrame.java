@@ -23,8 +23,8 @@ import masks.SquareMask;
 public class KeypointsParametersFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField size = new JTextField("0", 3);
-	private JTextField standardDeviation = new JTextField("0", 3);
+	private JTextField size = new JTextField("7", 3);
+	private JTextField standardDeviation = new JTextField("2", 3);
 	JPanel gaussianPanel;
 	JRadioButton sobel = new JRadioButton("Sobel", true);
 	JRadioButton prewitt = new JRadioButton("Prewitt", false);
