@@ -219,17 +219,32 @@ c)Pares de imagenes:
  
 * Movimiento de perspectiva: funciona correctamente.
 
-### SIFT 
+### SIFT (usando http://imagej.net/Fiji/Downloads)
  a)Pares de imagenes:
 * Rotacion: 
-* Traslación:
-* Cambio de iluminación:
-* Cambio de escala: 
-* Movimiento de perspectiva:
+45 grados funciona bien.
+90grados funciona bien.
 
-b)Ruido :
-* Rotacion: 
-* Traslación:
-* Cambio de iluminación:
-* Cambio de escala: 
+* Traslación:bien
+* Cambio de iluminación: bien. Reconoce pocos keypoints en zonas con poco contraste.
+* Cambio de escala:funciona. (usar "expected transformation" -> "similarity").  
 * Movimiento de perspectiva:
+No funciona con el arco del triunfo. Si con Adam y con 
+
+b)Ruido a la otra imagen (no la original):
+* Rotacion: sin problemas.
+* Traslación:sin problemas.
+* Cambio de iluminación:bien aunque baja la cantidad de keypoints que coinciden( de 142 a  109) para las imagenes del campus.
+* Cambio de escala: sin problemas. 
+* Movimiento de perspectiva: sin problemas.
+
+
+
+b)Ruido ambas imagenes (la original y la otra):
+Casi sin problemas, baja un poco la cantidad de keypoints que coinciden.
+* Rotacion: bien
+* Traslación: bien
+* Cambio de iluminación: perfecto
+* Cambio de escala: sin problemas
+* Movimiento de perspectiva: sin problemas
+

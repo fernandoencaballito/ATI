@@ -202,32 +202,49 @@ c)Pares de imagenes:
 
 #### Susan
 a)Imagen test.
-Funciona bastante bien. Pero falla con el cuadrado con con variación de gris en degrade. (cuadrado de abajo 
+Funciona bien
 
 b)Imagen test contaminada.
-Falla con ruido. Se borronean los bordes, aparecen esquinas falsas.
+Para umbral mediano (39) anda bastante bien.
+Para umbral muy bajo (menor a 10) aparecen bordes falsos y esquinas falsas (son los puntos de ruido).
 
 c)Pares de imagenes:
 
 * Rotacion: 
-45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas.
+45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas (angulos obtusos).
 90 grados perfecto, igual a la original. 
 * Traslación: perfecto.
-* Cambio de iluminación:
-* Cambio de escala: 
-* Movimiento de perspectiva:
+* Cambio de iluminación: con mucha iluminacion detecta las sombras como bordes, cuando hay poca iluminación se pierden bordes porque hay  poco contraste. Le cuestan las zonas oscuras con poca luz.
+* Cambio de escala:no se ve afectado.
+ 
+* Movimiento de perspectiva: funciona correctamente.
 
 ### SIFT 
  a)Pares de imagenes:
 * Rotacion: 
-* Traslación:
-* Cambio de iluminación:
-* Cambio de escala: 
-* Movimiento de perspectiva:
+45 grados funciona bien.
+90grados funciona bien.
 
-b)Ruido :
-* Rotacion: 
-* Traslación:
-* Cambio de iluminación:
-* Cambio de escala: 
+* Traslación:bien
+* Cambio de iluminación: bien. Reconoce pocos keypoints en zonas con poco contraste.
+* Cambio de escala:funciona. (usar "expected transformation" -> "similarity").  
 * Movimiento de perspectiva:
+No funciona con el arco del triunfo. Si con Adam y con 
+
+b)Ruido a la otra imagen (no la original):
+* Rotacion: sin problemas.
+* Traslación:sin problemas.
+* Cambio de iluminación:bien aunque baja la cantidad de keypoints que coinciden( de 142 a  109) para las imagenes del campus.
+* Cambio de escala: sin problemas. 
+* Movimiento de perspectiva: sin problemas.
+
+
+
+b)Ruido ambas imagenes (la original y la otra):
+Casi sin problemas, baja un poco la cantidad de keypoints que coinciden.
+* Rotacion: bien
+* Traslación: bien
+* Cambio de iluminación: perfecto
+* Cambio de escala: sin problemas
+* Movimiento de perspectiva: sin problemas
+
