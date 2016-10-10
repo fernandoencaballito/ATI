@@ -212,7 +212,7 @@ c)Pares de imagenes:
 * Rotacion: 
 45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas.
 90 grados perfecto, igual a la original. 
-* Traslación:
+* Traslación: perfecto.
 * Cambio de iluminación:
 * Cambio de escala: 
 * Movimiento de perspectiva:

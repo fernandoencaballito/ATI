@@ -202,20 +202,22 @@ c)Pares de imagenes:
 
 #### Susan
 a)Imagen test.
-Funciona bastante bien. Pero falla con el cuadrado con con variación de gris en degrade. (cuadrado de abajo 
+Funciona bien
 
 b)Imagen test contaminada.
-Falla con ruido. Se borronean los bordes, aparecen esquinas falsas.
+Para umbral mediano (39) anda bastante bien.
+Para umbral muy bajo (menor a 10) aparecen bordes falsos y esquinas falsas (son los puntos de ruido).
 
 c)Pares de imagenes:
 
 * Rotacion: 
-45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas.
+45 grados pasa, pero se vuelven mas gruesos los bordes  aparecen esquinas falsas, faltan algunas esquinas (angulos obtusos).
 90 grados perfecto, igual a la original. 
 * Traslación: perfecto.
-* Cambio de iluminación:
-* Cambio de escala: 
-* Movimiento de perspectiva:
+* Cambio de iluminación: con mucha iluminacion detecta las sombras como bordes, cuando hay poca iluminación se pierden bordes porque hay  poco contraste. Le cuestan las zonas oscuras con poca luz.
+* Cambio de escala:no se ve afectado.
+ 
+* Movimiento de perspectiva: funciona correctamente.
 
 ### SIFT 
  a)Pares de imagenes:
