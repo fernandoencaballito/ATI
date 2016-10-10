@@ -88,7 +88,7 @@ public class SusanMask {
 				
 				//conteo de pixeles con mismo nivel de gris
 				double same_grey_count=getSameGreyCount(elements_in_mask,current_pixel, threshold);
-				
+				//System.out.println("[SusanMask]: same grey count:"+same_grey_count );
 				
 				//calculo de s
 				double s=1-same_grey_count/MASK_PIXELS;

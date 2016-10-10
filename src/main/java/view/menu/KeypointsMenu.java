@@ -10,12 +10,13 @@ import javax.swing.JMenuItem;
 import keypoints.SusanMask;
 import view.panels.ImagePanel;
 import view.panels.KeypointsParametersFrame;
+import view.panels.SusanThresholdFrame;
 
 public class KeypointsMenu extends JMenu {
 
 	private static final long serialVersionUID = 1L;
 	KeypointsParametersFrame frame;
-	
+	SusanThresholdFrame susanFrame;
 	public KeypointsMenu(ImagePanel target){
 		super("Keypoints");
 		
@@ -36,10 +37,9 @@ public class KeypointsMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("S.U.S.A.N. clicked");
-				BufferedImage original=target.getImage();
-				BufferedImage modified=SusanMask.getBordersAndCorners(original);
-				target.setImage(modified);
-			}
+				susanFrame=new SusanThresholdFrame(target);
+				susanFrame.setVisible(true);
+				}
 		});
 		this.add(susan);
 		

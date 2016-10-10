@@ -72,7 +72,7 @@ public class TestSusan {
 		image.setRGB(2,3 , rgb);
 		image.setRGB(3,3 , rgb);
 		
-		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image);
+		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image,27);
 		assertNotNull(result);
 	}
 	@Test 
@@ -90,7 +90,7 @@ public class TestSusan {
 		int ansWidth=bufferedImage.getWidth();
 		System.out.println("Image: "+filename+ " width:"+ansWidth+ " height: "+ ansHeight);
 		
-		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image);
+		BufferedImage result=SusanMask.getBordersAndCorners((BufferedImage) image,27);
 		assertNotNull(result);
 	}
 	
