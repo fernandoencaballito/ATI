@@ -67,7 +67,7 @@ public class SpacialOperationsMenu extends JMenu {
 		
 		this.add(new GradientOperatorsMenu(imagePanel));
 		this.add(new SecondDerivativeMenu(imagePanel));
-		
+		this.add(new AdvancedBorderDetectorMenu(imagePanel));
 		
 		JMenuItem diffusion = new JMenuItem("Diffusion");
 		diffusion.addActionListener(new ActionListener() {
