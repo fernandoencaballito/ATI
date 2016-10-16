@@ -80,7 +80,7 @@ public class ImageUtils {
 		//arreglo problema de la imagen rotada
 		//ArrayUtils.reverse(pixels);
 		//
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		DataBufferByte buffer = (DataBufferByte) image.getRaster().getDataBuffer();
 		byte[] imgData = buffer.getData();
 		System.arraycopy(pixels, 0, imgData, 0, pixels.length);

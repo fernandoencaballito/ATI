@@ -1,5 +1,7 @@
 package keypoints;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,7 +23,7 @@ import view.panels.ImagePanel;
 public class SiftCaller {
 	final static private FloatArray2DSIFT.Param p = new FloatArray2DSIFT.Param();
 	final static double DELTA=0.5;
-	
+	private static int circleSize = 3;
 	/**
 	 * Draw a rotated square around a center point having size and orientation
 	 * 
@@ -112,7 +114,8 @@ public class SiftCaller {
 	public static void compareKeypoints(BufferedImage img1, BufferedImage img2){
 		List<Feature> keyPoints1=getFeatures(img1);
 		List<Feature> keyPoints2=getFeatures(img2);
-		List<Feature> match=new ArrayList<Feature>();
+		List<Feature> matchFrom1=new ArrayList<Feature>();//keypoint en la primera imagen que coincidio 
+		List<Feature> matchFrom2=new ArrayList<Feature>();//keypoint en la  segunda que coincidio 
 		
 		for(Feature keypoint1: keyPoints1){
 			
@@ -131,35 +134,86 @@ public class SiftCaller {
 					
 			}
 			System.out.println("Min dist: "+minDis);
-			if(minDis<DELTA)
-				match.add(minDistFeature);
-			
+			if(minDis<DELTA){
+				matchFrom2.add(minDistFeature);
+				matchFrom1.add(keypoint1);
+			}
 			
 		}
 		
 		
-		double percentage=((double) match.size() )
+		double percentage=((double) matchFrom1.size() )
 							/
 				( (keyPoints1.size()<keyPoints2.size())? keyPoints2.size() : keyPoints1.size()  );
-		String msg=String.format("Matched:%d keypoints. Percentage match:%f %%", match.size(),percentage*100);
 		
-		System.out.println(msg);
+		String containsMsg="The image contains objects from the other";
+		String equalsMsg="The images are the same";
+		String resultMsg=(percentage<0.98)?containsMsg:equalsMsg;
+		String msg=String.format("Matched:%d keypoints. Percentage match:%f %%. %s"
+								, matchFrom1.size()
+								,percentage*100
+								,resultMsg);
+								System.out.println(msg);
 		
-		markKeypoints(keyPoints1,img1);
+		
+		
+		markKeypoints(matchFrom1,img1);
+		
+		
+		markKeypoints(matchFrom2,img2);
+		
 		
 	}
 	
 	private static void markKeypoints(List<Feature> keyPoints1, BufferedImage img1) {
-		
-		for()
+		Graphics graphics = img1.createGraphics();
+		graphics.setColor(Color.green);
+		double[] location;
+		double col;
+		double row;
+		for(Feature keypoint:keyPoints1){
+			 location=keypoint.location;
+			 col=location[0];
+			 row=location[1];
+			graphics.fillOval((int) (col-(circleSize-1)/2)
+					, (int) (row-(circleSize-1)/2)
+					, circleSize
+					, circleSize);			
+			
+		}
 		
 	}
 
 	public static void compareKeypoints(ImagePanel img1, ImagePanel img2){
-
-		compareKeypoints(img1.getImage(), img2.getImage());
+		BufferedImage copy1=copyBufferedImage(img1.getImage());
+		BufferedImage copy2=copyBufferedImage(img2.getImage());
+		
+		
+		
+		compareKeypoints(copy1, copy2);
+		
+		img1.setImage(copy1);
+		img2.setImage(copy2);
 	}
 
+	private static BufferedImage copyBufferedImage(BufferedImage buffer){
+		int width = buffer.getWidth();
+		int height = buffer.getHeight();
+		
+		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		
+		
+		
+		//se copia imagen original
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int color=buffer.getRGB(i, j);
+				result.setRGB(i, j,color);
+				}
+		}
+		return result;
+	}
+	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		SiftCaller test = new SiftCaller();
 		test.run();
