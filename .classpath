@@ -14,4 +14,8 @@
   <classpathentry kind="var" path="M2_REPO/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/mpicbg/mpicbg/1.1.1/mpicbg-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/imagej/ij/1.50e/ij-1.50e.jar"/>
+  <classpathentry kind="lib" path="/usr/lib/jvm/java-8-oracle/lib/tools.jar"/>
+  <classpathentry kind="var" path="M2_REPO/gov/nist/math/jama/1.0.3/jama-1.0.3.jar"/>
 </classpath>
