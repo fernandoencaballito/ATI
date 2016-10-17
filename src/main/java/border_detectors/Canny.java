@@ -29,9 +29,7 @@ public class Canny {
 		
 		// COPIO LA IMAGEN
 		int height = bufferedImage.getHeight();
-		System.out.println(height);
 		int width = bufferedImage.getWidth();
-		System.out.println(width);
 		double[][] image = new double[height][width];
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
