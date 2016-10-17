@@ -141,6 +141,7 @@ public class SiftCaller {
 			
 		}
 		
+		System.out.println("match1 size"+ matchFrom1.size()+ ". Match2 size:"+matchFrom2.size());
 		
 		double percentage=((double) matchFrom1.size() )
 							/
@@ -148,7 +149,7 @@ public class SiftCaller {
 		
 		String containsMsg="The image contains objects from the other";
 		String equalsMsg="The images are the same";
-		String resultMsg=(percentage<0.98)?containsMsg:equalsMsg;
+		String resultMsg=(percentage<0.90)?containsMsg:equalsMsg;
 		String msg=String.format("Matched:%d keypoints. Percentage match:%f %%. %s"
 								, matchFrom1.size()
 								,percentage*100
@@ -165,8 +166,8 @@ public class SiftCaller {
 		
 	}
 	
-	private static void markKeypoints(List<Feature> keyPoints1, BufferedImage img1) {
-		Graphics graphics = img1.createGraphics();
+	private static void markKeypoints(List<Feature> keyPoints1, BufferedImage img) {
+		Graphics graphics = img.createGraphics();
 		graphics.setColor(Color.green);
 		double[] location;
 		double col;
