@@ -29,11 +29,13 @@ public class Canny {
 		
 		// COPIO LA IMAGEN
 		int height = bufferedImage.getHeight();
+		System.out.println(height);
 		int width = bufferedImage.getWidth();
+		System.out.println(width);
 		double[][] image = new double[height][width];
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				image[i][j] = new Color(bufferedImage.getRGB(i, j)).getRed();
+				image[i][j] = new Color(bufferedImage.getRGB(j, i)).getRed();
 			}
 		}
 		
@@ -80,7 +82,7 @@ public class Canny {
 			for (int j = 0; j < width; j++) {
 				int color = (int) image[i][j];
 				color = new Color(color, color, color).getRGB();
-				result.setRGB(i, j, color);
+				result.setRGB(j, i, color);
 			}
 		}
 		return result;
