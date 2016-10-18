@@ -17,7 +17,7 @@ public class SpacialOperationsMenu extends JMenu {
 	private FilterFrame filterFrame;
 	private DiffusionFrame diffusionFrame;
 	
-	public SpacialOperationsMenu(ImagePanel imagePanel){
+	public SpacialOperationsMenu(ImagePanel imagePanel, ImagePanel original){
 		super("Spacial Operations");
 		filterFrame = new FilterFrame(FilterType.MEAN, imagePanel);
 		diffusionFrame = new DiffusionFrame(imagePanel);
@@ -79,7 +79,7 @@ public class SpacialOperationsMenu extends JMenu {
 		});
 		this.add(diffusion);
 		
-		this.add(new KeypointsMenu(imagePanel));
+		this.add(new KeypointsMenu(imagePanel,original));
 		
 	}
 }

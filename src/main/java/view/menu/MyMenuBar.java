@@ -26,7 +26,7 @@ public class MyMenuBar extends JMenuBar {
 		
 		this.add(new OptionsMenu(this, parent));
 		
-		this.add(new SpacialOperationsMenu(modifiedImagePanel.getImagePanel()));
+		this.add(new SpacialOperationsMenu(modifiedImagePanel.getImagePanel(),originalImagePanel.getImagePanel()));
 		
 		this.add(new PunctualOperatorsMenu(modifiedImagePanel.getImagePanel()));
 
