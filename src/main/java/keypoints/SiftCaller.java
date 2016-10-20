@@ -164,7 +164,7 @@ public class SiftCaller {
 			resultMsg = differentMsg;
 		}
 
-		String msg = String.format("Matched:%d keypoints. Percentage match:%f %%. \n => %s", matchFrom1.size(),
+		String msg = String.format("Matched:%d keypoints.\n Percentage match:%f %%. \n => %s", matchFrom1.size(),
 				percentage * 100, resultMsg);
 		
 		markKeypoints(matchFrom1, img1);
