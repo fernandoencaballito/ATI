@@ -8,6 +8,9 @@ import javax.swing.JMenuItem;
 
 import border_detectors.Canny;
 import border_detectors.Canny.NeighbourType;
+import masks.SobelMask;
+import view.panels.CannyFrame;
+import view.panels.CannyFrame.FrameMode;
 import view.panels.ImagePanel;
 
 public class AdvancedBorderDetectorMenu extends JMenu {
@@ -17,22 +20,23 @@ public class AdvancedBorderDetectorMenu extends JMenu {
 	public AdvancedBorderDetectorMenu(ImagePanel imagePanel) {
 		super("Advance Border Detectors");
 		
-		JMenuItem canny4 = new JMenuItem("4 neighbour Canny");
-		canny4.addActionListener(new ActionListener() {
+		JMenuItem canny = new JMenuItem("Canny");
+		canny.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				imagePanel.setImage(Canny.cannyBorderDetector(imagePanel.getImage(), 3, 1, NeighbourType.FOUR_NEIGHBOURS));
+				new CannyFrame(imagePanel, FrameMode.CANNY).setVisible(true);
+				
 			}
 		});
-		this.add(canny4);
-		JMenuItem canny8 = new JMenuItem("8 neighbour Canny");
-		canny8.addActionListener(new ActionListener() {
+		this.add(canny);
+		JMenuItem nonMaximumSupression = new JMenuItem("Non Maximum Supression");
+		nonMaximumSupression.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				imagePanel.setImage(Canny.cannyBorderDetector(imagePanel.getImage(), 3, 1, NeighbourType.EIGHT_NEIGHBOURS));
+				new CannyFrame(imagePanel, FrameMode.NON_MAXIMUM_SUPRESSION).setVisible(true);
 			}
 		});
-		this.add(canny8);
+		this.add(nonMaximumSupression);
 	}
 
 }
