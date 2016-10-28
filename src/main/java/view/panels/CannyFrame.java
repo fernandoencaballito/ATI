@@ -26,7 +26,7 @@ import masks.UnnamedMask;
 public class CannyFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 250;
+	private static final int WIDTH = 350;
 	private static final int HEIGHT = 160;
 	private ImagePanel imagePanel;
 	private JTextField size = new JTextField("0", 3);
@@ -52,7 +52,7 @@ public class CannyFrame extends JFrame {
 	
 	public CannyFrame(ImagePanel target, FrameMode mode){
 		super();
-		this.setName(mode.name);
+		this.setTitle(mode.name);
 		this.mode = mode;
 		
 		this.imagePanel = target;

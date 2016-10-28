@@ -8,7 +8,6 @@ import javax.swing.JMenuItem;
 
 import border_detectors.Canny;
 import border_detectors.Canny.NeighbourType;
-import masks.SobelMask;
 import view.panels.CannyFrame;
 import view.panels.CannyFrame.FrameMode;
 import view.panels.ImagePanel;
@@ -37,6 +36,14 @@ public class AdvancedBorderDetectorMenu extends JMenu {
 			}
 		});
 		this.add(nonMaximumSupression);
+		JMenuItem hysteresisThreshold = new JMenuItem("Hysteresis Threshold");
+		hysteresisThreshold.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				imagePanel.setImage(Canny.hysteresisThreshold(imagePanel.getImage(), NeighbourType.FOUR_NEIGHBOURS));
+			}
+		});
+		this.add(hysteresisThreshold);
 	}
 
 }

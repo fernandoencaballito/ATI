@@ -40,8 +40,8 @@ public class Canny {
 		
 		// UMBRALIZACION CON HISTERESIS
 		
-		//image = hysteresisThreshold(image, type);
-		image  = ImageEffects.linearNormalization(image);
+		image = hysteresisThreshold(image, type);
+		//image  = ImageEffects.linearNormalization(image);
 		// PASO A BUFFEREDIMAGE DE NUEVO
 	
 		BufferedImage result = getImage(image, bufferedImage.getWidth(), bufferedImage.getHeight(), bufferedImage.getType());
@@ -112,6 +112,10 @@ public class Canny {
 		}
 		
 		return image;
+	}
+	
+	public static BufferedImage hysteresisThreshold(BufferedImage image, NeighbourType neighbourType){
+		return getImage(hysteresisThreshold(getMatrix(image), neighbourType), image.getWidth(), image.getHeight(), image.getType());
 	}
 	
 	private static double[][] hysteresisThreshold(double[][] image, NeighbourType neighbourType){
