@@ -286,7 +286,7 @@ public class ImagePanel extends JPanel {
 		
 	}
 
-	protected BufferedImage getSelectedImage() {
+	public BufferedImage getSelectedImage() {
 		if(selectedRectangle==null)
 			return null;
 		BufferedImage subImage1=image.getSubimage(selectedRectangle.x

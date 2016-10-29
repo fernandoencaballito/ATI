@@ -81,5 +81,7 @@ public class SpacialOperationsMenu extends JMenu {
 		
 		this.add(new KeypointsMenu(imagePanel,original));
 		
+		
+		this.add(new ActiveContoursMenu(original,imagePanel));
 	}
 }

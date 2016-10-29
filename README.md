@@ -248,3 +248,13 @@ Casi sin problemas, baja un poco la cantidad de keypoints que coinciden.
 * Cambio de escala: sin problemas
 * Movimiento de perspectiva: sin problemas
 
+---------
+
+
+##TP4 -notas de implementación
+###Contornos activos.
+Primero inicializar el algoritmo con un área seleccionada de la imagen.
+
+
+
+
