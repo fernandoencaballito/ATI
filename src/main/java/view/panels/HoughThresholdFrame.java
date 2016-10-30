@@ -17,7 +17,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import border_detectors.Hough;
-import border_detectors.Hough.HoughThresholdData;
+import border_detectors.HoughThresholdData;
 
 public class HoughThresholdFrame extends JFrame {
 
