@@ -44,7 +44,7 @@ public class Canny {
 		//image  = ImageEffects.linearNormalization(image);
 		// PASO A BUFFEREDIMAGE DE NUEVO
 	
-		BufferedImage result = getImage(image, bufferedImage.getWidth(), bufferedImage.getHeight(), bufferedImage.getType());
+		BufferedImage result = getImage(image);
 		
 		return result;
 	}
@@ -52,7 +52,7 @@ public class Canny {
 	public static BufferedImage nonMaximumSupression(BufferedImage image, SquareMask mask){
 		double[][] result = nonMaximumSupression(getMatrix(image), mask);
 		result = ImageEffects.linearNormalization(result);
-		return getImage(result, image.getWidth(), image.getHeight(), image.getType());		
+		return getImage(result);		
 	}
 	
 	private static double[][] nonMaximumSupression(double[][] image, SquareMask sqMask){
@@ -115,7 +115,7 @@ public class Canny {
 	}
 	
 	public static BufferedImage hysteresisThreshold(BufferedImage image, NeighbourType neighbourType){
-		return getImage(hysteresisThreshold(getMatrix(image), neighbourType), image.getWidth(), image.getHeight(), image.getType());
+		return getImage(hysteresisThreshold(getMatrix(image), neighbourType));
 	}
 	
 	private static double[][] hysteresisThreshold(double[][] image, NeighbourType neighbourType){
@@ -213,7 +213,10 @@ public class Canny {
 		return image;
 	}
 	
-	public static BufferedImage getImage (double[][] matrix, int width, int height, int type){
+	public static BufferedImage getImage (double[][] matrix){
+		int height = matrix.length;
+		int width = matrix[0].length;
+		int type = BufferedImage.TYPE_INT_RGB;
 		BufferedImage result = new BufferedImage(width, height, type);
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {

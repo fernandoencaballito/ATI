@@ -10,6 +10,7 @@ import border_detectors.Canny;
 import border_detectors.Canny.NeighbourType;
 import view.panels.CannyFrame;
 import view.panels.CannyFrame.FrameMode;
+import view.panels.HoughFrame;
 import view.panels.ImagePanel;
 
 public class AdvancedBorderDetectorMenu extends JMenu {
@@ -44,6 +45,14 @@ public class AdvancedBorderDetectorMenu extends JMenu {
 			}
 		});
 		this.add(hysteresisThreshold);
+		JMenuItem hough = new JMenuItem("Hough Transform");
+		hough.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new HoughFrame(imagePanel).setVisible(true);
+			}
+		});
+		this.add(hough);
 	}
 
 }
