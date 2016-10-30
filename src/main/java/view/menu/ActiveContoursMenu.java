@@ -25,8 +25,12 @@ public class ActiveContoursMenu extends JMenu {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage selectedArea =original.getSelectedImage();
-				if (selectedArea != null){
+				
+				boolean isAreaSelected=original.isAreaSelected();
+				
+				if (isAreaSelected){
+					
+					
 					System.out.println("Active contour single image =>procesing");
 				}
 				else{

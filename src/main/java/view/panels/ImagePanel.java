@@ -126,7 +126,7 @@ public class ImagePanel extends JPanel {
 									+")"
 									)
 								;
-				imagePanel.repaint();
+			//	imagePanel.repaint();
 				
 //				System.out.println("Original ImagePanel id:"+imagePanel.hashCode());
 //				System.out.println("Rectangle en original:"+imagePanel.selectedRectangle);
@@ -150,9 +150,10 @@ public class ImagePanel extends JPanel {
 
 	}
 
-	protected void setSelectedRectangle(Rectangle rectangle) {
+	public void setSelectedRectangle(Rectangle rectangle) {
 		this.selectedRectangle=rectangle;
-		
+		this.repaint();
+	
 	}
 
 	private void detectColorMode() {
@@ -332,6 +333,14 @@ public class ImagePanel extends JPanel {
 		this.repaint();
 		
 		}
+
+	
+	public Rectangle getSelectionRectangle(){
+		return selectedRectangle;
+	}
+	public boolean isAreaSelected() {
+		return selectedRectangle!=null;
+	}
 		
 	
 }
