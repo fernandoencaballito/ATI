@@ -53,7 +53,6 @@ public class CannyFrame extends JFrame {
 	public CannyFrame(ImagePanel target, FrameMode mode){
 		super();
 		this.setTitle(mode.name);
-		this.mode = mode;
 		
 		this.imagePanel = target;
 		this.setBounds(0, 500, WIDTH, HEIGHT);
@@ -88,6 +87,8 @@ public class CannyFrame extends JFrame {
 		
 		this.add(maskPanel);
 		
+		setMode(mode);
+		
 		JButton confirmButton = new JButton("OK");
 		confirmButton.addActionListener(new ActionListener() {
 			
@@ -112,6 +113,20 @@ public class CannyFrame extends JFrame {
 
 	public void setImagePanel(ImagePanel imagePanel){
 		this.imagePanel = imagePanel;
+	}
+	
+	public void setMode (FrameMode mode){
+		this.mode = mode;
+		switch (mode) {
+		case CANNY:
+			maskPanel.setVisible(true);
+			this.setBounds(0, 500, WIDTH, HEIGHT);
+			break;
+		case NON_MAXIMUM_SUPRESSION:
+			maskPanel.setVisible(false);
+			this.setBounds(0, 500, WIDTH, HEIGHT-30);
+			break;
+		}
 	}
 
 }
