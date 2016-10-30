@@ -27,7 +27,7 @@ public abstract class LaplacianGenericMask extends SquareMask {
 		/// aplica mascara
 		int width = original.getWidth();
 		int height = original.getHeight();
-		BufferedImage result = new BufferedImage(width, height, original.getType());
+//		BufferedImage result = new BufferedImage(width, height, original.getType());
 		double[][] matrix = ImageEffects.getBandMatrix(original, 'r');// SOLO
 																		// BANDA
 																		// ROJA

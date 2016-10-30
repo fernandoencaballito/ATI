@@ -15,7 +15,7 @@ import view.panels.ImagePanel;
 public class Hough {
 	static double epsilon = 1;
 	static final double THETA_MIN = -90;
-	static final double THETA_MAX = 90; 		//NO TIENE SENTIDO THETA FUERA DE [0°,90°]
+	static final double THETA_MAX = 90;
 	static final int WHITE = 255;
 	static final int BLACK = 0;
 	
@@ -39,7 +39,7 @@ public class Hough {
 		
 		double D = Math.max(height, width);
 		double rho_max = Math.sqrt(2) * D;
-		double rho_min = -rho_max;			//NO TIENE SENTIDO RHO NEGATIVO TAMPOCO
+		double rho_min = -rho_max;
 		double rho_step = rho_max * 2/ (cant_rho-1);
 		double theta_step =THETA_MAX * 2/ (cant_thetha-1);
 		

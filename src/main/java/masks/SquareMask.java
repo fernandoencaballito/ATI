@@ -56,9 +56,7 @@ public class SquareMask implements FilterMask{
 							values[k*size+k2] = image[i+k-halfSize][j+k2-halfSize];
 						}
 					}
-					newImage[i][j] = filter(values);
-					double aux=newImage[i][j];
-					
+					newImage[i][j] = filter(values);					
 				}
 			}
 		}

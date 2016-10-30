@@ -1,12 +1,5 @@
 package masks;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-
-import view.ImageEffects;
-import view.panels.ImagePanel;
-
 public class LaplacianMask extends LaplacianGenericMask{
 
 	

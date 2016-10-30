@@ -100,7 +100,7 @@ public class KeypointsParametersFrame extends JFrame {
 				}
 					
 				double standardDeviationValue = Double.valueOf(standardDeviation.getText());
-				Keypoints.harris(imagePanel, mask, sizeValue, standardDeviationValue, imagePanel.getImage());
+				Keypoints.harris(KeypointsParametersFrame.this.imagePanel, mask, sizeValue, standardDeviationValue, imagePanel.getImage());
 				KeypointsParametersFrame.this.setVisible(false);
 			}
 		});

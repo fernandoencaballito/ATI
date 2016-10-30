@@ -17,7 +17,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import keypoints.SusanMask;
-import view.ImageEffects;
 
 public class SusanThresholdFrame extends JFrame {
 

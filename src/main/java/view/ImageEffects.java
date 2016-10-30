@@ -545,7 +545,6 @@ public class ImageEffects {
 	public static double[][] getBandMatrix(BufferedImage image, char band) {
 		int width = image.getWidth();
 		int height = image.getHeight();
-		BufferedImage result = new BufferedImage(width, height, image.getType());
 		double[][] matrix = new double[width][height];
 		double currentValue=-1;
 		Color currentColor;

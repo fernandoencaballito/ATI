@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import ij.ImagePlus;
 import ij.gui.GenericDialog;
 import ij.process.ImageProcessor;
@@ -93,7 +91,7 @@ public class SiftCaller {
 		SIFT.readFields(gd, p);
 
 		final ImageProcessor ip1 = imp.getProcessor().convertToFloat();
-		final ImageProcessor ip2 = imp.getProcessor().duplicate().convertToRGB();
+//		final ImageProcessor ip2 = imp.getProcessor().duplicate().convertToRGB();
 
 		final SIFT ijSift = new SIFT(new FloatArray2DSIFT(p));
 		fs.clear();
