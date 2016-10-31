@@ -54,15 +54,59 @@ public class ActiveContours {
 					
 					
 					//[ Lout]pixeles del borde del rectangulo
-					
-
-					
-					//[Lin]pixeles adyacentes interiores al borde del rectangulo marcado
-					if(selectionRectangle.contains(col, row)){
+					if(
+						(row==selectionRectangle.y && col>=selectionRectangle.x && col<(selectionRectangle.x + selectionRectangle.width))
+						|| ( (col== selectionRectangle.x || col==(selectionRectangle.x + selectionRectangle.width -1 ))
+								 && row>selectionRectangle.y 
+								 && row<(selectionRectangle.y +selectionRectangle.height-1)
+							)
+						|| (row == (selectionRectangle.y + selectionRectangle.height -1 ) 
+						
+							 && col>=selectionRectangle.x
+							 && col<(selectionRectangle.x + selectionRectangle.width)
+							 )
+						
+						
+						
+						){
+						
+						phi_values[row][col]=Phi_value.L_OUT;
+						
+					}
+						//[Lin]pixeles adyacentes interiores al borde del rectangulo marcado
+					else if(
+							(row==(selectionRectangle.y+1) && col>selectionRectangle.x && col<(selectionRectangle.x + selectionRectangle.width-1))
+							|| ( (col== (selectionRectangle.x+1) || col==(selectionRectangle.x + selectionRectangle.width -2 ))
+									 && row>selectionRectangle.y 
+									 && row<(selectionRectangle.y +selectionRectangle.height-1)
+								)
+							|| (row == (selectionRectangle.y + selectionRectangle.height -2 ) 
+							
+								 && col>selectionRectangle.x
+								 && col<(selectionRectangle.x + selectionRectangle.width-1)
+								 )
+							
+							
+							){
 						phi_values[row][col]=Phi_value.L_IN;
 					}
 					
-					//[objeto] pixeles interiores del rectangulo que no estan en Lin
+
+					//[objeto] pixeles interiores del rectangulo que no estan en Lin ni en Lout
+					else{
+						phi_values[row][col]=Phi_value.OBJECT;
+						
+					}
+					
+					
+					
+					
+					
+
+					
+				
+					
+					
 					
 					
 				}

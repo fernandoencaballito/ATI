@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import view.panels.ImagePanel;
 public class TestImageContours {
 
 	ImagePanel original, modified;
-	String initialFile="./src/main/resources/TEST.png";
+	String initialFile="./src/main/resources/boxes_grey.ppm";
 	@Before
 	public void init(){
 		
@@ -33,8 +34,22 @@ public class TestImageContours {
 		
 		 Phi_value[][] phi_values=activeContours.getPhi_values();
 		//L in
+		assertEquals(Phi_value.L_IN, phi_values[4][3]);
+		assertEquals(Phi_value.L_IN, phi_values[4][4]);
+		assertEquals(Phi_value.L_IN, phi_values[4][5]);
+		assertEquals(Phi_value.L_IN, phi_values[4][6]);
 		
+
+		assertEquals(Phi_value.L_IN, phi_values[5][3]);
+		assertEquals(Phi_value.L_IN, phi_values[6][3]);
 		
+
+		assertEquals(Phi_value.L_IN, phi_values[7][4]);
+		assertEquals(Phi_value.L_IN, phi_values[7][5]);
+		
+
+		assertEquals(Phi_value.L_IN, phi_values[5][6]);
+		assertEquals(Phi_value.L_IN, phi_values[6][6]);
 		
 		
 		//L out
@@ -58,9 +73,35 @@ public class TestImageContours {
 		 assertEquals(Phi_value.L_OUT, phi_values[8][5]);
 		
 		//OBJETO
+		assertEquals(Phi_value.OBJECT, phi_values[5][4]);
+		assertEquals(Phi_value.OBJECT, phi_values[5][5]);
+		assertEquals(Phi_value.OBJECT, phi_values[6][4]);
+		assertEquals(Phi_value.OBJECT, phi_values[6][5]);
+		
 		
 		//BACKGROUND
+		assertEquals(Phi_value.BACKGROUD,phi_values[2][2]);
+		assertEquals(Phi_value.BACKGROUD,phi_values[2][3]);
+		assertEquals(Phi_value.BACKGROUD,phi_values[2][6]);
+		assertEquals(Phi_value.BACKGROUD,phi_values[2][7]);
 		
+
+		assertEquals(Phi_value.BACKGROUD,phi_values[4][1]);
+		assertEquals(Phi_value.BACKGROUD,phi_values[4][0]);
+
+		assertEquals(Phi_value.BACKGROUD,phi_values[1][5]);
+		assertEquals(Phi_value.BACKGROUD,phi_values[9][5]);
+		
+		
+		System.out.println("Initialization:\n");
+		
+		for(Phi_value[] row: phi_values){
+			for(Phi_value col:row){
+				System.out.print(col+", ");
+			}
+			System.out.println();
+			
+		}
 		
 	}
 }
