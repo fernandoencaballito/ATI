@@ -31,78 +31,78 @@ public class ActiveContours {
 		this.modified = modified;
 	}
 
-	public void mark_contour() {
+	public void mark_contour(int times) {
 
 		// paso 1
 		initialise();
 
-		// paso 2
-		BufferedImage img = original.getImage();
-		int color;
-		double fd;
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
+		for (int time = 0; time < times; time++) {
+			// paso 2
+			BufferedImage img = original.getImage();
+			int color;
+			double fd;
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < cols; col++) {
 
-				if (phi_values[row][col] == Phi_value.L_OUT) {
-					color = img.getRGB(col, row);
-					fd = f_d(color);
+					if (phi_values[row][col] == Phi_value.L_OUT) {
+						color = img.getRGB(col, row);
+						fd = f_d(color);
 
-					if (fd > 0) {
-						phi_values[row][col] = Phi_value.L_IN;
-						setNeighbours(row, col, Phi_value.BACKGROUD, Phi_value.L_OUT);
+						if (fd > 0) {
+							phi_values[row][col] = Phi_value.L_IN;
+							setNeighbours(row, col, Phi_value.BACKGROUD, Phi_value.L_OUT);
+						}
 					}
 				}
 			}
-		}
-		
-		//paso 3: pixeles que pasaron a ser interiores
-		Phi_value current_phi_value;
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				current_phi_value=phi_values[row][col];
-				
-				if( current_phi_value== Phi_value.L_IN
-					&& !isLin(row, col)){
-					phi_values[row][col]=Phi_value.OBJECT;
-				}
-				
-			}
-		}
-		
-		//paso4: se aplica Fd a pixeles en Lin
 
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				current_phi_value=phi_values[row][col];
-		
-				if(current_phi_value== Phi_value.L_IN && f_d(row,col)<0){
-					
-					phi_values[row][col]=Phi_value.L_OUT;
-					
-					setNeighbours(row, col, Phi_value.OBJECT, Phi_value.L_IN);
-					
-					
+			// paso 3: pixeles que pasaron a ser interiores
+			Phi_value current_phi_value;
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < cols; col++) {
+					current_phi_value = phi_values[row][col];
+
+					if (current_phi_value == Phi_value.L_IN && !isLin(row, col)) {
+						phi_values[row][col] = Phi_value.OBJECT;
+					}
+
 				}
 			}
-		}
-		
-		
-		//paso 5: pixeles que se convirtieron en exteriores
-		
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < cols; col++) {
-				current_phi_value=phi_values[row][col];
-				
-				if( current_phi_value== Phi_value.L_OUT
-					&& !isLout(row, col)){
-					phi_values[row][col]=Phi_value.BACKGROUD;
+
+			// paso4: se aplica Fd a pixeles en Lin
+
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < cols; col++) {
+					current_phi_value = phi_values[row][col];
+
+					if (current_phi_value == Phi_value.L_IN && f_d(row, col) < 0) {
+
+						phi_values[row][col] = Phi_value.L_OUT;
+
+						setNeighbours(row, col, Phi_value.OBJECT, Phi_value.L_IN);
+
+					}
 				}
-				
 			}
+
+			// paso 5: pixeles que se convirtieron en exteriores
+
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < cols; col++) {
+					current_phi_value = phi_values[row][col];
+
+					if (current_phi_value == Phi_value.L_OUT && !isLout(row, col)) {
+						phi_values[row][col] = Phi_value.BACKGROUD;
+					}
+
+				}
+			}
+
 		}
 		
+		mark_Lin_Lout();
 		
-		
+
 	}
 
 	// se fija los vecinos de la posicion (current_row, current_col) que tengan
@@ -110,19 +110,18 @@ public class ActiveContours {
 	private void setNeighbours(int current_row, int current_col, Phi_value expected_neighbour, Phi_value newValue) {
 
 		int next_row, next_col;
-		for(int[] direction: neighbours_directions){
-			next_row=current_row+ direction[0];
-			next_col=current_col+ direction[1];
-			
-			if(next_row<0 || next_col<0 || next_row>rows || next_col>cols)
+		for (int[] direction : neighbours_directions) {
+			next_row = current_row + direction[0];
+			next_col = current_col + direction[1];
+
+			if (next_row < 0 || next_col < 0 || next_row > rows || next_col > cols)
 				continue;
-			
-			if(phi_values[next_row][next_col]==expected_neighbour)
-				phi_values[next_row][next_col]=newValue;
-			
-			
+
+			if (phi_values[next_row][next_col] == expected_neighbour)
+				phi_values[next_row][next_col] = newValue;
+
 		}
-		
+
 	}
 
 	public void initialise() {
@@ -138,12 +137,11 @@ public class ActiveContours {
 
 	}
 
-	private double f_d(int row,int col){
+	private double f_d(int row, int col) {
 		return f_d(original.getImage().getRGB(col, row));
-		
-		
+
 	}
-	
+
 	private double f_d(int colorRGB) {
 		Color color = new Color(colorRGB);
 		Vector3D color_vec = new Vector3D(color.getRed(), color.getGreen(), color.getBlue());
@@ -267,36 +265,49 @@ public class ActiveContours {
 
 	}
 
-	private boolean isLin(int row,int col){
-		return isL(row,col,1);
+	private boolean isLin(int row, int col) {
+		return isL(row, col, 1);
 	}
-	private boolean isLout(int row,int col){
-		return isL(row,col,-1);
+
+	private boolean isLout(int row, int col) {
+		return isL(row, col, -1);
 	}
-	private boolean isL(int row, int col,int positive){
-		Phi_value current_value=phi_values[row][col];
-		
-		if((positive* current_value.getValue())>0)
+
+	private boolean isL(int row, int col, int positive) {
+		Phi_value current_value = phi_values[row][col];
+
+		if ((positive * current_value.getValue()) > 0)
 			return false;
-		
-		boolean positiveNeighbour=false;
+
+		boolean positiveNeighbour = false;
 
 		int next_row, next_col;
 		Phi_value neighbourValue;
-		for(int[] neighbourDirection: neighbours_directions){
-			
-			next_row=row+ neighbourDirection[0];
-			next_col=col+neighbourDirection[1];
-			neighbourValue=phi_values[next_row][next_col];
-			if((positive* neighbourValue.getValue() )>0){
-				positiveNeighbour=true;
+		for (int[] neighbourDirection : neighbours_directions) {
+
+			next_row = row + neighbourDirection[0];
+			next_col = col + neighbourDirection[1];
+			neighbourValue = phi_values[next_row][next_col];
+			if ((positive * neighbourValue.getValue()) > 0) {
+				positiveNeighbour = true;
 				break;
 			}
-			
+
 		}
-		
+
 		return positiveNeighbour;
+
+	}
+
+	private void mark_Lin_Lout(){
+		
+		Phi_value current_phi_value;
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				current_phi_value = phi_values[row][col];
+			}
+		}
+
 		
 	}
-	
 }
