@@ -56,8 +56,53 @@ public class ActiveContours {
 		}
 		
 		//paso 3: pixeles que pasaron a ser interiores
+		Phi_value current_phi_value;
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				current_phi_value=phi_values[row][col];
+				
+				if( current_phi_value== Phi_value.L_IN
+					&& !isLin(row, col)){
+					phi_values[row][col]=Phi_value.OBJECT;
+				}
+				
+			}
+		}
 		
+		//paso4: se aplica Fd a pixeles en Lin
 
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				current_phi_value=phi_values[row][col];
+		
+				if(current_phi_value== Phi_value.L_IN && f_d(row,col)<0){
+					
+					phi_values[row][col]=Phi_value.L_OUT;
+					
+					setNeighbours(row, col, Phi_value.OBJECT, Phi_value.L_IN);
+					
+					
+				}
+			}
+		}
+		
+		
+		//paso 5: pixeles que se convirtieron en exteriores
+		
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				current_phi_value=phi_values[row][col];
+				
+				if( current_phi_value== Phi_value.L_OUT
+					&& !isLout(row, col)){
+					phi_values[row][col]=Phi_value.BACKGROUD;
+				}
+				
+			}
+		}
+		
+		
+		
 	}
 
 	// se fija los vecinos de la posicion (current_row, current_col) que tengan
@@ -93,6 +138,12 @@ public class ActiveContours {
 
 	}
 
+	private double f_d(int row,int col){
+		return f_d(original.getImage().getRGB(col, row));
+		
+		
+	}
+	
 	private double f_d(int colorRGB) {
 		Color color = new Color(colorRGB);
 		Vector3D color_vec = new Vector3D(color.getRed(), color.getGreen(), color.getBlue());
@@ -216,4 +267,36 @@ public class ActiveContours {
 
 	}
 
+	private boolean isLin(int row,int col){
+		return isL(row,col,1);
+	}
+	private boolean isLout(int row,int col){
+		return isL(row,col,-1);
+	}
+	private boolean isL(int row, int col,int positive){
+		Phi_value current_value=phi_values[row][col];
+		
+		if((positive* current_value.getValue())>0)
+			return false;
+		
+		boolean positiveNeighbour=false;
+
+		int next_row, next_col;
+		Phi_value neighbourValue;
+		for(int[] neighbourDirection: neighbours_directions){
+			
+			next_row=row+ neighbourDirection[0];
+			next_col=col+neighbourDirection[1];
+			neighbourValue=phi_values[next_row][next_col];
+			if((positive* neighbourValue.getValue() )>0){
+				positiveNeighbour=true;
+				break;
+			}
+			
+		}
+		
+		return positiveNeighbour;
+		
+	}
+	
 }
