@@ -138,16 +138,16 @@ public class HoughFrame extends JFrame {
 		
 		stepPanelLinear = new JPanel();
 		stepPanelLinear.setLayout(new FlowLayout());
-		stepPanelLinear.add(new JLabel("ρ ="));
+		stepPanelLinear.add(new JLabel("Amount of ρ ="));
 		stepPanelLinear.add(rho_count);
-		stepPanelLinear.add(new JLabel("θ ="));
+		stepPanelLinear.add(new JLabel("Amount of θ ="));
 		stepPanelLinear.add(theta_count);
 		stepPanelLinear.setVisible(true);
 		this.add(stepPanelLinear);
 		
 		stepPanelCircular = new JPanel();
 		stepPanelCircular.setLayout(new FlowLayout());
-		stepPanelCircular.add(new JLabel("R ="));
+		stepPanelCircular.add(new JLabel("Amount of R ="));
 		stepPanelCircular.add(radius_count);
 		stepPanelCircular.add(labelX);
 		stepPanelCircular.add(centre_x);
