@@ -30,6 +30,7 @@ public class DiffusionFrame extends JFrame {
 	private JTextField t = new JTextField("0", 3);
 	JPanel tPanel;
 	private JTextField sigma = new JTextField("0", 3);
+	private JLabel sigmaLabel = new JLabel("σ =");
 	JRadioButton isotropic = new JRadioButton("Isotropic", true);
 	JRadioButton anisotropic = new JRadioButton("Anisotropic", false);
 	JPanel typePanel;
@@ -51,6 +52,8 @@ public class DiffusionFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(isotropic.isSelected()){
 					detectorPanel.setVisible(false);
+					sigma.setVisible(false);
+					sigmaLabel.setVisible(false);
 					Rectangle currentBounds = DiffusionFrame.this.getBounds();
 					DiffusionFrame.this.setBounds(currentBounds.x, currentBounds.y, WIDTH, HEIGHT);				}
 			}
@@ -62,6 +65,8 @@ public class DiffusionFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(anisotropic.isSelected()){
 					detectorPanel.setVisible(true);
+					sigma.setVisible(true);
+					sigmaLabel.setVisible(true);
 					Rectangle currentBounds = DiffusionFrame.this.getBounds();
 					DiffusionFrame.this.setBounds(currentBounds.x, currentBounds.y, WIDTH, HEIGHT+60);
 				}
@@ -88,8 +93,11 @@ public class DiffusionFrame extends JFrame {
 		tPanel.setLayout(new FlowLayout());
 		tPanel.add(new JLabel("Tmax ="));
 		tPanel.add(t);
-		tPanel.add(new JLabel("σ ="));
+		tPanel.add(sigmaLabel);
 		tPanel.add(sigma);
+		
+		sigma.setVisible(false);
+		sigmaLabel.setVisible(false);
 		
 		this.add(tPanel);
 		
