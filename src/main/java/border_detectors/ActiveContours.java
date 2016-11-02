@@ -1,6 +1,7 @@
 package border_detectors;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -16,6 +17,8 @@ import view.panels.ImagePanel;
 */
 public class ActiveContours {
 
+	private static final Color L_IN_COLOR=Color.red;
+	private static final Color L_OUT_COLOR=Color.BLUE;
 	private static int[][] neighbours_directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 	private ImagePanel original, modified;
 	private Phi_value[][] phi_values;
@@ -299,15 +302,33 @@ public class ActiveContours {
 
 	}
 
+	//modifica la imagen para mostrar Lin y Lout	
 	private void mark_Lin_Lout(){
 		
 		Phi_value current_phi_value;
+		
+		BufferedImage modifiedBuffer=modified.getImage();
+		Graphics2D l_in_graphics=modifiedBuffer.createGraphics();
+		l_in_graphics.setPaint(L_IN_COLOR);
+		
+		
+		Graphics2D l_out_graphics=modifiedBuffer.createGraphics();
+		l_out_graphics.setPaint(L_OUT_COLOR);
+		
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
 				current_phi_value = phi_values[row][col];
+				if(current_phi_value==Phi_value.L_IN){
+				 l_in_graphics.fillRect(col, row, 1, 1);
+				}else if(current_phi_value== Phi_value.L_OUT){
+					l_out_graphics.fillRect(col, row, 1, 1);
+					
+				}
+				
+				
 			}
 		}
 
-		
+		modified.repaint();
 	}
 }
