@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import com.sun.jdi.connect.Connector.SelectedArgument;
 import com.sun.tools.javadoc.ToolOption;
 
+import masks.GaussianMask;
 import view.panels.ImagePanel;
 
 /*
@@ -25,6 +27,12 @@ public class ActiveContours {
 	private Vector3D background_average, object_average;// vector3d(r,g,b);
 	int rows, cols;
 
+	//variables segund ciclo
+	double [][] gaussianOfPhi;
+	GaussianMask gaussianFilterMask = new GaussianMask(3, 0,1);
+	
+	
+	
 	public Phi_value[][] getPhi_values() {
 		return phi_values;
 	}
@@ -34,25 +42,54 @@ public class ActiveContours {
 		this.modified = modified;
 	}
 
-	public void mark_contour(int times) {
-
+	public void mark_contour(int times){
+		
+		firstCycle(times);
+	
+		secondCycle(times);
+		mark_Lin_Lout();
+		
+		for(Phi_value[] row: phi_values){
+			System.out.println(Arrays.toString(row));
+			
+		}
+	}
+	
+	public void firstCycle(int times){
+		
 		// paso 1
 		initialise();
+		
+		genericCycle(times, F_d,Refresh_fd,1);
+		
+	
+		
+	}
+	
+	public void secondCycle(int times){
+		genericCycle(times, F_s, Refresh_fs,-1);
+	}
+	
+	
+	public void genericCycle(int times,Function fun, FunctionValueRefresh valueRefresh,int switchInPositive) {
 
+		
 		for (int time = 0; time < times; time++) {
 			// paso 2
-			BufferedImage img = original.getImage();
+			BufferedImage img = modified.getImage();
 			int color;
-			double fd;
-			computeAllAverages();
+			
+			double f_result;
+			//compute_Fd_Averages();
+			valueRefresh.refresh();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 
 					if (phi_values[row][col] == Phi_value.L_OUT) {
-						color = img.getRGB(col, row);
-						fd = f_d(color);
+						//color = img.getRGB(col, row);
+						f_result = fun.apply(row, col);
 
-						if (fd > 0) {
+						if ((switchInPositive * f_result) > 0) {
 							phi_values[row][col] = Phi_value.L_IN;
 							setNeighbours(row, col, Phi_value.BACKGROUD, Phi_value.L_OUT);
 						}
@@ -73,14 +110,15 @@ public class ActiveContours {
 				}
 			}
 
-			// paso4: se aplica Fd a pixeles en Lin
+			// paso4: se aplica F a pixeles en Lin
 
-			computeAllAverages();
+			//compute_Fd_Averages();
+			valueRefresh.refresh();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 					current_phi_value = phi_values[row][col];
 
-					if (current_phi_value == Phi_value.L_IN && f_d(row, col) < 0) {
+					if (current_phi_value == Phi_value.L_IN && (fun.apply(row, col) *switchInPositive) < 0) {
 
 						phi_values[row][col] = Phi_value.L_OUT;
 
@@ -105,7 +143,7 @@ public class ActiveContours {
 
 		}
 		
-		mark_Lin_Lout();
+		
 		
 
 	}
@@ -119,20 +157,24 @@ public class ActiveContours {
 			next_row = current_row + direction[0];
 			next_col = current_col + direction[1];
 
-			if (next_row < 0 || next_col < 0 || next_row > rows || next_col > cols)
+			if (next_row < 0 || next_col < 0 || next_row >= rows || next_col >= cols)
 				continue;
 
+			try{
 			if (phi_values[next_row][next_col] == expected_neighbour)
 				phi_values[next_row][next_col] = newValue;
 
+			}catch (Exception e){
+				System.out.println("Check");
+			}
 		}
 
 	}
 
 	public void initialise() {
 		Rectangle selectionRectangle = original.getSelectionRectangle();
-		rows = original.getImageHeight();
-		cols = original.getImageWidth();
+		rows = modified.getImageHeight();
+		cols = modified.getImageWidth();
 		phi_values = new Phi_value[rows][cols];
 
 		initialise_phi_values(selectionRectangle);
@@ -140,16 +182,17 @@ public class ActiveContours {
 	
 	}
 
-	private double f_d(int row, int col) {
-		return f_d(original.getImage().getRGB(col, row));
-
-	}
+	
 	
 	//Importante de usar antes de llamar Fd
 	//se calculan los promedios de fondo y de objecto
-	private void computeAllAverages(){
+	private void compute_Fd_Averages(){
 		compute_background_average();
 		compute_object_average();
+
+	}
+	private double f_d(int row, int col) {
+		return f_d(modified.getImage().getRGB(col, row));
 
 	}
 
@@ -181,7 +224,7 @@ public class ActiveContours {
 		int color_int;
 		Color color;
 
-		BufferedImage img = original.getImage();
+		BufferedImage img = modified.getImage();
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
 				if (phi_values[row][col] == phi_value) {
@@ -302,6 +345,10 @@ public class ActiveContours {
 
 			next_row = row + neighbourDirection[0];
 			next_col = col + neighbourDirection[1];
+			
+			if (next_row < 0 || next_col < 0 || next_row >= rows || next_col >= cols)
+				continue;
+
 			neighbourValue = phi_values[next_row][next_col];
 			if ((positive * neighbourValue.getValue()) > 0) {
 				positiveNeighbour = true;
@@ -345,5 +392,45 @@ public class ActiveContours {
 	}
 	
 	
+	public interface Function{
+		public  double apply( int row,int col);
+		
+	}
 	
+	public interface FunctionValueRefresh {
+		public void refresh();
+	}
+	
+	Function F_d=(int row, int col) ->f_d(	row	, col);
+	FunctionValueRefresh Refresh_fd=()->compute_Fd_Averages();
+	
+	Function F_s=(int row,int col)-> f_s(row,col);
+	FunctionValueRefresh Refresh_fs=()->computeGaussian();
+	
+	
+	private double f_s(int row, int col) {
+		//return f_s(original.getImage().getRGB(col, row));
+
+		
+		return gaussianOfPhi[row][col];
+	}
+	
+	private void computeGaussian(){
+		
+		gaussianOfPhi =new double[rows][cols];
+		
+		for(int r=0;r<rows;r++){
+			for(int c=0;c<cols;c++){
+				gaussianOfPhi[r][c]=(double)(phi_values[r][c]).getValue();
+			}
+		}
+		
+		
+		gaussianOfPhi = gaussianFilterMask.filterImage(gaussianOfPhi);
+		
+		
+	}
+
+	
+		
 }

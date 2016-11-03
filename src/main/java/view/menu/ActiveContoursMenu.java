@@ -34,7 +34,7 @@ public class ActiveContoursMenu extends JMenu {
 					
 					System.out.println("Active contour single image =>procesing");
 					ActiveContours activeContours=new ActiveContours(original, modified);
-					activeContours.mark_contour(20);
+					activeContours.mark_contour(100);
 					
 				}
 				else{
@@ -43,7 +43,7 @@ public class ActiveContoursMenu extends JMenu {
 			}
 		});
 
-		JMenuItem activeContourMultipleImages = new JMenuItem("Multiple images");
+		JMenuItem activeContourMultipleImages =	 new JMenuItem("Multiple images");
 		this.add(activeContourMultipleImages);
 		activeContourMultipleImages.addActionListener(new ActionListener() {
 
