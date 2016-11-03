@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import border_detectors.ActiveContours;
 import view.panels.ImagePanel;
 
 /*
@@ -32,6 +33,9 @@ public class ActiveContoursMenu extends JMenu {
 					
 					
 					System.out.println("Active contour single image =>procesing");
+					ActiveContours activeContours=new ActiveContours(original, modified);
+					activeContours.mark_contour(20);
+					
 				}
 				else{
 					System.out.println("Active contour: no area selected");

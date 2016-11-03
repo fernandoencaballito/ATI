@@ -44,6 +44,7 @@ public class ActiveContours {
 			BufferedImage img = original.getImage();
 			int color;
 			double fd;
+			computeAllAverages();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 
@@ -74,6 +75,7 @@ public class ActiveContours {
 
 			// paso4: se aplica Fd a pixeles en Lin
 
+			computeAllAverages();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 					current_phi_value = phi_values[row][col];
@@ -135,13 +137,19 @@ public class ActiveContours {
 
 		initialise_phi_values(selectionRectangle);
 
-		compute_background_average();
-		compute_object_average();
-
+	
 	}
 
 	private double f_d(int row, int col) {
 		return f_d(original.getImage().getRGB(col, row));
+
+	}
+	
+	//Importante de usar antes de llamar Fd
+	//se calculan los promedios de fondo y de objecto
+	private void computeAllAverages(){
+		compute_background_average();
+		compute_object_average();
 
 	}
 
@@ -190,6 +198,10 @@ public class ActiveContours {
 
 			}
 		}
+		
+		if(total_elements==0)
+			return new Vector3D(0, 0, 0);
+		
 		return new Vector3D(red_acum / total_elements, green_acum / total_elements, blue_acum / total_elements);
 	}
 
@@ -331,4 +343,7 @@ public class ActiveContours {
 
 		modified.repaint();
 	}
+	
+	
+	
 }
