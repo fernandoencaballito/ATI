@@ -6,8 +6,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import border_detectors.ActiveContours;
-import border_detectors.Phi_value;
+import border_detectors.active_contours.ActiveContours;
+import border_detectors.active_contours.Phi_value;
 import view.panels.ImagePanel;
 
 /*

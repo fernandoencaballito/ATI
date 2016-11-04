@@ -1,4 +1,4 @@
-package border_detectors;
+package border_detectors.active_contours;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -49,10 +49,10 @@ public class ActiveContours {
 		secondCycle(times);
 		mark_Lin_Lout();
 		
-		for(Phi_value[] row: phi_values){
-			System.out.println(Arrays.toString(row));
-			
-		}
+//		for(Phi_value[] row: phi_values){
+//			System.out.println(Arrays.toString(row));
+//			
+//		}
 	}
 	
 	public void firstCycle(int times){

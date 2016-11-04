@@ -1,4 +1,4 @@
-package border_detectors;
+package border_detectors.active_contours;
 /*
 * @author Fernando Bejarano
 */

@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.setBackground(Color.black);
 
-		String initialFile="./src/main/resources/tp4/Frame27.jpeg";
+		String initialFile="./src/main/resources/tp4/movie1/PIC00002.jpg";
 		//String initialFile="./src/main/resources/cameraman-chopped.png";
 		//String initialFile="/home/administrator/negro.png";
 		originalImagePanel = new ImageGeneralPanel("Original Image"

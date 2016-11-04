@@ -33,15 +33,21 @@ public class ImagePanel extends JPanel {
 	private JToggleButton selectAreaItem;
 	public Rectangle selectedRectangle;
 	//
+	
+	private String filenamWithPath;
 	public ImagePanel() {
 		super();
 
 	}
 
+	public String getFilenameWithPath(){
+		return filenamWithPath;
+	}
 	public void setSelectAreaItem( JToggleButton selectAreaItem){
 		this.selectAreaItem=selectAreaItem;
 	}
 	public ImagePanel(String fileName) {
+		filenamWithPath=fileName;
 		loadImageFromFile(fileName);
 		//
 		//this.image=Noise.generateNoise(image, 0.13, new GaussianGenerator(5, 100.0));
