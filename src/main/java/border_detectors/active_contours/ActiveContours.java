@@ -46,6 +46,7 @@ public class ActiveContours {
 		boolean firstCycleDone=false;
 		
 		//while(!firstCycleDone){
+		
 		firstCycleDone=firstCycle(times);
 	
 		secondCycle(times);
@@ -59,9 +60,9 @@ public class ActiveContours {
 	public boolean firstCycle(int times){
 		
 		// paso 1
-		initialise();
+		//initialise();
 		
-		return genericCycle(times, F_d,Refresh_fd,1,firstCycleStopCond);
+		return genericCycle(times, F_d,null,1,firstCycleStopCond);
 		
 	
 		
@@ -69,9 +70,12 @@ public class ActiveContours {
 	
 	public void secondCycle(int times){
 		genericCycle(times, F_s, Refresh_fs,-1,secondCycleStopCond);
+		Refresh_fs.refresh();
 	}
 	
 	
+	
+
 	//retorna true si se satisface la condición de detención
 	public boolean genericCycle(int times,Function fun, FunctionValueRefresh valueRefresh,int switchInPositive, StopCondition stopCond) {
 
@@ -82,8 +86,8 @@ public class ActiveContours {
 			int color;
 			
 			double f_result;
-			//compute_Fd_Averages();
-			valueRefresh.refresh();
+			if(valueRefresh!=null)
+				valueRefresh.refresh();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 
@@ -114,8 +118,8 @@ public class ActiveContours {
 
 			// paso4: se aplica F a pixeles en Lin
 
-			//compute_Fd_Averages();
-			valueRefresh.refresh();
+			if(valueRefresh!=null)
+				valueRefresh.refresh();
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < cols; col++) {
 					current_phi_value = phi_values[row][col];
@@ -145,7 +149,7 @@ public class ActiveContours {
 			
 			
 			if(stopCond.hasToStop()){
-				System.out.println("Stopped in iteration: "+ time);
+				//System.out.println("Stopped in iteration: "+ time);
 				return true;
 			}
 
@@ -187,8 +191,9 @@ public class ActiveContours {
 		cols = modified.getImageWidth();
 		phi_values = new Phi_value[rows][cols];
 
+		
 		initialise_phi_values(selectionRectangle);
-
+		Refresh_fd.refresh();
 	
 	}
 

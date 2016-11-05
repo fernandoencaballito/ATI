@@ -51,7 +51,7 @@ public class ActiveContoursMenu extends JMenu {
 					
 					int iterations=ActiveContoursMenu.getIterations();
 					
-					
+					activeContours.initialise();
 					
 					activeContours.mark_contour(iterations);
 

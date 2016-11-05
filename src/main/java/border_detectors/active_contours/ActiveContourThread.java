@@ -31,14 +31,16 @@ public class ActiveContourThread extends Thread {
 		
 		boolean firstImage=true;
 		for (File file : images) {
-			System.out.println("[Active contour]: processing image " + file.toString());
+//			System.out.println("[Active contour]: processing image " + file.toString());
 			
 			
 			if(firstImage){
 				firstImage=false;
+				activeContours.initialise();
 				
 			}else{
-				original.loadImageFromFile(file.toString());
+//				original.loadImageFromFile(file.toString());
+				
 				modified.loadImageFromFile(file.toString());
 			}
 			

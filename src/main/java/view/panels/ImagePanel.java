@@ -161,7 +161,10 @@ public class ImagePanel extends JPanel {
 		this.repaint();
 	
 	}
-
+	public void clearSelectedArea(){
+		selectedRectangle=null;
+		repaint();
+	}
 	private void detectColorMode() {
 		int height=image.getHeight();
 		int width=image.getWidth();
@@ -177,7 +180,7 @@ public class ImagePanel extends JPanel {
 
 				if (!(red == green && red == blue && green == blue)){
 					//Color
-					System.out.println("[ImagePanel] color image loaded");
+					//System.out.println("[ImagePanel] color image loaded");
 					colorMode=ColorMode.COLOR;
 					return;
 				}
@@ -238,6 +241,7 @@ public class ImagePanel extends JPanel {
 		}
 		refreshExtension(filename);
 		detectColorMode();
+		filenamWithPath=filename;
 	}
 
 	public void loadImageFromFile(String fileName, int width, int height) {
@@ -247,8 +251,10 @@ public class ImagePanel extends JPanel {
 			System.out.println("[ImagePanel] error loading file " + fileName);
 			ex.printStackTrace();
 		}
+		
 		refreshExtension(fileName);
 		detectColorMode();
+		filenamWithPath=fileName;
 	}
 
 	public String getFormat() {
