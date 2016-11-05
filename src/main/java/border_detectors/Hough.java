@@ -14,7 +14,7 @@ import view.panels.HoughThresholdFrame;
 import view.panels.ImagePanel;
 
 public class Hough {
-	static double epsilon = 1;
+	static double epsilon = 1.1;
 	static final double THETA_MIN = -90;
 	static final double THETA_MAX = 90;
 	static final int WHITE = 255;
