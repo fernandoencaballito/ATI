@@ -10,7 +10,7 @@ import view.panels.ImagePanel;
 
 public class ActiveContourThread extends Thread {
 	
-	private ImagePanel original;
+	//private ImagePanel original;
 	private ImagePanel modified;
 	List<File> images ;
 	ActiveContours activeContours;
@@ -18,7 +18,7 @@ public class ActiveContourThread extends Thread {
 	int iterations;
 	public ActiveContourThread(ImagePanel original, ImagePanel modified, List<File> images, int iterations) {
 		super();
-		this.original = original;
+		//this.original = original;
 		this.modified = modified;
 		this.images = images;
 		activeContours = new ActiveContours(original, modified);

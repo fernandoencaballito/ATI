@@ -3,8 +3,6 @@ package border_detectors.active_contours;
 import java.io.File;
 import java.util.Comparator;
 
-import com.sun.tools.corba.se.idl.InterfaceGen;
-
 /*
 * @author Fernando Bejarano
 */

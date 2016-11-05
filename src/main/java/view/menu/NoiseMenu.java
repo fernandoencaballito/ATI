@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import view.ColorMode;
 import view.panels.ImagePanel;
 import view.panels.NoiseAdditionFrame;
 import view.panels.NoiseAdditionFrame.NoiseType;
@@ -61,5 +62,9 @@ public class NoiseMenu extends JMenu {
 		});
 		this.add(saltPepperNoise);
 		
+	}
+	
+	public void setMode(ColorMode mode){
+		noiseFrame.setMode(mode);
 	}
 }

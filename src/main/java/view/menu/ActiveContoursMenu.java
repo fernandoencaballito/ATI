@@ -19,6 +19,8 @@ import view.panels.ImagePanel;
 */
 public class ActiveContoursMenu extends JMenu {
 
+	private static final long serialVersionUID = 1L;
+
 	private static int getIterations(){
 		String iterations_str=JOptionPane.showInputDialog("Introduce iterations");
 		int iterations;

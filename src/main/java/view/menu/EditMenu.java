@@ -25,6 +25,7 @@ public class EditMenu extends JMenu {
 	public CircleAdditionPanel circlePanel;
 	public RectangleAdditionPanel rectPanel;
 	public ColorHistogram histogramFrame;
+	public NoiseMenu noiseMenu;
 	
 	public EditMenu(MainFrame main){
 		super("Edit");
@@ -77,7 +78,8 @@ public class EditMenu extends JMenu {
 		});
 		this.add(rectAddition);
 		
-		this.add(new NoiseMenu(main.modifiedImagePanel.getImagePanel()));
+		noiseMenu = new NoiseMenu(main.modifiedImagePanel.getImagePanel());
+		this.add(noiseMenu);
 		
 		///Contraste
 		JFrame contrastPanel=new ContrastPanel(main.modifiedImagePanel.getImagePanel());
@@ -116,6 +118,7 @@ public class EditMenu extends JMenu {
 		pixelPanel.setMode(mode);
 		circlePanel.setMode(mode);
 		rectPanel.setMode(mode);
+		noiseMenu.setMode(mode);
 	}
 
 }

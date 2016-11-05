@@ -23,10 +23,10 @@ import noise.GaussianGenerator;
 import noise.Noise;
 import noise.RandomNumberGenerator;
 import noise.Rayleigh;
+import view.ColorMode;
 
 public class NoiseAdditionFrame extends JFrame {
 	
-
 	private static final long serialVersionUID = 1L;
 	public NoiseType noiseType;
 	public NoiseSlider slider;
@@ -40,6 +40,7 @@ public class NoiseAdditionFrame extends JFrame {
 	JPanel rayleighPanel;
 	JPanel saltPepperPanel;
 //	private ImagePanel imagePanel;
+	ColorMode mode = ColorMode.GREY;
 	
 	public NoiseAdditionFrame(NoiseType type, ImagePanel imagePanel){
 		noiseType = type;
@@ -136,8 +137,12 @@ public class NoiseAdditionFrame extends JFrame {
 					break;
 				}
 				
-				
-				BufferedImage modified=Noise.generateNoise(image, percentage/100.0, generator);
+				BufferedImage modified;
+				if(mode == ColorMode.GREY)
+					modified=Noise.generateNoise(image, percentage/100.0, generator);
+				else
+					modified=Noise.generateColorNoise(image, percentage/100.0, generator);
+					
 				imagePanel.setImage(modified);
 				imagePanel.repaint();
 				
@@ -235,6 +240,10 @@ public class NoiseAdditionFrame extends JFrame {
 				parent.percentage = percentage;
 			}
 		}
+	}
+	
+	public void setMode(ColorMode mode){
+		this.mode = mode;
 	}
 	
 	

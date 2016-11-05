@@ -4,12 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
-import com.sun.jdi.connect.Connector.SelectedArgument;
-import com.sun.tools.javadoc.ToolOption;
 
 import masks.GaussianMask;
 import view.panels.ImagePanel;
@@ -43,11 +39,11 @@ public class ActiveContours {
 	}
 
 	public void mark_contour(int times){
-		boolean firstCycleDone=false;
+		//boolean firstCycleDone=false;
 		
 		//while(!firstCycleDone){
 		
-		firstCycleDone=firstCycle(times);
+		firstCycle(times);
 	
 		secondCycle(times);
 		//}
@@ -82,8 +78,9 @@ public class ActiveContours {
 		
 		for (int time = 0; time < times; time++) {
 			// paso 2
-			BufferedImage img = modified.getImage();
-			int color;
+			//BufferedImage img = 
+			modified.getImage();
+			//int color;
 			
 			double f_result;
 			if(valueRefresh!=null)
