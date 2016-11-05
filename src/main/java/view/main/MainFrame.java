@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 
 //		String initialFile="./src/main/resources/tp4/video sintetico/a1.jpg";
 
-		String initialFile="./src/main/resources/tp4/movie1/PIC00001.jpg";
+		String initialFile="./src/main/resources/tp4/mvi_3165/Frame42.jpeg";
 		//String initialFile="./src/main/resources/cameraman-chopped.png";
 		//String initialFile="/home/administrator/negro.png";
 		originalImagePanel = new ImageGeneralPanel("Original Image"

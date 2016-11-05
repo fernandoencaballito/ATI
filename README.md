@@ -280,3 +280,18 @@ Amount of R es cantidad de valores de R en el que se discretiza los valores de r
 
 Con ruido funciona igual
 
+
+### Contornos activos estatica (Resistente al ruido cuando hay bastante contraste).
+
+(imagen sintetica verde y rojo, hoja)Con ruido gausiano es resistente si hay mucho contraste.
+(moño con ruido) Con poco contraste, expande mas o menos la linea de borde. 
+
+Funciona correctamente cuando hay variación importante entre el objecto a seguir y el fondo.
+Con el moño se confunde el moño con el cartel.
+
+### Contornos activos video
+Usando pocos ciclos (10), igual procesa 2fps o 4 fps. No se puede utilizar en video en tiempo real, muy pocos cuadros por segundos.
+ Debería tener al menos 16 fps.
+
+
+

@@ -275,8 +275,8 @@ public class ActiveContours {
 
 	public void initialise_phi_values(Rectangle selectionRectangle) {
 
-		int rows = original.getImageHeight();
-		int cols = original.getImageWidth();
+		int rows = modified.getImageHeight();
+		int cols = modified.getImageWidth();
 
 		for (int row = 0; row < rows; row++) {
 

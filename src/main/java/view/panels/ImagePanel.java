@@ -166,30 +166,32 @@ public class ImagePanel extends JPanel {
 		repaint();
 	}
 	private void detectColorMode() {
-		int height=image.getHeight();
-		int width=image.getWidth();
-		
-		for(int x=0;x<width;x++){
-			for(int y=0;y<height;y++){
-				
-				int rgb = image.getRGB(x, y);
-				Color c = new Color(rgb);
-				int red = c.getRed();
-				int green = c.getGreen();
-				int blue = c.getBlue();
-
-				if (!(red == green && red == blue && green == blue)){
-					//Color
-					//System.out.println("[ImagePanel] color image loaded");
-					colorMode=ColorMode.COLOR;
-					return;
+		if(image!=null){
+			int height=image.getHeight();
+			int width=image.getWidth();
+			
+			for(int x=0;x<width;x++){
+				for(int y=0;y<height;y++){
+					
+					int rgb = image.getRGB(x, y);
+					Color c = new Color(rgb);
+					int red = c.getRed();
+					int green = c.getGreen();
+					int blue = c.getBlue();
+	
+					if (!(red == green && red == blue && green == blue)){
+						//Color
+						//System.out.println("[ImagePanel] color image loaded");
+						colorMode=ColorMode.COLOR;
+						return;
+					}
+	
 				}
-
 			}
+			colorMode=ColorMode.GREY;
+			System.out.println("[ImagePanel] grey image loaded");
 		}
-		colorMode=ColorMode.GREY;
-		System.out.println("[ImagePanel] grey image loaded");
-	}
+		}
 
 	public boolean hasColor(){
 		return colorMode==ColorMode.COLOR;
