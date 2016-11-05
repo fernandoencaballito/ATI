@@ -248,3 +248,35 @@ Casi sin problemas, baja un poco la cantidad de keypoints que coinciden.
 * Cambio de escala: sin problemas
 * Movimiento de perspectiva: sin problemas
 
+---------
+
+
+##TP4 -notas de implementación
+
+
+### Supresión de no máximos. (no resistente al ruido).
+Hizo las rallas mas finitas,definidas
+(Lena sigma 20)Con ruido quedan los manchones, igual estan bien los bordes muy bien.
+(Lena sigma 50) no detecta bien los bordes.
+(cameraman sigma 20) no afecta casi nada. Se ven un poco los manchones del ruido.
+(cameraman sigma 50) resalta mas los bordes.Igual quedan los manchones.
+
+### Histeresis (resistente a ruido).
+(cuando se le pasa imagenes que no son de borde): se pierden detalles de los bordes cuando se agregar ruido.
+(cuando se le pasa imagenes de borde): resiste errores.
+
+### Canny (resistente al ruido, usa en un paso filtro gausiano y histeresis resiste al ruido) .Suvisado 3x3 sigma 1.
+(Lena grande, 80% de ruido): muy resisten al ruido. El ruido cambia poco.
+
+
+### Hough 
+("Amount of ro", "amount of theta" es la cantidad de valores para discretización de ro y theta respectivamente).
+Umbralización que tiene para elegir, toma el tanto porciento del maximo
+#### Lineas (resistente al ruido).
+	En la imagen Test, a veces toma multiples rectas para un mismo borde, las rectas varían levemente el ángulo.
+	Con ruido, no cambia. Funciona igual.Los bordes mas importantes, siguen igual.
+#### Circulos( usando centeredCircle)
+Amount of R es cantidad de valores de R en el que se discretiza los valores de radios.
+
+Con ruido funciona igual
+

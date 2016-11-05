@@ -33,15 +33,21 @@ public class ImagePanel extends JPanel {
 	private JToggleButton selectAreaItem;
 	public Rectangle selectedRectangle;
 	//
+	
+	private String filenamWithPath;
 	public ImagePanel() {
 		super();
 
 	}
 
+	public String getFilenameWithPath(){
+		return filenamWithPath;
+	}
 	public void setSelectAreaItem( JToggleButton selectAreaItem){
 		this.selectAreaItem=selectAreaItem;
 	}
 	public ImagePanel(String fileName) {
+		filenamWithPath=fileName;
 		loadImageFromFile(fileName);
 		//
 		//this.image=Noise.generateNoise(image, 0.13, new GaussianGenerator(5, 100.0));
@@ -126,7 +132,7 @@ public class ImagePanel extends JPanel {
 									+")"
 									)
 								;
-				imagePanel.repaint();
+			//	imagePanel.repaint();
 				
 //				System.out.println("Original ImagePanel id:"+imagePanel.hashCode());
 //				System.out.println("Rectangle en original:"+imagePanel.selectedRectangle);
@@ -150,11 +156,15 @@ public class ImagePanel extends JPanel {
 
 	}
 
-	protected void setSelectedRectangle(Rectangle rectangle) {
+	public void setSelectedRectangle(Rectangle rectangle) {
 		this.selectedRectangle=rectangle;
-		
+		this.repaint();
+	
 	}
-
+	public void clearSelectedArea(){
+		selectedRectangle=null;
+		repaint();
+	}
 	private void detectColorMode() {
 		int height=image.getHeight();
 		int width=image.getWidth();
@@ -170,7 +180,7 @@ public class ImagePanel extends JPanel {
 
 				if (!(red == green && red == blue && green == blue)){
 					//Color
-					System.out.println("[ImagePanel] color image loaded");
+					//System.out.println("[ImagePanel] color image loaded");
 					colorMode=ColorMode.COLOR;
 					return;
 				}
@@ -231,6 +241,7 @@ public class ImagePanel extends JPanel {
 		}
 		refreshExtension(filename);
 		detectColorMode();
+		filenamWithPath=filename;
 	}
 
 	public void loadImageFromFile(String fileName, int width, int height) {
@@ -240,8 +251,10 @@ public class ImagePanel extends JPanel {
 			System.out.println("[ImagePanel] error loading file " + fileName);
 			ex.printStackTrace();
 		}
+		
 		refreshExtension(fileName);
 		detectColorMode();
+		filenamWithPath=fileName;
 	}
 
 	public String getFormat() {
@@ -286,7 +299,7 @@ public class ImagePanel extends JPanel {
 		
 	}
 
-	protected BufferedImage getSelectedImage() {
+	public BufferedImage getSelectedImage() {
 		if(selectedRectangle==null)
 			return null;
 		BufferedImage subImage1=image.getSubimage(selectedRectangle.x
@@ -332,6 +345,14 @@ public class ImagePanel extends JPanel {
 		this.repaint();
 		
 		}
+
+	
+	public Rectangle getSelectionRectangle(){
+		return selectedRectangle;
+	}
+	public boolean isAreaSelected() {
+		return selectedRectangle!=null;
+	}
 		
 	
 }
