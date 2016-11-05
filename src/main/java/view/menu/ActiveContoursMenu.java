@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import border_detectors.active_contours.ActiveContourThread;
 import border_detectors.active_contours.ActiveContours;
@@ -18,6 +19,17 @@ import view.panels.ImagePanel;
 */
 public class ActiveContoursMenu extends JMenu {
 
+	private static int getIterations(){
+		String iterations_str=JOptionPane.showInputDialog("Introduce iterations");
+		int iterations;
+		try{
+			iterations=Integer.parseInt(iterations_str);
+		}catch(NumberFormatException ex){
+			iterations=10;
+		}
+		return iterations;
+	}
+	
 	public ActiveContoursMenu(ImagePanel original, ImagePanel modified) {
 
 		super("Active Contours");
@@ -35,7 +47,13 @@ public class ActiveContoursMenu extends JMenu {
 
 					System.out.println("Active contour single image =>procesing");
 					ActiveContours activeContours = new ActiveContours(original, modified);
-					activeContours.mark_contour(100);
+					
+					
+					int iterations=ActiveContoursMenu.getIterations();
+					
+					
+					
+					activeContours.mark_contour(iterations);
 
 				} else {
 					System.out.println("Active contour: no area selected");
@@ -54,11 +72,12 @@ public class ActiveContoursMenu extends JMenu {
 				if (isAreaSelected) {
 
 					System.out.println("Active contour multiple image => start processing");
-					ActiveContours activeContours = new ActiveContours(original, modified);
 
 					List<File> images = FolderUtils.getImagesIterator(modified.getFilenameWithPath());
 					
-					ActiveContourThread thread=new ActiveContourThread(original, modified, images);
+					int iterations=ActiveContoursMenu.getIterations();
+					
+					ActiveContourThread thread=new ActiveContourThread(original, modified, images,iterations);
 					thread.start();
 					
 

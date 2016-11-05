@@ -15,13 +15,15 @@ public class ActiveContourThread extends Thread {
 	List<File> images ;
 	ActiveContours activeContours;
 	Cronometer cronometer;
-	public ActiveContourThread(ImagePanel original, ImagePanel modified, List<File> images) {
+	int iterations;
+	public ActiveContourThread(ImagePanel original, ImagePanel modified, List<File> images, int iterations) {
 		super();
 		this.original = original;
 		this.modified = modified;
 		this.images = images;
 		activeContours = new ActiveContours(original, modified);
 		cronometer = new Cronometer();
+		this.iterations=iterations;
 	}
 
 	public void run(){
@@ -42,7 +44,7 @@ public class ActiveContourThread extends Thread {
 			
 			cronometer.start();
 			
-			activeContours.mark_contour(10);
+			activeContours.mark_contour(iterations);
 			
 			String timeMsg=cronometer.stop();
 			

@@ -43,35 +43,37 @@ public class ActiveContours {
 	}
 
 	public void mark_contour(int times){
+		boolean firstCycleDone=false;
 		
-		firstCycle(times);
+		//while(!firstCycleDone){
+		firstCycleDone=firstCycle(times);
 	
 		secondCycle(times);
+		//}
+		
 		mark_Lin_Lout();
 		
-//		for(Phi_value[] row: phi_values){
-//			System.out.println(Arrays.toString(row));
-//			
-//		}
+
 	}
 	
-	public void firstCycle(int times){
+	public boolean firstCycle(int times){
 		
 		// paso 1
 		initialise();
 		
-		genericCycle(times, F_d,Refresh_fd,1);
+		return genericCycle(times, F_d,Refresh_fd,1,firstCycleStopCond);
 		
 	
 		
 	}
 	
 	public void secondCycle(int times){
-		genericCycle(times, F_s, Refresh_fs,-1);
+		genericCycle(times, F_s, Refresh_fs,-1,secondCycleStopCond);
 	}
 	
 	
-	public void genericCycle(int times,Function fun, FunctionValueRefresh valueRefresh,int switchInPositive) {
+	//retorna true si se satisface la condición de detención
+	public boolean genericCycle(int times,Function fun, FunctionValueRefresh valueRefresh,int switchInPositive, StopCondition stopCond) {
 
 		
 		for (int time = 0; time < times; time++) {
@@ -140,8 +142,16 @@ public class ActiveContours {
 
 				}
 			}
+			
+			
+			if(stopCond.hasToStop()){
+				System.out.println("Stopped in iteration: "+ time);
+				return true;
+			}
 
 		}
+		
+		return false;
 		
 		
 		
@@ -430,7 +440,34 @@ public class ActiveContours {
 		
 		
 	}
+	
+	public interface StopCondition{
+		
+		public boolean hasToStop();
+	}
+	
+	
+	private boolean checkLinLout(){
+		
+		Phi_value current_phi_value;
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				current_phi_value = phi_values[row][col];
+				
+				
+				if(current_phi_value ==Phi_value.L_OUT && f_d(row, col)>0)
+					return false;
+				
+				if(current_phi_value ==Phi_value.L_IN && f_d(row,col)<0)
+					return false;
+			}
+		}
+		return true;
+	}
+	
 
+	StopCondition firstCycleStopCond=()->checkLinLout();
+	StopCondition secondCycleStopCond=()->false;
 	
 		
 }

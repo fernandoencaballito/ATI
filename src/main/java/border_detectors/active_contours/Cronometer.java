@@ -16,8 +16,8 @@ public class Cronometer {
 		long elapsed=current  - last;
 		long seconds=elapsed /1000;
 		
-		long fps=1000/elapsed;
-		String ans=String.format("Processing time: %d miliseconds, fps: %d", elapsed,fps);
+		double fps=1000f/elapsed;
+		String ans=String.format("Processing time: %d miliseconds, fps: %f", elapsed,fps);
 		
 		return ans;
 	}
