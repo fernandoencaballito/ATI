@@ -277,6 +277,7 @@ public class ImagePanel extends JPanel {
 	public void swapImage(ImagePanel otherImagePanel) {
 		this.extension = otherImagePanel.extension;
 		this.image = deepCopy(otherImagePanel.image);
+		this.filenamWithPath=otherImagePanel.filenamWithPath;
 		this.repaint();
 
 	}

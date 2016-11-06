@@ -50,7 +50,7 @@ public class ActiveContourThread extends Thread {
 			
 			String timeMsg=cronometer.stop();
 			
-			System.out.println(String.format("[Active contour]: processing image %s. %s" , file.toString(), timeMsg));
+			System.out.println(String.format("[Active contour]: processing image %s. %s" , file.getName(), timeMsg));
 		}
 
 		
