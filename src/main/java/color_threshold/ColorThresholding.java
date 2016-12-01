@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import view.ImageEffects;
@@ -22,6 +25,8 @@ public class ColorThresholding {
 		double redThreshold = ImageEffects.getOtsuThreshold(image, RGB.RED);
 		double greenThreshold = ImageEffects.getOtsuThreshold(image, RGB.GREEN);
 		double blueThreshold = ImageEffects.getOtsuThreshold(image, RGB.BLUE);
+		
+		JOptionPane.showMessageDialog(new JFrame("Otsu Threshold"), String.format("Otsu Thresholds: r = %d , g = %d, b = %d", (int)Math.round(redThreshold), (int)Math.round(greenThreshold), (int)Math.round(blueThreshold)));
 		
 		int height = image.getHeight();
 		int width = image.getWidth();
@@ -46,14 +51,12 @@ public class ColorThresholding {
 		
 		boolean clasesChanged = true;
 		
-		while (!clasesChanged) {
-			
-			clasesChanged = true;
+		while (clasesChanged) {
+			clasesChanged = false;
+			meanPixels = new HashMap<>();
+			withinClassVariance = new HashMap<>();
 			
 			for (Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
-				
-				meanPixels = new HashMap<>();
-				withinClassVariance = new HashMap<>();
 				
 				List<Pixel> list = entry.getValue();
 				double red = list.stream().mapToDouble(pixel -> pixel.red).average().getAsDouble();
@@ -69,7 +72,7 @@ public class ColorThresholding {
 
 				withinClassVariance.put(entry.getKey(), variance);
 			}
-
+			
 			for (int k = 0; k < 8; k++) {
 				if (!withinClassVariance.containsKey(k))
 					continue;
@@ -92,7 +95,7 @@ public class ColorThresholding {
 						pixels.addAll(clases.get(j));
 						clases.remove(j);
 						clases.put(k, pixels);
-						clasesChanged = false;
+						clasesChanged = true;
 					}
 				}
 			}
@@ -100,7 +103,8 @@ public class ColorThresholding {
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		for(Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
 			Vector3D meanPixel = meanPixels.get(entry.getKey());
-			Color color = new Color(Math.round(meanPixel.getX()), Math.round(meanPixel.getY()), Math.round(meanPixel.getZ()));
+			System.out.println(String.format("{%d, %d, %d}", Math.round(meanPixel.getX()), Math.round(meanPixel.getY()), Math.round(meanPixel.getZ())));
+			Color color = new Color((int)Math.round(meanPixel.getX()), (int)Math.round(meanPixel.getY()), (int)Math.round(meanPixel.getZ()));
 			int colorValue = color.getRGB();
 			for(Pixel pixel : entry.getValue()){
 				result.setRGB(pixel.x, pixel.y, colorValue);

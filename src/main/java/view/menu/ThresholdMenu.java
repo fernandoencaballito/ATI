@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import color_threshold.ColorThresholding;
 import view.ImageEffects;
 import view.panels.ImagePanel;
 import view.panels.ThresholdFrame;
@@ -48,6 +49,16 @@ public class ThresholdMenu extends JMenu {
 			}
 		});
 		this.add(umbralOtzu);
+		
+		JMenuItem colorThreshold = new JMenuItem("Color Threshold");
+		colorThreshold.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				target.setImage(ColorThresholding.colorThreshold(target.getImage()));
+			}
+		});
+		this.add(colorThreshold);
 	}
 
 	
