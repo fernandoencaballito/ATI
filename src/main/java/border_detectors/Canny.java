@@ -1,6 +1,5 @@
 package border_detectors;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class Canny {
 	
 	public static BufferedImage cannyBorderDetector(BufferedImage bufferedImage, int size, double sigma, SquareMask sqMask, NeighbourType type){
 		
-		double[][] image = getMatrix(bufferedImage);
+		double[][] image = ImageEffects.getMatrix(bufferedImage);
 		// SUAVIZADO GAUSSIANO
 		
 		GaussianMask gaussianFilterMask = new GaussianMask(size, 0, sigma);
@@ -44,15 +43,15 @@ public class Canny {
 		//image  = ImageEffects.linearNormalization(image);
 		// PASO A BUFFEREDIMAGE DE NUEVO
 	
-		BufferedImage result = getImage(image);
+		BufferedImage result = ImageEffects.getImage(image);
 		
 		return result;
 	}
 
 	public static BufferedImage nonMaximumSupression(BufferedImage image, SquareMask mask){
-		double[][] result = nonMaximumSupression(getMatrix(image), mask);
+		double[][] result = nonMaximumSupression(ImageEffects.getMatrix(image), mask);
 		result = ImageEffects.linearNormalization(result);
-		return getImage(result);		
+		return ImageEffects.getImage(result);		
 	}
 	
 	private static double[][] nonMaximumSupression(double[][] image, SquareMask sqMask){
@@ -115,7 +114,7 @@ public class Canny {
 	}
 	
 	public static BufferedImage hysteresisThreshold(BufferedImage image, NeighbourType neighbourType){
-		return getImage(hysteresisThreshold(getMatrix(image), neighbourType));
+		return ImageEffects.getImage(hysteresisThreshold(ImageEffects.getMatrix(image), neighbourType));
 	}
 	
 	private static double[][] hysteresisThreshold(double[][] image, NeighbourType neighbourType){
@@ -198,34 +197,6 @@ public class Canny {
 			}
 		}
 		return angles;
-	}
-	
-	public static double[][] getMatrix (BufferedImage bufferedImage){
-		// COPIO LA IMAGEN
-		int height = bufferedImage.getHeight();
-		int width = bufferedImage.getWidth();
-		double[][] image = new double[height][width];
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				image[i][j] = new Color(bufferedImage.getRGB(j, i)).getRed();
-			}
-		}
-		return image;
-	}
-	
-	public static BufferedImage getImage (double[][] matrix){
-		int height = matrix.length;
-		int width = matrix[0].length;
-		int type = BufferedImage.TYPE_INT_RGB;
-		BufferedImage result = new BufferedImage(width, height, type);
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				int color = (int) matrix[i][j];
-				color = new Color(color, color, color).getRGB();
-				result.setRGB(j, i, color);
-			}
-		}
-		return result;
 	}
 
 }

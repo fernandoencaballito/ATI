@@ -44,7 +44,7 @@ public class ThresholdMenu extends JMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				target.setImage(ImageEffects.otzuThreshold(target.getImage()));
+				target.setImage(ImageEffects.applyOtsuThreshold(target.getImage()));
 			}
 		});
 		this.add(umbralOtzu);

@@ -286,12 +286,30 @@ public class ImageEffects {
 	}
 
 	public static Map<Integer, Double> getHistogram(BufferedImage image) {
+		return getHistogram(image, RGB.RED);
+	}
+	
+	public static Map<Integer, Double> getHistogram(BufferedImage image, RGB band) {
 		int[] matrix = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
-		int[] redMatrix = new int[matrix.length];
-		for (int i = 0; i < redMatrix.length; i++) {
-			redMatrix[i] = new Color(matrix[i]).getRed();
+		int[] colorMatrix = new int[matrix.length];
+		switch (band) {
+		case RED:
+			for (int i = 0; i < colorMatrix.length; i++) {
+				colorMatrix[i] = new Color(matrix[i]).getRed();
+			}
+			break;
+		case GREEN:
+			for (int i = 0; i < colorMatrix.length; i++) {
+				colorMatrix[i] = new Color(matrix[i]).getGreen();
+			}
+			break;
+		case BLUE:
+			for (int i = 0; i < colorMatrix.length; i++) {
+				colorMatrix[i] = new Color(matrix[i]).getBlue();
+			}
+			break;
 		}
-		return histogram(redMatrix);
+		return histogram(colorMatrix);
 	}
 
 	public static Map<Integer, Double> acumHistogram(Map<Integer, Double> histogram) {
@@ -454,8 +472,14 @@ public class ImageEffects {
 		return threshold(image, (int) Math.round(T));
 	}
 	
-	public static BufferedImage otzuThreshold(BufferedImage image){
-		Map<Integer, Double> p1 = getHistogram(image);
+	public static BufferedImage applyOtsuThreshold(BufferedImage image){
+		double threshold = getOtsuThreshold(image, RGB.RED);
+		JOptionPane.showMessageDialog(new JFrame("Otsu Threshold"), "Otsu Threshold: " + (int)Math.round(threshold));
+		return threshold(image, (int) Math.round(threshold));	
+	}
+	
+	public static double getOtsuThreshold(BufferedImage image, RGB band){
+		Map<Integer, Double> p1 = getHistogram(image, band);
 		Map<Integer, Double> P1 = acumHistogram(p1);
 		double[] varianza = new double[256];
 		double[] mi = new double[256];
@@ -485,9 +509,7 @@ public class ImageEffects {
 			threshold+=i;
 		}
 		threshold/=results.size();
-		
-		JOptionPane.showMessageDialog(new JFrame("Otzu Threshold"), "Otzu Threshold: " + (int)Math.round(threshold));
-		return threshold(image, (int) Math.round(threshold));	
+		return threshold;
 	}
 	
 	public static BufferedImage ansotropicDiffusion(BufferedImage image, int T, double sigma, Detector detector, Boolean isIsotropic){
@@ -579,5 +601,33 @@ public class ImageEffects {
 
 		return matrix;
 
+	}
+	
+	public static double[][] getMatrix (BufferedImage bufferedImage){
+		// COPIO LA IMAGEN
+		int height = bufferedImage.getHeight();
+		int width = bufferedImage.getWidth();
+		double[][] image = new double[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				image[i][j] = new Color(bufferedImage.getRGB(j, i)).getRed();
+			}
+		}
+		return image;
+	}
+	
+	public static BufferedImage getImage (double[][] matrix){
+		int height = matrix.length;
+		int width = matrix[0].length;
+		int type = BufferedImage.TYPE_INT_RGB;
+		BufferedImage result = new BufferedImage(width, height, type);
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				int color = (int) matrix[i][j];
+				color = new Color(color, color, color).getRGB();
+				result.setRGB(j, i, color);
+			}
+		}
+		return result;
 	}
 }

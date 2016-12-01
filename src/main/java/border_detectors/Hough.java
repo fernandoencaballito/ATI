@@ -30,11 +30,11 @@ public class Hough {
 		dirs.add(Direction.HORIZONTAL);
 		dirs.add(Direction.VERTICAL);
 		DirectionalSquareMask mask = new DirectionalSquareMask(sqmask, dirs);
-		double[][] image = mask.filterImage(Canny.getMatrix(bufferedImage));
+		double[][] image = mask.filterImage(ImageEffects.getMatrix(bufferedImage));
 		image = ImageEffects.linearNormalization(image);
 		
 		//UMBRALIZAMOS
-		image = Canny.getMatrix(ImageEffects.otzuThreshold(Canny.getImage(image)));
+		image = ImageEffects.getMatrix(ImageEffects.applyOtsuThreshold(ImageEffects.getImage(image)));
 		
 		//DISCRETIZAMOS ESPACIO NORMAL (theta y rho)
 		
@@ -85,11 +85,11 @@ public class Hough {
 		dirs.add(Direction.HORIZONTAL);
 		dirs.add(Direction.VERTICAL);
 		DirectionalSquareMask mask = new DirectionalSquareMask(sqmask, dirs);
-		double[][] image = mask.filterImage(Canny.getMatrix(bufferedImage));
+		double[][] image = mask.filterImage(ImageEffects.getMatrix(bufferedImage));
 		image = ImageEffects.linearNormalization(image);
 
 		// UMBRALIZAMOS
-		image = Canny.getMatrix(ImageEffects.otzuThreshold(Canny.getImage(image)));
+		image = ImageEffects.getMatrix(ImageEffects.applyOtsuThreshold(ImageEffects.getImage(image)));
 
 		// DISCRETIZAMOS ESPACIO NORMAL
 
