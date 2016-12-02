@@ -57,5 +57,15 @@ public class PunctualOperatorsMenu extends JMenu{
 			}
 		});
 		this.add(grey);
+		
+		JMenuItem hsv_convertion = new JMenuItem("RGB to HSV and back to RGB");
+		hsv_convertion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				target.setImage(ImageEffects.playingWithHSV(target.getImage()));
+			}
+		});
+		this.add(hsv_convertion);
 	}
 }
