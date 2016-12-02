@@ -604,6 +604,50 @@ public class ImageEffects {
 		return matrix;
 
 	}
+
+	public static BufferedImage getBandBuffer(BufferedImage image, char band) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+		int currentValue=-1;
+		Color currentColor;
+		Color finalRGB=new Color(0,0,0);
+		
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				currentColor=new Color(image.getRGB(i, j));
+				switch (band) {
+				case 'r':{
+					currentValue=currentColor.getRed();
+					finalRGB=new Color(currentValue,0,0);
+					break;
+				}
+				case 'g':{
+					currentValue=currentColor.getGreen();
+					finalRGB=new Color(0,currentValue,0);
+					break;
+					
+				}
+				case 'b':{
+					currentValue=currentColor.getBlue();
+					finalRGB=new Color(0,0,currentValue);
+					break;
+				}
+				
+				default:
+					
+					System.out.println("[ImageEffects,getBandMatrix]: invalid band");
+				}
+				image.setRGB(i, j, finalRGB.getRGB());
+
+			}
+		}
+
+		return image;
+
+	}
+	
+	
+	
 	
 	public static double[][] getMatrix (BufferedImage bufferedImage){
 		// COPIO LA IMAGEN

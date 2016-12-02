@@ -295,3 +295,25 @@ Usando pocos ciclos (10), igual procesa 2fps o 4 fps. No se puede utilizar en vi
 
 
 
+## FINAL
+
+### Motivación
+Detección de texto en imágenes.
+
+### ¿Para que sirve?
+Mejorar la detección y reconocimiento de texto  en imágenes de video.
+
+
+
+
+
+###Presentación
+
+#### Motivación completa como intro.
+Poner los nombres!!!
+#### Metodo Otsu. Fórmulas
+#### Algoritmo, con fórmulas
+#### Resumen de algoritmo, sin fórmulas y por arriba.
+#### Resultados 
+
+
