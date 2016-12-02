@@ -1,0 +1,15 @@
+// within-class
+
+  \sigma = \sqrt{ \frac{\sum_{i,j \epsilon C_k}[ ( r_{i,j} - r_k)^2 + ( g_{i,j} - g_k)^2  + ( b_{i,j} - b_k)^2] }{N_k}}
+  
+  
+  
+  //between-class desvio
+  
+  \sigma_{i,j}= \sqrt{( r_{i} - r_j)^2 + ( g_{i} - g_j)^2  + ( b_{i} - b_j)^2}
+  
+  
+  // mean color
+  r_k = \frac{  \sum_{r_{i,j} \epsilon C_k } r_{i,j}} { \# C_k } 
+   
+  

@@ -67,9 +67,9 @@ public class ColorThresholding {
 				double variance = list.stream().mapToDouble(
 						p -> Math.pow(p.red - red, 2) + Math.pow(p.green - green, 2) + Math.pow(p.blue - blue, 2))
 						.sum();
-				variance = Math.sqrt(variance);
 				variance /= list.size();
-
+				variance = Math.sqrt(variance);
+				
 				withinClassVariance.put(entry.getKey(), variance);
 			}
 			
