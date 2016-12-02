@@ -14,10 +14,13 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import view.ImageEffects;
 import view.RGB;
+import view.panels.ColorThresholdingFrame;
+import view.panels.ImagePanel;
 
 public class ColorThresholding {
 
-	public static BufferedImage colorThreshold(BufferedImage image){
+	public static void colorThreshold(ImagePanel panel){
+		BufferedImage image = panel.getImage();
 		Map<Integer, List<Pixel>> clases = new HashMap<>();
 		Map<Integer, Vector3D> meanPixels = new HashMap<>();
 		Map<Integer, Double> withinClassVariance = new HashMap<>();
@@ -100,16 +103,18 @@ public class ColorThresholding {
 				}
 			}
 		}
-		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		for(Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
-			Vector3D meanPixel = meanPixels.get(entry.getKey());
-			Color color = new Color((int)Math.round(meanPixel.getX()), (int)Math.round(meanPixel.getY()), (int)Math.round(meanPixel.getZ()));
-			int colorValue = color.getRGB();
-			for(Pixel pixel : entry.getValue()){
-				result.setRGB(pixel.x, pixel.y, colorValue);
-			}
-		}
-		return result;
+//		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//		for(Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
+//			Vector3D meanPixel = meanPixels.get(entry.getKey());
+//			Color color = new Color((int)Math.round(meanPixel.getX()), (int)Math.round(meanPixel.getY()), (int)Math.round(meanPixel.getZ()));
+//			int colorValue = color.getRGB();
+//			for(Pixel pixel : entry.getValue()){
+//				result.setRGB(pixel.x, pixel.y, colorValue);
+//			}
+//		}
+//		panel.setImage(result);
+		paintImage(panel, clases, meanPixels, new boolean[]{true, true, true, true, true, true, true, true});
+		new ColorThresholdingFrame(panel, clases, meanPixels).setVisible(true);
 	}
 	
 	
@@ -120,5 +125,19 @@ public class ColorThresholding {
 			Vector3D meanPixel = meanPixels.get(i);
 			System.out.println(String.format("Clase %d: color promedio: {%.2f, %.2f, %.2f}, varianza: %.2f", i, meanPixel.getX(), meanPixel.getY(), meanPixel.getZ(), withinClassVariances.get(i)));
 		}
+	}
+	
+	public static void paintImage(ImagePanel panel, Map<Integer, List<Pixel>> clases, Map<Integer, Vector3D> meanPixels, boolean[] hasToPaint){
+		BufferedImage original = panel.getImage();
+		BufferedImage result = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+		for(Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
+			Vector3D meanPixel = hasToPaint[entry.getKey()] ? meanPixels.get(entry.getKey()) : new Vector3D(0,0,0);
+			Color color = new Color((int)Math.round(meanPixel.getX()), (int)Math.round(meanPixel.getY()), (int)Math.round(meanPixel.getZ()));
+			int colorValue = color.getRGB();
+			for(Pixel pixel : entry.getValue()){
+				result.setRGB(pixel.x, pixel.y, colorValue);
+			}
+		}
+		panel.setImage(result);
 	}
 }
