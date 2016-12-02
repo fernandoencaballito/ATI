@@ -55,7 +55,7 @@ public class ThresholdMenu extends JMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				target.setImage(ColorThresholding.colorThreshold(target.getImage()));
+				ColorThresholding.colorThreshold(target);
 			}
 		});
 		this.add(colorThreshold);
