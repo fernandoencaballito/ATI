@@ -67,11 +67,12 @@ public class ColorThresholding {
 				double variance = list.stream().mapToDouble(
 						p -> Math.pow(p.red - red, 2) + Math.pow(p.green - green, 2) + Math.pow(p.blue - blue, 2))
 						.sum();
-				variance = Math.sqrt(variance);
 				variance /= list.size();
+				variance = Math.sqrt(variance);
 
 				withinClassVariance.put(entry.getKey(), variance);
 			}
+			printClases(clases, meanPixels, withinClassVariance);
 			
 			for (int k = 0; k < 8; k++) {
 				if (!withinClassVariance.containsKey(k))
@@ -86,9 +87,9 @@ public class ColorThresholding {
 					Vector3D meanJ = meanPixels.get(j);
 
 					double betweenClassVarianceKJ = meanK.distance(meanJ);
-
+					System.out.println(String.format("Varianza entre clases %d y %d: %.2f", k,j,betweenClassVarianceKJ));
 					double varianceJ = withinClassVariance.get(j);
-
+					
 					if (varianceK >= betweenClassVarianceKJ || varianceJ >= betweenClassVarianceKJ) {
 						positions[j] = k;
 						List<Pixel> pixels = clases.get(k);
@@ -103,7 +104,6 @@ public class ColorThresholding {
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		for(Map.Entry<Integer, List<Pixel>> entry : clases.entrySet()) {
 			Vector3D meanPixel = meanPixels.get(entry.getKey());
-			System.out.println(String.format("{%d, %d, %d}", Math.round(meanPixel.getX()), Math.round(meanPixel.getY()), Math.round(meanPixel.getZ())));
 			Color color = new Color((int)Math.round(meanPixel.getX()), (int)Math.round(meanPixel.getY()), (int)Math.round(meanPixel.getZ()));
 			int colorValue = color.getRGB();
 			for(Pixel pixel : entry.getValue()){
@@ -111,5 +111,15 @@ public class ColorThresholding {
 			}
 		}
 		return result;
+	}
+	
+	
+	private static void printClases(Map<Integer, List<Pixel>> clases, Map<Integer, Vector3D> meanPixels, Map<Integer, Double> withinClassVariances){
+		for(int i = 0; i<8; i++){
+			if(!clases.containsKey(i))
+				continue;		
+			Vector3D meanPixel = meanPixels.get(i);
+			System.out.println(String.format("Clase %d: color promedio: {%.2f, %.2f, %.2f}, varianza: %.2f", i, meanPixel.getX(), meanPixel.getY(), meanPixel.getZ(), withinClassVariances.get(i)));
+		}
 	}
 }

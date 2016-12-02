@@ -12,6 +12,8 @@ import java.util.TreeMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+
 import detectors.Detector;
 import masks.FilterMask;
 
@@ -626,6 +628,53 @@ public class ImageEffects {
 				int color = (int) matrix[i][j];
 				color = new Color(color, color, color).getRGB();
 				result.setRGB(j, i, color);
+			}
+		}
+		return result;
+	}
+	
+	public static BufferedImage playingWithHSV(BufferedImage image){
+		int[][] matrix = new int[image.getHeight()][image.getWidth()];
+		BufferedImage result =  new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				matrix[i][j] = image.getRGB(j, i);
+			}
+		}
+		matrix = HSV_to_RGB(RGB_to_HSV(matrix));
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				result.setRGB(j, i, matrix[i][j]);
+			}
+		}
+		return result;
+	}
+	
+	public static Vector3D[][] RGB_to_HSV(int[][] rgbs){
+		Vector3D[][] result = new Vector3D[rgbs.length][rgbs[0].length];
+		for (int i = 0; i < result.length; i++) {
+			for (int j = 0; j < result[i].length; j++) {
+				Color color = new Color(rgbs[i][j]);
+				int r = color.getRed();
+				int g = color.getGreen();
+				int b = color.getBlue();
+				float[] hsvs= Color.RGBtoHSB(r, g, b, null);
+				
+				result[i][j] = new Vector3D(hsvs[0], hsvs[1], hsvs[2]);
+			}
+		}
+		return result;
+	}
+	public static int[][] HSV_to_RGB(Vector3D[][] hsvs){
+		int[][] result = new int[hsvs.length][hsvs[0].length];
+		for (int i = 0; i < result.length; i++) {
+			for (int j = 0; j < result[i].length; j++) {
+				float h = (float) hsvs[i][j].getX();
+				float s = (float)hsvs[i][j].getY();
+				float v = (float) hsvs[i][j].getZ();
+				int rgbs= Color.HSBtoRGB(h, s, v);
+				
+				result[i][j] = rgbs;
 			}
 		}
 		return result;
