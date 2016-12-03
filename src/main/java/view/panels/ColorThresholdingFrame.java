@@ -23,14 +23,14 @@ public class ColorThresholdingFrame extends JFrame {
 	
 	public ColorThresholdingFrame(ImagePanel imagePanel, Map<Integer, List<Pixel>> clases, Map<Integer, Vector3D> meanPixels){
 		super("Color Thresholding");
-		this.setBounds(0, 500, 600, 150);
+		this.setBounds(0, 500, 600, 100);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         JPanel checkBoxPanel = new JPanel();
         for (Map.Entry<Integer, List<Pixel>> clazz : clases.entrySet()) {
-        	JCheckBox checkbox = new JCheckBox("Clase " + clazz.getKey().toString(),true);
+        	JCheckBox checkbox = new JCheckBox("Clase " + integerToBinary(clazz.getKey()),true);
         	checkbox.addActionListener(new ActionListener() {
 				
 				@Override
@@ -50,5 +50,19 @@ public class ColorThresholdingFrame extends JFrame {
 
         this.add(mainPanel);
 		this.setAlwaysOnTop(true);
+	}
+	
+	private static String integerToBinary(int i){
+		String s = Integer.toBinaryString(i);
+		switch (s.length()) {
+		case 1:
+			return "00"+s;
+		case 2:
+			return "0"+s;
+		case 3:
+			return s;
+		default:
+			return s;
+		}
 	}
 }
