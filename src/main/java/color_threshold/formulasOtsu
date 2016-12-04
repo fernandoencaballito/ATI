@@ -1,0 +1,23 @@
+//probabilidades fondo y frente
+
+P_{background}= \sum_{i=0}^{t} p_i , \\ P_{foreground}=1-P_{background}=\sum_{i=t+1}^{L-1} p_i, \\ donde \quad p_i \quad \textrm{es  probabilidad del tono de gris i}
+
+
+//medias 
+
+\mu_{background}= (1/P_{background})* \sum_{i=0}^{t} i*p_i \\ \mu_{foreground}= (1/P_{foreground})* \sum_{i=t+1}^{L-1} i*p_i
+
+//varianzas 
+
+var_{b}= (1/P_{b})* \sum_{i=0}^{t} (i-\mu_{b})^2 * p_i \\ var_{f}= (1/P_{f})* \sum_{i=t+1}^{L-1} (i-\mu_{f})^2 * p_i
+
+//media global
+
+\mu = \sum_{i=0}^{L-1}i * p_i
+
+//varianza entre clases 
+
+var_{between-class}= P_b * (\mu_b - \mu)^2 + P_f* (\mu_f - \mu)^2
+
+//resultado otsu
+t_{Otsu}= arg \{\max_{1 \leq t \leq L-1 } ( var_{between-class})  \}
