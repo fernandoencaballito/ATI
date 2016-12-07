@@ -1,4 +1,23 @@
-// within-class
+//etiqueta de cada pixel
+
+\widetilde{pixel}_{i,j}= ( \widetilde{r_{i,j} }, \widetilde{g_{i,j}}, \widetilde{b_{i,j}})
+
+\widetilde{r}_{i,j}= \begin{cases} 1 & r_{i,j}> t_r \\ 0 & r_{i,j}\leq t_r \end{cases}
+
+\widetilde{g}_{i,j}= \begin{cases} 1 & g_{i,j}> t_g \\ 0 & g_{i,j}\leq t_g \end{cases}
+
+\widetilde{b}_{i,j}= \begin{cases} 1 & b_{i,j}> t_b \\ 0 & b_{i,j}\leq t_b \end{cases}
+
+  // mean color, dentro de clase
+  r_k = \frac{  \sum_{r_{i,j} \epsilon C_k } r_{i,j}} { \# C_k } 
+   
+  g_k = \frac{  \sum_{g_{i,j} \epsilon C_k } g_{i,j}} { \# C_k } 
+  
+	b_k = \frac{  \sum_{b_{i,j} \epsilon C_k } b_{i,j}} { \# C_k } 
+   
+  
+
+// within-class desvio
 
   \sigma = \sqrt{ \frac{\sum_{i,j \epsilon C_k}[ ( r_{i,j} - r_k)^2 + ( g_{i,j} - g_k)^2  + ( b_{i,j} - b_k)^2] }{N_k}}
   
@@ -9,7 +28,4 @@
   \sigma_{i,j}= \sqrt{( r_{i} - r_j)^2 + ( g_{i} - g_j)^2  + ( b_{i} - b_j)^2}
   
   
-  // mean color
-  r_k = \frac{  \sum_{r_{i,j} \epsilon C_k } r_{i,j}} { \# C_k } 
-   
-  
+
