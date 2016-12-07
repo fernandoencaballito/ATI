@@ -3,13 +3,11 @@ package view.main;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.HeadlessException;
-import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 
-import view.ImageEffects;
 import view.menu.MyMenuBar;
 import view.panels.ImageGeneralPanel;
 import view.panels.ImagePanel;
@@ -33,7 +31,7 @@ public class MainFrame extends JFrame {
 	public PixelEditionPanel pixelPanel;
 	
 
-	String initialFile="final/cnn.jpg";
+	String initialFile="final/arbolFlashero.png";
 	
 	public MainFrame() throws HeadlessException {
 		super(FRAME_TITLE);

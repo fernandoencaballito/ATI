@@ -93,11 +93,11 @@ public class ColorThresholding {
 					double varianceJ = withinClassVariance.get(j);
 					
 					if (varianceK >= betweenClassVarianceKJ || varianceJ >= betweenClassVarianceKJ) {
-						positions[j] = k;
-						List<Pixel> pixels = clases.get(k);
+						positions[j] = positions[k];
+						List<Pixel> pixels = clases.get(positions[k]);
 						pixels.addAll(clases.get(j));
 						clases.remove(j);
-						clases.put(k, pixels);
+						clases.put(positions[k], pixels);
 						clasesChanged = true;
 					}
 				}
